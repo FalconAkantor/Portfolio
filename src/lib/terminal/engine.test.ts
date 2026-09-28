@@ -29,15 +29,14 @@ describe('terminal engine', () => {
     const { lines } = runCommand('projects', ctx());
     const rows = lines.filter((l) => l.command?.startsWith('open '));
     expect(rows).toHaveLength(projects.length);
-    expect(rows[0]!.text).toBe('01 / AI INVENTORY');
-    expect(rows[0]!.hint).toContain('★');
+    expect(rows[0]!.text).toBe('01 / AGENT WORKSPACE');
     expect(rows.map((r) => r.command)).toEqual(projects.map((p) => `open ${p.id}`));
   });
 
   it('opens projects by number, id and prefix', () => {
-    expect(runCommand('open 2', ctx()).effects).toEqual([{ type: 'open-project', id: 'cctv' }]);
+    expect(runCommand('open 2', ctx()).effects).toEqual([{ type: 'open-project', id: 'inventory-ai' }]);
     expect(runCommand('open rag', ctx()).effects).toEqual([{ type: 'open-project', id: 'rag' }]);
-    expect(runCommand('open gpu', ctx()).effects).toEqual([{ type: 'open-project', id: 'gpu-infra' }]);
+    expect(runCommand('open gpu', ctx()).effects).toEqual([{ type: 'open-project', id: 'gpu-lab' }]);
     expect(runCommand('open nope', ctx()).lines[0]!.tone).toBe('error');
     expect(runCommand('open', ctx()).lines[0]!.tone).toBe('error');
   });
@@ -45,7 +44,7 @@ describe('terminal engine', () => {
   it('navigates with goto and its aliases', () => {
     expect(runCommand('goto contact', ctx()).effects).toEqual([{ type: 'navigate', section: 'contact' }]);
     expect(runCommand('cd ~/system/projects/', ctx()).effects).toEqual([{ type: 'navigate', section: 'projects' }]);
-    expect(runCommand('goto about', ctx()).effects).toEqual([{ type: 'navigate', section: 'operator' }]);
+    expect(runCommand('goto about', ctx()).effects).toEqual([{ type: 'navigate', section: 'about' }]);
     expect(runCommand('goto nowhere', ctx()).effects).toEqual([]);
   });
 
@@ -53,7 +52,7 @@ describe('terminal engine', () => {
     for (const cmd of ['about', 'ai', 'automation', 'infrastructure', 'vision', 'stack', 'contact']) {
       const { effects, lines } = runCommand(cmd, ctx());
       expect(effects).toEqual([]);
-      expect(lines.some((l) => l.command?.startsWith('goto '))).toBe(true);
+      expect(lines.some((l) => /^(goto|open) /.test(l.command ?? ''))).toBe(true);
     }
   });
 

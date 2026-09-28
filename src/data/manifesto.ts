@@ -39,12 +39,3 @@ export const orderIntake: Record<'manual' | 'automated', ProcessStep[]> = {
   ],
 };
 
-/** The layers a single person moves through — from code to business. */
-export const layers: { id: string; name: Localized; detail: Localized }[] = [
-  { id: 'business', name: { en: 'Business automation', es: 'Automatización empresarial' }, detail: { en: 'Orders, documents, ERP, reports', es: 'Pedidos, documentos, ERP, informes' } },
-  { id: 'ai', name: { en: 'AI', es: 'IA' }, detail: { en: 'LLMs, RAG, vision, OCR', es: 'LLMs, RAG, visión, OCR' } },
-  { id: 'database', name: { en: 'Database', es: 'Base de datos' }, detail: { en: 'SQL Server, vector indexes', es: 'SQL Server, índices vectoriales' } },
-  { id: 'server', name: { en: 'Server', es: 'Servidor' }, detail: { en: 'Linux, Docker, Proxmox', es: 'Linux, Docker, Proxmox' } },
-  { id: 'gpu', name: { en: 'GPU', es: 'GPU' }, detail: { en: 'NVIDIA, CUDA, multi-GPU', es: 'NVIDIA, CUDA, multi-GPU' } },
-  { id: 'code', name: { en: 'Code', es: 'Código' }, detail: { en: 'Python, Node.js, SQL', es: 'Python, Node.js, SQL' } },
-];

@@ -1,0 +1,33 @@
+.formula {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2em 0;
+  margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
+  font-size: clamp(1.4rem, 0.8rem + 2.4vw, 2.8rem);
+  font-stretch: 122%;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.formula__plus {
+  margin: 0 0.3em;
+  color: var(--signal);
+  font-weight: 400;
+}
+
+.formula > span:nth-child(odd):not(.sr-only) .formula__word {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-dim);
+}
+
+.operator__aliases {
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}
+
+.operator__aliases span {
+  color: var(--text-faint);
+}

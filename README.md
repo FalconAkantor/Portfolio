@@ -14,15 +14,11 @@ La web no funciona como un portfolio clásico. Se presenta como un sistema opera
 | Módulo | Qué hace |
 | --- | --- |
 | `boot` | Arranque tipo terminal (solo en la primera visita; se salta con cualquier tecla), titular, comprobación de capacidades y terminal interactiva |
-| `manifesto` | Ciclo idea → producción y conmutador *manual / automatizado* del mismo proceso |
+| `projects/` | Los 5 MVP. Cada uno con su visual propio (réplica interactiva del Agent Workspace, renders de visión, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
 | `network` | Mapa de integración animado (email, WhatsApp, cámaras, ERP, BD…) con nodos seleccionables |
-| `projects/` | Explorador de procesos: ficha HUD, problema/solución, pipeline animado, qué se construyó, traza de log y stack |
-| `ai/` | Pila de IA de arriba al hierro + simulación visual del pipeline RAG |
-| `vision/` | Renders ilustrativos de detección de personas (CCTV) y auditoría de estantería (WhatsApp) |
-| `automation/` | Catálogo de flujos *cuando → el sistema → resultado*, filtrable por canal |
-| `infrastructure/` | Rack de hardware, plataformas y observabilidad |
+| `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
 | `stack` | Tecnologías agrupadas por propósito, con referencias cruzadas a los proyectos que las usan |
-| `operator` | Perfil híbrido y capas de trabajo |
+| `about` | Perfil, principios y ciclo idea → producción |
 | `contact` | Generador de peticiones de automatización (mailto / copiar), sin backend |
 
 **Terminal:** `help`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
@@ -51,14 +47,13 @@ Los datos están separados de los componentes:
 
 | Archivo | Contenido |
 | --- | --- |
-| `src/data/projects.ts` | Proyectos: ficha, problema, solución, pipeline, qué se construyó, stack, traza |
+| `src/data/projects.ts` | Proyectos: ficha, visual, problema, solución, suite de agentes, pipeline, qué se construyó, stack, traza |
 | `src/data/stack.ts` | Catálogo de tecnologías (IDs tipados) y categorías |
 | `src/data/automation.ts` | Flujos de automatización |
-| `src/data/infrastructure.ts` | Hardware, plataformas, señales y herramientas de monitorización |
-| `src/data/ai.ts` | Capas de la pila de IA y el recorrido RAG |
+| `src/data/infrastructure.ts` | Hardware del rack y señales de monitorización |
+| `src/data/ai.ts` | Preguntas y etapas del recorrido RAG |
 | `src/data/network.ts` | Nodos y conexiones del mapa de integración (layout de escritorio y de móvil) |
-| `src/data/manifesto.ts` | Ciclo de vida, proceso manual vs. automatizado y capas del perfil |
-| `src/data/experience.ts` | Perfil público (anónimo: sin empresa ni cargo) |
+| `src/data/manifesto.ts` | Ciclo de vida y proceso manual vs. automatizado |
 | `src/i18n/ui.ts` | Todos los textos de la interfaz en EN y ES |
 
 Todo el contenido es bilingüe (`{ en, es }`). El diccionario español se comprueba con TypeScript contra el inglés, así que si falta una traducción el build falla. Los proyectos solo pueden referenciar tecnologías que existan en `stack.ts`; si no, también falla.

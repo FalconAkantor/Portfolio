@@ -1,23 +1,4 @@
 import type { Localized } from '../i18n/types';
-import type { TechId } from './stack';
-
-/** Layers of the AI stack, top (what users see) to bottom (metal). */
-export interface AiLayer {
-  id: string;
-  name: Localized;
-  items: TechId[];
-  /** Runs on self-operated hardware. */
-  selfHosted: boolean;
-}
-
-export const aiLayers: AiLayer[] = [
-  { id: 'apps', name: { en: 'Applications', es: 'Aplicaciones' }, items: ['rag', 'yolo', 'ocr'], selfHosted: true },
-  { id: 'llm', name: { en: 'Local language models', es: 'Modelos de lenguaje locales' }, items: ['deepseek', 'deepseekR1', 'mistral', 'qwen'], selfHosted: true },
-  { id: 'retrieval', name: { en: 'Embeddings & retrieval', es: 'Embeddings y recuperación' }, items: ['sentenceTransformers', 'mpnet', 'faiss', 'vectorSearch'], selfHosted: true },
-  { id: 'serving', name: { en: 'Model serving', es: 'Serving de modelos' }, items: ['ollama', 'nim', 'docker'], selfHosted: true },
-  { id: 'compute', name: { en: 'Compute', es: 'Cómputo' }, items: ['cuda', 'nvidia', 'multiGpu', 'pytorch'], selfHosted: true },
-  { id: 'hosted', name: { en: 'Hosted APIs, when they fit', es: 'APIs en la nube, cuando encajan' }, items: ['openai'], selfHosted: false },
-];
 
 export interface RagQuery {
   id: string;

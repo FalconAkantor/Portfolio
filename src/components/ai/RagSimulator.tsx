@@ -1,3 +1,4 @@
+import './rag.css';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ragQueries, ragStages } from '../../data/ai';
 import { useI18n } from '../../i18n/context';

@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import type { Project } from '../../data/projects';
 import { useI18n } from '../../i18n/context';
 import { PipelineFlow } from '../systems/PipelineFlow';
 import { TechChip } from '../ui/TechChip';
 import { StatusDot } from '../ui/StatusDot';
 import { ProjectTrace } from './ProjectTrace';
+import { ProjectVisual } from './visuals/ProjectVisual';
 
 interface ProjectDetailProps {
   project: Project;
@@ -13,8 +15,13 @@ interface ProjectDetailProps {
   tabId: string;
 }
 
+const BUILT_PREVIEW = 4;
+
 export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: ProjectDetailProps) {
   const { t, l } = useI18n();
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const built = l(project.built);
+  const showAll = expandedId === project.id || built.length <= BUILT_PREVIEW;
 
   return (
     <div id={panelId} role="tabpanel" aria-labelledby={tabId} className="pdetail panel panel--ticks" tabIndex={-1}>
@@ -27,7 +34,6 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: Proje
           </span>
         </span>
         <span className="pdetail__status">
-          {project.featured ? <span className="pdetail__featured">★ {t.projects.featured} · </span> : null}
           {t.projects.domains[project.domain]} · {t.projects.online}
         </span>
       </header>
@@ -37,6 +43,8 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: Proje
           <h3 className="pdetail__name">{l(project.name)}</h3>
           <p className="pdetail__summary">{l(project.summary)}</p>
         </div>
+
+        <ProjectVisual key={project.id} kind={project.visual} />
 
         <dl className="hud" aria-label={t.projects.specs}>
           {project.specs.map((spec) => (
@@ -58,6 +66,23 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: Proje
           </section>
         </div>
 
+        {project.suite ? (
+          <section>
+            <h4 className="pdetail__h">{t.projects.suite}</h4>
+            <ul className="suite">
+              {project.suite.map((item, i) => (
+                <li key={item.name.en} className="suite__item">
+                  <span className="suite__idx mono" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className="suite__name">{l(item.name)}</span>
+                  <span className="suite__line">{l(item.line)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section>
           <h4 className="pdetail__h">{t.projects.pipeline}</h4>
           <PipelineFlow
@@ -69,11 +94,22 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: Proje
         <div className="pdetail__split">
           <section>
             <h4 className="pdetail__h">{t.projects.built}</h4>
-            <ul className="built">
-              {l(project.built).map((item) => (
+            <ul className="built" id={`${panelId}-built`}>
+              {(showAll ? built : built.slice(0, BUILT_PREVIEW)).map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            {built.length > BUILT_PREVIEW ? (
+              <button
+                type="button"
+                className="built__more mono"
+                aria-expanded={showAll}
+                aria-controls={`${panelId}-built`}
+                onClick={() => setExpandedId(showAll ? null : project.id)}
+              >
+                {showAll ? t.projects.showLess : t.projects.showAll(built.length)}
+              </button>
+            ) : null}
           </section>
           <ProjectTrace key={project.id} project={project} />
         </div>

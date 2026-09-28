@@ -9,15 +9,11 @@ import { MobileDock } from './components/navigation/MobileDock';
 import { Footer } from './components/navigation/Footer';
 import { TerminalDrawer } from './components/terminal/TerminalDrawer';
 import { Hero } from './sections/Hero';
-import { Manifesto } from './sections/Manifesto';
-import { Network } from './sections/Network';
 import { Projects } from './sections/Projects';
-import { AiLab } from './sections/AiLab';
-import { Vision } from './sections/Vision';
+import { Network } from './sections/Network';
 import { Automation } from './sections/Automation';
-import { Infrastructure } from './sections/Infrastructure';
 import { Stack } from './sections/Stack';
-import { Operator } from './sections/Operator';
+import { About } from './sections/About';
 import { Contact } from './sections/Contact';
 import './styles/layout.css';
 
@@ -56,15 +52,11 @@ function Shell() {
       <div className="shell">
         <main id="main" className="main" tabIndex={-1}>
           <Hero />
-          <Manifesto />
-          <Network />
           <Projects />
-          <AiLab />
-          <Vision />
+          <Network />
           <Automation />
-          <Infrastructure />
           <Stack />
-          <Operator />
+          <About />
           <Contact />
         </main>
         <Footer />

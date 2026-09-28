@@ -56,6 +56,7 @@ const listOf = (items: string[], tone: Tone = 'default') => items.map((text) => 
 /** Clickable follow-up, e.g. "goto ai". */
 const link = (command: string, hint: string): TermLine => ({ tone: 'flow', text: command, hint, command });
 const section = (id: SectionId, ctx: TermContext) => link(`goto ${id}`, ctx.t.terminal.seeMore);
+const inspect = (id: ProjectId, ctx: TermContext) => link(`open ${id}`, ctx.t.terminal.inspect);
 
 const commands: Command[] = [
   {
@@ -69,7 +70,7 @@ const commands: Command[] = [
   },
   {
     name: 'about',
-    run: (_a, ctx) => result([...listOf(ctx.t.terminal.about), section('operator', ctx)]),
+    run: (_a, ctx) => result([...listOf(ctx.t.terminal.about), section('about', ctx)]),
   },
   {
     name: 'projects',
@@ -78,11 +79,7 @@ const commands: Command[] = [
       result([
         line(t.terminal.projectsFound, 'accent'),
         ...projects.map((p, i) => ({
-          ...line(
-            `${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`,
-            p.featured ? 'accent' : 'default',
-            `${p.featured ? '★ ' : ''}${p.pid} · ${t.projects.domains[p.domain]}`,
-          ),
+          ...line(`${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`, 'default', `${p.pid} · ${p.tagline[lang]}`),
           command: `open ${p.id}`,
         })),
         line(t.terminal.openHint, 'dim'),
@@ -119,7 +116,7 @@ const commands: Command[] = [
       ]);
     },
   },
-  { name: 'ai', aliases: ['llm', 'rag'], run: (_a, ctx) => result([...listOf(ctx.t.terminal.ai), section('ai', ctx)]) },
+  { name: 'ai', aliases: ['llm', 'rag'], run: (_a, ctx) => result([...listOf(ctx.t.terminal.ai), inspect('rag', ctx), inspect('workspace', ctx)]) },
   {
     name: 'automation',
     aliases: ['auto'],
@@ -128,12 +125,12 @@ const commands: Command[] = [
   {
     name: 'infrastructure',
     aliases: ['infra', 'gpu', 'nvidia-smi'],
-    run: (_a, ctx) => result([...listOf(ctx.t.terminal.infrastructure), section('infrastructure', ctx)]),
+    run: (_a, ctx) => result([...listOf(ctx.t.terminal.infrastructure), inspect('gpu-lab', ctx)]),
   },
   {
     name: 'vision',
     aliases: ['cv', 'yolo'],
-    run: (_a, ctx) => result([...listOf(ctx.t.terminal.vision), section('vision', ctx)]),
+    run: (_a, ctx) => result([...listOf(ctx.t.terminal.vision), inspect('cctv', ctx), inspect('inventory-ai', ctx)]),
   },
   {
     name: 'contact',
@@ -152,7 +149,7 @@ const commands: Command[] = [
     aliases: ['cd'],
     run: (args, { t }) => {
       const target = (args[0] ?? '').replace(/^[~/.]+|\/$/g, '').replace(/^system\//, '').toLowerCase();
-      const aliasMap: Record<string, SectionId> = { about: 'operator', home: 'boot', infra: 'infrastructure', '': 'boot' };
+      const aliasMap: Record<string, SectionId> = { home: 'boot', manifesto: 'about', operator: 'about', '': 'boot' };
       const section = isSectionId(target) ? target : aliasMap[target];
       if (!section || args.length === 0) {
         return result([line(t.terminal.usageGoto(sections.map((s) => s.id).join(', ')), args.length ? 'error' : 'dim')]);

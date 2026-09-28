@@ -32,9 +32,11 @@ describe('content integrity', () => {
     }
   });
 
-  it('featured tools are listed first', () => {
-    const firstRegular = projects.findIndex((p) => !p.featured);
-    expect(projects.slice(firstRegular).some((p) => p.featured)).toBe(false);
+  it('every project has a visual and a one-line tagline in both languages', () => {
+    for (const p of projects) {
+      expect(p.visual).toBeTruthy();
+      for (const l of LANGS) expect(p.tagline[l].length, p.id).toBeGreaterThan(10);
+    }
   });
 
   it('section ids are unique', () => {

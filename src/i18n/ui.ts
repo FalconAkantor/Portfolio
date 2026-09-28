@@ -51,8 +51,6 @@ const en = {
   },
   manifesto: {
     title: "I don't build software. I build systems.",
-    lead:
-      'Most companies do not need another tool. They need the process that eats hours every week to run on its own. That is the job: take a manual process, understand it, and turn it into a system — with AI where it helps, integration where it is needed and monitoring so it keeps working.',
     philosophy: 'If a process can run by itself, I find the way to make it.',
     lifecycleTitle: 'Idea to production, without handoffs',
     compareTitle: 'The same process, two ways',
@@ -75,8 +73,17 @@ const en = {
   },
   projects: {
     title: 'Running processes',
-    lead: 'Systems I have designed and built end to end. Featured tools first (★). Select one to inspect what it does and how it is put together.',
-    featured: 'featured tool',
+    lead: 'Five MVPs, each designed, built and run end to end. Select one — and try it.',
+    suite: 'The agent suite that lives inside',
+    showAll: (n: number) => `Show all ${n}`,
+    showLess: 'Show less',
+    visualNotes: {
+      workspace: 'Interactive replica with sample data — drag windows, snap them to the edges, double-click to maximise, minimise from the taskbar, switch desktops.',
+      shelf: 'Illustrative render — abstract shapes, no real photos.',
+      cctv: 'Illustrative render — abstract shapes, no real footage.',
+      rag: '',
+      rack: 'Hardware worked with. Signal lines are decorative, not live metrics.',
+    },
     columns: { pid: 'pid', name: 'process', domain: 'domain', status: 'status' },
     online: 'online',
     problem: 'Problem',
@@ -90,22 +97,24 @@ const en = {
     previous: 'Previous project',
     next: 'Next project',
     domains: {
+      platform: 'platform',
       vision: 'vision',
-      automation: 'automation',
       ai: 'ai',
-      data: 'data',
-      observability: 'observability',
       infrastructure: 'infrastructure',
     },
   },
+  workspace: {
+    label: 'Interactive replica of the Agent Workspace',
+    desktop: 'desktop',
+    desktops: 'Virtual desktops',
+    taskbar: 'Open windows',
+    tile: 'tile',
+    reset: 'Reset layout',
+    minimise: 'Minimise',
+    maximise: 'Maximise',
+    sample: 'sample data',
+  },
   ai: {
-    title: 'Not just an API key.',
-    lead:
-      'I use hosted models when they fit. I also run the whole AI stack myself: local LLMs, embeddings, vector indexes, model serving and the NVIDIA GPUs underneath.',
-    layersTitle: 'The AI stack, top to metal',
-    selfHosted: 'runs on own hardware',
-    hostedApi: 'hosted API',
-    ragTitle: 'How a question becomes an answer',
     ragNote: 'Walkthrough of the RAG pipeline. It runs in your browser as a visual simulation; nothing is sent anywhere.',
     pickQuestion: 'Pick a question',
     run: 'Run the pipeline',
@@ -115,12 +124,6 @@ const en = {
     waiting: 'waiting',
   },
   vision: {
-    title: 'Cameras that understand.',
-    lead:
-      'Computer vision in production means streams that never stop, GPUs that must keep up and detections that turn into something useful: a recording, a clip, a message, a stock check.',
-    feedCctv: 'Person detection on RTSP streams',
-    feedShelf: 'Stock audit from a WhatsApp photo',
-    renderNote: 'Illustrative render — abstract shapes, no real footage.',
     person: 'person',
     box: 'box',
     rec: 'REC',
@@ -129,22 +132,11 @@ const en = {
     title: "I don't sell a tool. I build the one your company needs.",
     lead:
       'Every company has processes where people act as the glue between systems — reading, retyping, copying, checking. Those are the ones I automate.',
-    all: 'all',
-    filterLabel: 'Filter by channel',
+    catalogTitle: 'Processes I turn into systems',
     columns: { process: 'Process', trigger: 'When', engine: 'The system', result: 'Result' },
   },
   infrastructure: {
-    title: 'Software is the top layer. I also run what’s underneath.',
-    lead:
-      'AI that runs on your own terms needs machines someone can build and operate. I work directly with the hardware, the hypervisor, the containers and the monitoring.',
     rackTitle: 'Hardware I’ve worked with',
-    platformsTitle: 'Platforms',
-    obsTitle: 'Observability',
-    obsLead: 'Custom monitoring for everything that has to stay up, with alerts sent to where the team already is.',
-    signalsTitle: 'What gets watched',
-    toolsTitle: 'Network & security tooling',
-    channelsTitle: 'Alerts go to',
-    signalNote: 'Signal lines are decorative, not live metrics.',
   },
   stack: {
     title: 'The toolbox',
@@ -156,16 +148,11 @@ const en = {
     idle: 'No technology selected. Pick one above to trace where it runs.',
   },
   operator: {
-    title: 'One profile, every layer.',
     formula: ['Software', 'AI', 'Infrastructure', 'Automation'],
     lead:
       'My profile is hybrid by design. I move from a line of Python to a GPU, from the GPU to the server, from the server to the database, from the database to the model — and from the model to the business process it automates.',
     quote: 'I don’t start with a technology. I start with a problem.',
-    layersTitle: 'Where I work',
-    experienceTitle: 'Profile',
     aliases: 'Also known as',
-    current: 'running',
-    scope: 'Scope',
   },
   contact: {
     title: 'Tell me what you want to automate.',
@@ -281,6 +268,7 @@ const en = {
     historyEmpty: 'no commands yet.',
     quick: 'Quick commands',
     seeMore: 'jump to the section',
+    inspect: 'inspect the project',
   },
 };
 
@@ -333,8 +321,6 @@ const es: UIStrings = {
   },
   manifesto: {
     title: 'No construyo software. Construyo sistemas.',
-    lead:
-      'La mayoría de empresas no necesita otra herramienta. Necesita que el proceso que se come horas cada semana funcione solo. Ese es el trabajo: coger un proceso manual, entenderlo y convertirlo en un sistema, con IA donde ayuda, integración donde hace falta y monitorización para que siga funcionando.',
     philosophy: 'Si un proceso puede hacerse solo, encuentro la forma de que se haga solo.',
     lifecycleTitle: 'De la idea a producción, sin traspasos',
     compareTitle: 'El mismo proceso, de dos formas',
@@ -357,8 +343,17 @@ const es: UIStrings = {
   },
   projects: {
     title: 'Procesos en ejecución',
-    lead: 'Sistemas que he diseñado y construido de principio a fin. Primero, las herramientas destacadas (★). Selecciona uno para ver qué hace y cómo está montado.',
-    featured: 'herramienta destacada',
+    lead: 'Cinco MVP, cada uno diseñado, construido y operado de principio a fin. Elige uno y pruébalo.',
+    suite: 'La suite de agentes que vive dentro',
+    showAll: (n: number) => `Ver los ${n}`,
+    showLess: 'Ver menos',
+    visualNotes: {
+      workspace: 'Réplica interactiva con datos de ejemplo: arrastra ventanas, acóplalas a los bordes, doble clic para maximizar, minimiza desde la barra de tareas y cambia de escritorio.',
+      shelf: 'Render ilustrativo: formas abstractas, sin fotos reales.',
+      cctv: 'Render ilustrativo: formas abstractas, sin imágenes reales.',
+      rag: '',
+      rack: 'Hardware con el que he trabajado. Las señales son decorativas, no métricas en vivo.',
+    },
     columns: { pid: 'pid', name: 'proceso', domain: 'dominio', status: 'estado' },
     online: 'online',
     problem: 'Problema',
@@ -372,22 +367,24 @@ const es: UIStrings = {
     previous: 'Proyecto anterior',
     next: 'Proyecto siguiente',
     domains: {
+      platform: 'plataforma',
       vision: 'visión',
-      automation: 'automatización',
       ai: 'ia',
-      data: 'datos',
-      observability: 'observabilidad',
       infrastructure: 'infraestructura',
     },
   },
+  workspace: {
+    label: 'Réplica interactiva del Agent Workspace',
+    desktop: 'escritorio',
+    desktops: 'Escritorios virtuales',
+    taskbar: 'Ventanas abiertas',
+    tile: 'mosaico',
+    reset: 'Restablecer distribución',
+    minimise: 'Minimizar',
+    maximise: 'Maximizar',
+    sample: 'datos de ejemplo',
+  },
   ai: {
-    title: 'No solo una API key.',
-    lead:
-      'Uso modelos en la nube cuando encajan. Y también opero yo mismo toda la pila de IA: LLMs locales, embeddings, índices vectoriales, serving de modelos y las GPUs NVIDIA que hay debajo.',
-    layersTitle: 'La pila de IA, de arriba al hierro',
-    selfHosted: 'corre en hardware propio',
-    hostedApi: 'API en la nube',
-    ragTitle: 'Cómo una pregunta se convierte en respuesta',
     ragNote: 'Recorrido por el pipeline RAG. Se ejecuta en tu navegador como simulación visual; no se envía nada a ningún sitio.',
     pickQuestion: 'Elige una pregunta',
     run: 'Ejecutar el pipeline',
@@ -397,12 +394,6 @@ const es: UIStrings = {
     waiting: 'en espera',
   },
   vision: {
-    title: 'Cámaras que entienden.',
-    lead:
-      'La visión artificial en producción son streams que nunca paran, GPUs que tienen que aguantar el ritmo y detecciones que se convierten en algo útil: una grabación, un clip, un mensaje, un control de stock.',
-    feedCctv: 'Detección de personas en streams RTSP',
-    feedShelf: 'Auditoría de stock desde una foto de WhatsApp',
-    renderNote: 'Render ilustrativo: formas abstractas, sin imágenes reales.',
     person: 'persona',
     box: 'caja',
     rec: 'REC',
@@ -411,22 +402,11 @@ const es: UIStrings = {
     title: 'No vendo una herramienta. Construyo la que necesita tu empresa.',
     lead:
       'Todas las empresas tienen procesos en los que las personas hacen de pegamento entre sistemas: leer, reteclear, copiar, comprobar. Esos son los que automatizo.',
-    all: 'todos',
-    filterLabel: 'Filtrar por canal',
+    catalogTitle: 'Procesos que convierto en sistemas',
     columns: { process: 'Proceso', trigger: 'Cuando', engine: 'El sistema', result: 'Resultado' },
   },
   infrastructure: {
-    title: 'El software es la capa de arriba. También opero lo de debajo.',
-    lead:
-      'Una IA que funciona en tus propios términos necesita máquinas que alguien sepa montar y operar. Trabajo directamente con el hardware, el hipervisor, los contenedores y la monitorización.',
     rackTitle: 'Hardware con el que he trabajado',
-    platformsTitle: 'Plataformas',
-    obsTitle: 'Observabilidad',
-    obsLead: 'Monitorización propia para todo lo que tiene que seguir funcionando, con avisos donde ya está el equipo.',
-    signalsTitle: 'Qué se vigila',
-    toolsTitle: 'Herramientas de red y seguridad',
-    channelsTitle: 'Los avisos llegan a',
-    signalNote: 'Las señales son decorativas, no métricas en vivo.',
   },
   stack: {
     title: 'La caja de herramientas',
@@ -438,16 +418,11 @@ const es: UIStrings = {
     idle: 'Ninguna tecnología seleccionada. Elige una arriba para ver dónde se usa.',
   },
   operator: {
-    title: 'Un perfil, todas las capas.',
     formula: ['Software', 'IA', 'Infraestructura', 'Automatización'],
     lead:
       'Mi perfil es híbrido por diseño. Me muevo desde una línea de Python hasta una GPU, de la GPU al servidor, del servidor a la base de datos, de la base de datos al modelo, y del modelo al proceso de negocio que automatiza.',
     quote: 'No empiezo por una tecnología. Empiezo por un problema.',
-    layersTitle: 'Dónde trabajo',
-    experienceTitle: 'Perfil',
     aliases: 'También conocido como',
-    current: 'en ejecución',
-    scope: 'Ámbito',
   },
   contact: {
     title: 'Cuéntame qué quieres automatizar.',
@@ -563,6 +538,7 @@ const es: UIStrings = {
     historyEmpty: 'todavía no hay comandos.',
     quick: 'Comandos rápidos',
     seeMore: 'ir a la sección',
+    inspect: 'ver el proyecto',
   },
 };
 

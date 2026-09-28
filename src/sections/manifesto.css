@@ -126,3 +126,23 @@
     grid-column: 2;
   }
 }
+
+.about__quotes {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+
+.about__quotes .manifesto__quote {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .about__quotes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.operator__aliases {
+  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+}

@@ -1,5 +1,4 @@
 import type { Localized } from '../i18n/types';
-import type { TechId } from './stack';
 
 /** A unit in the rack diagram. Hardware and platforms worked with — no counts, no benchmarks. */
 export interface RackUnit {
@@ -21,20 +20,6 @@ export const rackUnits: RackUnit[] = [
   { id: 'vastai', slot: 'EXT', kind: 'cloud', name: 'Vast.ai', note: { en: 'GPU hosting marketplace', es: 'marketplace de hosting GPU' } },
 ];
 
-export interface PlatformGroup {
-  id: string;
-  name: Localized;
-  items: TechId[];
-}
-
-export const platformGroups: PlatformGroup[] = [
-  { id: 'os', name: { en: 'Operating systems', es: 'Sistemas operativos' }, items: ['linux', 'ubuntu', 'lubuntu', 'dietpi', 'windows', 'wsl'] },
-  { id: 'containers', name: { en: 'Containers', es: 'Contenedores' }, items: ['docker', 'compose', 'containerManager'] },
-  { id: 'virtualisation', name: { en: 'Virtualisation', es: 'Virtualización' }, items: ['proxmox', 'vms', 'qcow2', 'vhdx'] },
-  { id: 'storage', name: { en: 'Storage', es: 'Almacenamiento' }, items: ['synology', 'cifs'] },
-  { id: 'gpu', name: { en: 'GPU compute', es: 'Cómputo GPU' }, items: ['nvidia', 'cuda', 'multiGpu', 'gpuInference', 'vastai'] },
-];
-
 export interface WatchedSignal {
   id: string;
   label: Localized;
@@ -54,13 +39,3 @@ export const watchedSignals: WatchedSignal[] = [
   { id: 'servers', label: { en: 'Servers', es: 'Servidores' } },
 ];
 
-export const observabilityTools: { id: TechId; role: Localized }[] = [
-  { id: 'glances', role: { en: 'live host overview', es: 'vista en vivo del host' } },
-  { id: 'iftop', role: { en: 'bandwidth per connection', es: 'ancho de banda por conexión' } },
-  { id: 'nmap', role: { en: 'network and service discovery', es: 'descubrimiento de red y servicios' } },
-  { id: 'netdiscover', role: { en: 'device discovery', es: 'descubrimiento de dispositivos' } },
-  { id: 'arpScan', role: { en: 'LAN inventory', es: 'inventario de la LAN' } },
-  { id: 'tcpdump', role: { en: 'packet capture', es: 'captura de paquetes' } },
-  { id: 'tshark', role: { en: 'traffic analysis', es: 'análisis de tráfico' } },
-  { id: 'suricata', role: { en: 'intrusion detection · defensive', es: 'detección de intrusiones · defensiva' } },
-];

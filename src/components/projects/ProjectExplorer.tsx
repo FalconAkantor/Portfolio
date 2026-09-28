@@ -67,7 +67,6 @@ export function ProjectExplorer() {
         <div className="ptable__head mono" aria-hidden="true">
           <span>{t.projects.columns.pid}</span>
           <span>{t.projects.columns.name}</span>
-          <span className="ptable__col-domain">{t.projects.columns.domain}</span>
           <span className="ptable__col-status">{t.projects.columns.status}</span>
         </div>
         <div role="tablist" aria-label={t.projects.title} aria-orientation="vertical" className="ptable__rows">
@@ -89,17 +88,11 @@ export function ProjectExplorer() {
                 onClick={() => select(i)}
                 onKeyDown={onKeyDown}
               >
-                <span className="ptable__pid">
-                  {p.featured ? (
-                    <span className="ptable__star" aria-hidden="true">
-                      ★
-                    </span>
-                  ) : null}
-                  {p.pid}
-                  {p.featured ? <span className="sr-only"> · {t.projects.featured}</span> : null}
+                <span className="ptable__pid">{p.pid}</span>
+                <span className="ptable__name">
+                  <span className="ptable__title">{l(p.name)}</span>
+                  <span className="ptable__tagline">{l(p.tagline)}</span>
                 </span>
-                <span className="ptable__name">{l(p.name)}</span>
-                <span className="ptable__col-domain">{t.projects.domains[p.domain]}</span>
                 <span className="ptable__col-status">
                   <StatusDot status={selected ? 'signal' : 'ok'} />
                   <span>{t.projects.online}</span>

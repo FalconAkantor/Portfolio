@@ -1,13 +1,13 @@
 /**
  * ─────────────────────────────────────────────────────────────────────────────
- *  NACHO.SYS — central configuration
+ *  AUTOMARIZA — central configuration
  * ─────────────────────────────────────────────────────────────────────────────
  *  Everything personal or deployment-specific lives here.
  *
  *  PRIVACY
  *  The site identifies its author only by first name and brand (Nacho ·
  *  AUTOMARIZA). Do not add surnames, an employer, a job title at a company or a
- *  private e-mail — the only public address is the brand one below.
+ *  private e-mail — the public channels are the brand e-mail and WhatsApp below.
  *
  *  CONTACT PLACEHOLDERS
  *  Any channel left as an empty string is simply not rendered. Fill in the real
@@ -88,7 +88,7 @@ export const site: SiteConfig = {
     linkedin: '', // TODO(config): https://www.linkedin.com/in/…
     github: 'https://github.com/FalconAkantor',
     telegram: '', // TODO(config): username without @
-    whatsapp: '', // TODO(config): digits only, international format
+    whatsapp: '34624421503', // messages only — no calls
   },
 };
 

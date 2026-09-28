@@ -149,11 +149,11 @@ const commands: Command[] = [
     aliases: ['mail'],
     run: (_a, ctx) => {
       const { t } = ctx;
-      const channels = contactChannels();
+      const channels = contactChannels().filter((c) => c.id === 'email' || c.id === 'whatsapp');
       const lines = channels.length
         ? [line(t.terminal.contactIntro, 'accent'), ...channels.map((c) => line(c.label, 'default', c.display))]
         : [line(t.terminal.contactNone, 'dim')];
-      return result([...lines, line(t.terminal.contactForm, 'dim'), section('contact', ctx)]);
+      return result([...lines, line(t.contact.whatsappHint, 'dim'), section('contact', ctx)]);
     },
   },
   {

@@ -4,7 +4,7 @@ Portfolio de **Nacho · AUTOMARIZA**: IA, automatización, sistemas e infraestru
 
 > **La R es de Razonamiento.** Automatizar sin pensar solo consigue que los errores ocurran más rápido; cada sistema de AUTOMARIZA razona antes de actuar.
 
-Contacto: **nacho.automariza@gmail.com**
+Contacto: **nacho.automariza@gmail.com** · WhatsApp **+34 624 42 15 03** (solo mensajes)
 
 La web no funciona como un portfolio clásico. Se presenta como un sistema operativo: arranca con una secuencia de boot, la navegación es un árbol de ficheros, los proyectos se inspeccionan como procesos y tiene una terminal funcional.
 
@@ -23,7 +23,7 @@ La web no funciona como un portfolio clásico. Se presenta como un sistema opera
 | `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
 | `stack` | Tecnologías agrupadas por propósito, con referencias cruzadas a los proyectos que las usan |
 | `about` | Perfil, principios y ciclo idea → producción |
-| `contact` | Generador de peticiones de automatización (mailto / copiar), sin backend |
+| `contact` | Email y WhatsApp directos (solo mensajes, sin llamadas). Sin formularios |
 
 **Terminal:** `help`, `brand`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
 
@@ -39,7 +39,7 @@ contact: {
   linkedin: '',  // TODO: https://www.linkedin.com/in/…
   github: 'https://github.com/FalconAkantor',
   telegram: '',  // TODO: usuario sin @
-  whatsapp: '',  // TODO: solo dígitos, formato internacional (34600000000)
+  whatsapp: '34624421503', // solo mensajes, sin llamadas
 },
 ```
 
@@ -127,7 +127,7 @@ scripts/
 - **React + Vite + TypeScript y CSS propio**, sin Tailwind ni librerías de animación. Las animaciones son CSS, SVG/SMIL y un único canvas 2D (las partículas del hero).
 - **Prerender estático (SSG):** cada idioma es un HTML real con todo el contenido, que React hidrata después. Así hay SEO completo y la primera pintura no espera al JavaScript.
 - **Dos idiomas con URL propia** (`/` y `/es/`), enlazados con `hreflang`. En la primera visita, un navegador en español se redirige a `/es/`; nunca al revés, así que los enlaces a `/es/` siempre funcionan.
-- **Sin backend:** el contacto abre el cliente de correo del visitante o copia la petición.
+- **Sin backend ni formularios:** el contacto es email (mailto) y WhatsApp (`wa.me`, abre la app en el móvil y WhatsApp Web en el ordenador, con un saludo ya escrito).
 - **Sin lazy-loading de secciones:** todas se prerenderizan y se hidratan al cargar. Partirlas en chunks solo retrasaría la hidratación sin reducir el total.
 
 **Rendimiento:** fuentes autoalojadas con subsets y *preload* de la tipografía del titular; el canvas y todas las animaciones se pausan fuera de pantalla o con la pestaña oculta; DPR limitado; sin imágenes ni vídeos pesados. Build actual: JS ≈ 111 KB gzip (React incluido) y CSS ≈ 11 KB gzip.

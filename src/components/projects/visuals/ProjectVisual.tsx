@@ -2,7 +2,7 @@ import type { ProjectVisual as VisualKind } from '../../../data/projects';
 import { useI18n } from '../../../i18n/context';
 import { useInView } from '../../../hooks/useInView';
 import { WorkspaceDemo } from './WorkspaceDemo';
-import { CctvFeed } from '../../vision/CctvFeed';
+import { SentinelConsole } from '../../vision/SentinelConsole';
 import { ShelfFeed } from '../../vision/ShelfFeed';
 import { RagSimulator } from '../../ai/RagSimulator';
 import { Rack } from '../../infra/Rack';
@@ -19,8 +19,11 @@ export function ProjectVisual({ kind }: { kind: VisualKind }) {
   return (
     <figure ref={ref} className={`pvisual pvisual--${kind}${inView ? '' : ' is-paused'}`}>
       {kind === 'workspace' ? <WorkspaceDemo /> : null}
-      {kind === 'cctv' || kind === 'shelf' ? (
-        <div className="feed__frame pvisual__feed">{kind === 'cctv' ? <CctvFeed /> : <ShelfFeed />}</div>
+      {kind === 'cctv' ? <SentinelConsole active={inView} /> : null}
+      {kind === 'shelf' ? (
+        <div className="feed__frame pvisual__feed">
+          <ShelfFeed />
+        </div>
       ) : null}
       {kind === 'rag' ? <RagSimulator /> : null}
       {kind === 'rack' ? (

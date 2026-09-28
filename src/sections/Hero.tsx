@@ -43,7 +43,8 @@ export function Hero() {
               <span className="hero__brand-r" aria-hidden="true">
                 R
               </span>{' '}
-              {l(site.brand.meaning)} — {l(site.brand.claim).toLowerCase()}
+              <span>{l(site.brand.meaning)}</span>
+              <span className="hero__claim"> — {l(site.brand.claim).toLowerCase()}</span>
             </span>
           </p>
 

@@ -50,6 +50,8 @@ export interface Project {
   visual: ProjectVisual;
   built: Localized<string[]>;
   suite?: SuiteItem[];
+  /** Heading for the suite list (defaults to the agent-suite heading). */
+  suiteTitle?: Localized;
   specs: ProjectSpec[];
   pipeline: PipelineStep[];
   stack: TechId[];
@@ -170,8 +172,122 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'inventory-ai',
+    id: 'cctv',
     pid: '0x02',
+    name: { en: 'Autonomous AI CCTV', es: 'CCTV autónomo con IA' },
+    path: '/srv/vision/sentinel',
+    domain: 'vision',
+    visual: 'cctv',
+    tagline: {
+      en: 'A camera that watches, records, understands and warns on its own — and answers questions about what happened',
+      es: 'Una cámara que vigila, graba, entiende y avisa sola, y responde preguntas sobre lo que ha pasado',
+    },
+    summary: {
+      en: 'A surveillance system that runs a camera end to end with nobody watching: it records 24/7, detects people and vehicles, remembers every parked car, has a local vision model watch and describe every event, alerts only when there is a reason — and answers plain-language questions about any day.',
+      es: 'Un sistema de vigilancia que lleva una cámara de principio a fin sin que nadie mire: graba 24/7, detecta personas y vehículos, recuerda cada coche aparcado, un modelo de visión local ve y describe cada evento, solo alerta cuando hay motivo y responde en lenguaje natural sobre lo que pasó cualquier día.',
+    },
+    problem: {
+      en: 'Cameras record everything and understand nothing. Hours of footage nobody watches, motion alerts that fire with every shadow or headlight, and when something really happens someone has to scrub through the recording to find it.',
+      es: 'Las cámaras lo graban todo y no entienden nada. Horas de vídeo que nadie mira, avisos de movimiento que saltan con cada sombra o cada faro, y cuando de verdad pasa algo alguien tiene que rebobinar la grabación para encontrarlo.',
+    },
+    solution: {
+      en: 'One FFmpeg process opens a single RTSP connection, records hour-long segments with audio and pipes frames to YOLOv8x. Each detection opens an event session that becomes a video; an asynchronous forensic worker picks the frames where the action is, adds YOLO11 pose and the moving vehicle as hints, and asks a local vision model to describe what happened in strict JSON, under a no-hallucination rule and a stricter night mode. Everything lands in SQLite, in Telegram topics and in a live control panel.',
+      es: 'Un único proceso FFmpeg abre una sola conexión RTSP, graba segmentos de una hora con audio y pasa los frames a YOLOv8x. Cada detección abre una sesión de evento que se convierte en vídeo; un worker forense asíncrono elige los fotogramas donde está la acción, añade como pistas la pose de YOLO11 y el vehículo en movimiento, y pide a un modelo de visión local que describa lo ocurrido en JSON estricto, con una regla anti-alucinación y un modo nocturno más estricto. Todo acaba en SQLite, en topics de Telegram y en un panel de control en vivo.',
+    },
+    suiteTitle: { en: 'What runs on its own', es: 'Lo que funciona solo' },
+    suite: [
+      {
+        name: { en: 'One connection, two jobs', es: 'Una conexión, dos trabajos' },
+        line: {
+          en: 'A single RTSP connection records 1-hour segments with audio and feeds YOLO through a pipe. If the camera drops it retries forever and keeps sending critical alerts until it is back, then reports the recovery.',
+          es: 'Una sola conexión RTSP graba segmentos de una hora con audio y alimenta a YOLO por un pipe. Si la cámara se cae, reintenta sin parar y manda alertas críticas hasta que vuelve; después avisa de la recuperación.',
+        },
+      },
+      {
+        name: { en: 'Parking memory', es: 'Memoria del parking' },
+        line: {
+          en: 'Learns every parked vehicle by itself — position plus a visual fingerprint — and reports arrivals, departures and moves with a photo. Moves need several frames of confirmation, and when all cars shift at once it knows the camera moved (pan/tilt, wind) and recalibrates silently.',
+          es: 'Aprende sola cada vehículo aparcado —posición y huella visual— y avisa con foto de llegadas, salidas y cambios de sitio. Un cambio de sitio necesita varios frames de confirmación, y si todos los coches se desplazan a la vez entiende que se ha movido la cámara (giro automático, viento) y se recalibra en silencio.',
+        },
+      },
+      {
+        name: { en: 'Event sessions', es: 'Sesiones de evento' },
+        line: {
+          en: 'People, continuous presence of more than a minute and generic motion open sessions that close when the scene calms down. Each becomes a clip with the seconds before included, split into parts under Telegram’s size limit and never sent twice.',
+          es: 'Las personas, la presencia continuada de más de un minuto y el movimiento genérico abren sesiones que se cierran cuando la escena se calma. Cada una se convierte en un clip que incluye los segundos previos, partido en trozos por debajo del límite de Telegram y sin envíos duplicados.',
+        },
+      },
+      {
+        name: { en: 'AI forensic analyst', es: 'Analista forense con IA' },
+        line: {
+          en: 'Qwen2.5-VL on Ollama watches the key frames and returns a summary, a timeline, vehicles (type, colour, probable make and why), people without identifying anyone, security risks and what it cannot be sure of. A 0–100 risk score decides; only suspicious events are tagged #alerta, and between 20:00 and 07:00 any human presence counts.',
+          es: 'Qwen2.5-VL en Ollama ve los fotogramas clave y devuelve resumen, cronología, vehículos (tipo, color, marca probable y por qué), personas sin identificar a nadie, riesgos de seguridad y lo que no puede asegurar. Una puntuación de riesgo de 0 a 100 decide; solo los eventos sospechosos llevan #alerta, y entre las 20:00 y las 07:00 cualquier presencia humana cuenta.',
+        },
+      },
+      {
+        name: { en: 'Ask it what happened', es: 'Pregúntale qué pasó' },
+        line: {
+          en: '“Which delivery companies came today?”, “anything odd last night?”. It works out the time range and the intent, searches the event database and a local LLM answers in plain Spanish with buttons that open the exact videos. Recurring vehicles are recognised across 30 days.',
+          es: '«¿Qué empresas de reparto han venido hoy?», «¿pasó algo raro anoche?». Deduce el rango de tiempo y la intención, busca en la base de eventos y un LLM local responde en castellano claro con botones que abren los vídeos exactos. Los vehículos recurrentes se reconocen durante 30 días.',
+        },
+      },
+      {
+        name: { en: 'Control centre', es: 'Centro de control' },
+        line: {
+          en: 'A web panel with live video reusing the same frames (no extra camera connection), events, a 24-hour timeline to scrub, recordings converted to MP4 on demand, clips, captures, a map of the learned cars, GPU and disk gauges, settings and logs — plus temporary remote access through a password-protected tunnel that closes itself.',
+          es: 'Un panel web con vídeo en vivo que reutiliza los mismos frames (sin abrir otra conexión a la cámara), eventos, una línea de tiempo de 24 horas para saltar a cualquier momento, grabaciones convertidas a MP4 al vuelo, clips, capturas, un mapa de los coches aprendidos, medidores de GPU y disco, ajustes y logs; además de acceso remoto temporal por un túnel con contraseña que se cierra solo.',
+        },
+      },
+    ],
+    built: {
+      en: [
+        'Telegram group with one topic per kind of event — people, continuous presence, motion, videos, AI, alerts, investigation, cars and system — through a send queue that respects flood control',
+        'Emergency push notifications reserved for a camera down and real AI alerts; routine detections go out at normal priority',
+        'Frame selection that mixes motion peaks with even coverage, so the model sees the exact instant something happens',
+        'Robust parsing of model output: strips reasoning and Markdown, recovers balanced JSON and falls back to field extraction',
+        'Up to two AI workers in parallel with the detectors behind a dedicated lock; the model context is sized to the number of images',
+        'Events with less than 5% of change are sent but not analysed, so the GPU is spent where it matters; 30-day retention',
+      ],
+      es: [
+        'Grupo de Telegram con un topic por tipo de evento —personas, presencia continuada, movimiento, vídeos, IA, alertas, investigación, coches y sistema— mediante una cola de envío que respeta el control de flood',
+        'Notificaciones push de emergencia reservadas para cámara caída y alertas reales de la IA; las detecciones rutinarias van con prioridad normal',
+        'Selección de fotogramas que mezcla los picos de movimiento con una cobertura uniforme, para que el modelo vea el instante exacto en que pasa algo',
+        'Lectura robusta de la salida del modelo: quita el razonamiento y el Markdown, recupera el JSON equilibrado y, si hace falta, extrae los campos uno a uno',
+        'Hasta dos workers de IA en paralelo con los detectores protegidos por un lock propio; el contexto del modelo se dimensiona según el número de imágenes',
+        'Los eventos con menos de un 5% de cambio se envían pero no se analizan, para gastar GPU solo donde importa; retención de 30 días',
+      ],
+    },
+    specs: [
+      { key: { en: 'camera', es: 'cámara' }, value: { en: 'RTSP · one connection', es: 'RTSP · una sola conexión' } },
+      { key: { en: 'detection', es: 'detección' }, value: same('YOLOv8x · YOLO11x-pose') },
+      { key: { en: 'vision AI', es: 'IA de visión' }, value: { en: 'Qwen2.5-VL 7B · Ollama (local)', es: 'Qwen2.5-VL 7B · Ollama (local)' } },
+      { key: { en: 'memory', es: 'memoria' }, value: { en: 'SQLite · 30 days', es: 'SQLite · 30 días' } },
+      { key: { en: 'alerts', es: 'avisos' }, value: same('Telegram topics · Pushover') },
+      { key: { en: 'panel', es: 'panel' }, value: same('Flask · MJPEG · SSE') },
+    ],
+    pipeline: [
+      { label: { en: 'RTSP camera', es: 'Cámara RTSP' }, detail: { en: 'One connection only.', es: 'Una sola conexión.' } },
+      { label: same('FFmpeg'), detail: { en: 'Records and pipes frames.', es: 'Graba y pasa frames.' } },
+      { label: same('YOLOv8x'), detail: { en: 'People and vehicles.', es: 'Personas y vehículos.' } },
+      { label: { en: 'Session', es: 'Sesión' }, detail: { en: 'Event becomes a clip.', es: 'El evento se hace clip.' } },
+      { label: { en: 'Vision AI', es: 'IA de visión' }, detail: { en: 'Describes and scores risk.', es: 'Describe y puntúa riesgo.' } },
+      { label: { en: 'Alert / ask', es: 'Aviso / pregunta' }, detail: { en: 'Telegram, panel, search.', es: 'Telegram, panel, búsqueda.' } },
+    ],
+    stack: ['python', 'yolov8', 'yoloPose', 'opencv', 'ffmpeg', 'rtsp', 'ollama', 'qwenVl', 'sqlite', 'flask', 'telegram', 'pushover', 'cloudflareTunnel', 'nvidia'],
+    trace: [
+      { src: 'ffmpeg', msg: 'rtsp connected · rec 1h segment + pipe 1280x720', level: 'ok' },
+      { src: 'yolo', msg: 'yolov8x · yolo11x-pose ready', level: 'ok' },
+      { src: 'parking', msg: 'learned vehicles loaded · no changes' },
+      { src: 'detect', msg: 'person · event session opened (-8s)', level: 'warn' },
+      { src: 'session', msg: 'closed after 5s calm · clip ready' },
+      { src: 'ai', msg: 'qwen2.5-vl · 12 key frames + pose hints' },
+      { src: 'ai', msg: 'nivel=alto · riesgo 80 · #alerta', level: 'warn' },
+      { src: 'notify', msg: 'topic alertas + push · stored in sqlite', level: 'ok' },
+    ],
+  },
+  {
+    id: 'inventory-ai',
+    pid: '0x03',
     name: { en: 'AI Inventory', es: 'Inventario IA' },
     path: '/srv/ai/inventory',
     domain: 'ai',
@@ -240,71 +356,6 @@ export const projects: Project[] = [
       { src: 'compare', msg: 'expected vs detected · shortfalls found', level: 'warn' },
       { src: 'telegram', msg: 'notice posted to photos topic', level: 'ok' },
       { src: 'excel', msg: 'replenishment workbook @ 08:00', level: 'ok' },
-    ],
-  },
-  {
-    id: 'cctv',
-    pid: '0x03',
-    name: { en: 'AI CCTV', es: 'CCTV con IA' },
-    path: '/srv/vision/cctv',
-    domain: 'vision',
-    visual: 'cctv',
-    tagline: { en: 'Multi-camera RTSP with YOLO person detection on NVIDIA GPUs', es: 'Multicámara RTSP con detección de personas YOLO en GPUs NVIDIA' },
-    summary: {
-      en: 'Multi-camera surveillance that detects people with YOLO on NVIDIA GPUs, records on schedule and reports its own health on Discord.',
-      es: 'Videovigilancia multicámara que detecta personas con YOLO en GPUs NVIDIA, graba por horario e informa de su propio estado en Discord.',
-    },
-    problem: {
-      en: 'Conventional CCTV records everything and understands nothing: hours of footage, nobody watching, and no signal when something actually happens.',
-      es: 'El CCTV convencional lo graba todo y no entiende nada: horas de vídeo, nadie mirando y ninguna señal cuando de verdad pasa algo.',
-    },
-    solution: {
-      en: 'A pipeline that connects to IP cameras over RTSP, runs YOLOv5 on CUDA, and turns raw streams into organised recordings, detection videos and Discord reports.',
-      es: 'Un pipeline que se conecta a cámaras IP por RTSP, ejecuta YOLOv5 sobre CUDA y convierte los streams en grabaciones ordenadas, vídeos de detección e informes en Discord.',
-    },
-    built: {
-      en: [
-        'Simultaneous connection to multiple RTSP cameras and frame processing',
-        'Person detection with YOLOv5 on NVIDIA GPUs (CUDA, RTX 4090, multi-GPU)',
-        'Recordings plus derived videos with the detections drawn in (FFmpeg)',
-        'Recording schedules and storage organised by day',
-        'Health monitoring of cameras and system, with inference statistics',
-        'Status and events delivered to Discord',
-      ],
-      es: [
-        'Conexión simultánea a múltiples cámaras RTSP y procesamiento de frames',
-        'Detección de personas con YOLOv5 en GPUs NVIDIA (CUDA, RTX 4090, multi-GPU)',
-        'Grabaciones y vídeos derivados con las detecciones dibujadas (FFmpeg)',
-        'Horarios de grabación y almacenamiento organizado por días',
-        'Monitorización de cámaras y sistema, con estadísticas de inferencia',
-        'Estado y eventos enviados a Discord',
-      ],
-    },
-    specs: [
-      { key: { en: 'input', es: 'entrada' }, value: { en: 'RTSP · multiple cameras', es: 'RTSP · múltiples cámaras' } },
-      { key: { en: 'model', es: 'modelo' }, value: same('YOLOv5 · person') },
-      { key: { en: 'inference', es: 'inferencia' }, value: same('CUDA · RTX 4090 · multi-GPU') },
-      { key: { en: 'video', es: 'vídeo' }, value: same('FFmpeg') },
-      { key: { en: 'reporting', es: 'avisos' }, value: same('Discord') },
-    ],
-    pipeline: [
-      { label: { en: 'RTSP camera', es: 'Cámara RTSP' }, detail: { en: 'Several streams at once.', es: 'Varios streams a la vez.' } },
-      { label: { en: 'Frames', es: 'Frames' }, detail: { en: 'Pulled from each stream.', es: 'Extraídos de cada stream.' } },
-      { label: same('YOLOv5'), detail: { en: 'On the GPU with CUDA.', es: 'En GPU con CUDA.' } },
-      { label: { en: 'Detection', es: 'Detección' }, detail: { en: 'People marked in frame.', es: 'Personas marcadas.' } },
-      { label: { en: 'Video', es: 'Vídeo' }, detail: { en: 'Recordings + detection clips.', es: 'Grabaciones + clips.' } },
-      { label: same('Discord'), detail: { en: 'Status and events.', es: 'Estado y eventos.' } },
-    ],
-    stack: ['python', 'yolov5', 'pytorch', 'cuda', 'nvidia', 'multiGpu', 'rtsp', 'ffmpeg', 'discord'],
-    trace: [
-      { src: 'rtsp', msg: 'stream cam-01 connected', level: 'ok' },
-      { src: 'rtsp', msg: 'stream cam-02 connected', level: 'ok' },
-      { src: 'yolo', msg: 'yolov5 weights loaded on cuda:0', level: 'ok' },
-      { src: 'sched', msg: 'recording window open' },
-      { src: 'detect', msg: 'class=person · event opened', level: 'warn' },
-      { src: 'video', msg: 'writing detection clip (ffmpeg)' },
-      { src: 'store', msg: 'archived to recordings/{date}/' },
-      { src: 'discord', msg: 'status report delivered', level: 'ok' },
     ],
   },
   {

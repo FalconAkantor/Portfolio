@@ -6,6 +6,7 @@ import { prefersReducedMotion } from '../../lib/motion';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { StatusDot } from '../ui/StatusDot';
 import { ProjectDetail } from './ProjectDetail';
+import { ProjectGlyph } from './ProjectGlyph';
 import './projects.css';
 
 /**
@@ -136,7 +137,10 @@ function Tabs({ index, onSelect }: { index: number; onSelect: (i: number) => voi
               >
                 <span className="ptable__pid">{p.pid}</span>
                 <span className="ptable__name">
-                  <span className="ptable__title">{l(p.name)}</span>
+                  <span className="ptable__title">
+                    <ProjectGlyph kind={p.visual} />
+                    {l(p.name)}
+                  </span>
                   <span className="ptable__tagline">{l(p.tagline)}</span>
                 </span>
                 <span className="ptable__col-status">
@@ -200,6 +204,7 @@ function Accordion({ openIndex, onToggle, headRefs }: AccordionProps) {
                 onClick={() => onToggle(open ? null : i)}
               >
                 <span className="pacc__meta mono">
+                  <ProjectGlyph kind={p.visual} />
                   <span className="pacc__pid">{p.pid}</span>
                   <span className="pacc__count">
                     {String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}

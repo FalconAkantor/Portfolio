@@ -13,7 +13,7 @@ const paths: Record<ServiceIcon, string> = {
 export function Icon({ name }: { name: ServiceIcon }) {
   return (
     <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d={paths[name]} />
+      <path d={paths[name]} pathLength={1} />
     </svg>
   );
 }

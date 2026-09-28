@@ -48,8 +48,8 @@ export const services: Service[] = [
     icon: 'camera',
     title: { en: 'Cameras and photos that understand', es: 'Cámaras y fotos que entienden' },
     text: {
-      en: 'Cameras that detect people and record only when it matters; photos of a shelf that turn into a stock count.',
-      es: 'Cámaras que detectan personas y graban solo cuando importa; fotos de una estantería que se convierten en un recuento de stock.',
+      en: 'Cameras whose AI understands what is happening and warns only when it matters; photos of a shelf that turn into a stock count.',
+      es: 'Cámaras cuya IA entiende lo que pasa y avisa solo cuando importa; fotos de una estantería que se convierten en un recuento de stock.',
     },
   },
   {
@@ -105,19 +105,19 @@ export const examples: { project: ProjectId; title: Localized; text: Localized }
     },
   },
   {
+    project: 'cctv',
+    title: { en: 'A camera that watches itself', es: 'Una cámara que se vigila sola' },
+    text: {
+      en: 'It records all day, remembers the parked cars and an AI reviews every event — you only get a warning when something is really suspicious. And you can ask it: “anything odd last night?”',
+      es: 'Graba todo el día, recuerda los coches aparcados y una IA revisa cada evento: solo te avisa si algo es sospechoso de verdad. Y le puedes preguntar: «¿pasó algo raro anoche?»',
+    },
+  },
+  {
     project: 'workspace',
     title: { en: 'All the tools in one place', es: 'Todas las herramientas en un solo sitio' },
     text: {
       en: 'An online desktop where every tool a team uses works together, with a single login and an assistant that tells you which one to use.',
       es: 'Un escritorio online donde todas las herramientas de un equipo funcionan juntas, con un solo inicio de sesión y un asistente que te dice cuál usar.',
-    },
-  },
-  {
-    project: 'cctv',
-    title: { en: 'Cameras that warn you', es: 'Cámaras que avisan' },
-    text: {
-      en: 'Cameras that detect people, record only during the hours you choose and send notices on their own.',
-      es: 'Cámaras que detectan personas, graban solo en las horas que eliges y envían los avisos solas.',
     },
   },
   {

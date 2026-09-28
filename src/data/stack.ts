@@ -13,6 +13,10 @@ export const tech = {
   pytorch: { label: 'PyTorch' },
   yolo: { label: 'YOLO' },
   yolov5: { label: 'YOLOv5' },
+  yolov8: { label: 'YOLOv8x' },
+  yoloPose: { label: 'YOLO11 Pose' },
+  qwenVl: { label: 'Qwen2.5-VL' },
+  pushover: { label: 'Pushover' },
   llm: { label: 'LLMs' },
   rag: { label: 'RAG' },
   faiss: { label: 'FAISS' },
@@ -117,7 +121,7 @@ export const stackCategories: StackCategory[] = [
       en: 'Models that read, search, reason and answer.',
       es: 'Modelos que leen, buscan, razonan y responden.',
     },
-    items: ['python', 'pytorch', 'yolo', 'llm', 'rag', 'faiss', 'sentenceTransformers', 'ollama', 'qwen', 'whisper', 'nim'],
+    items: ['python', 'pytorch', 'yolo', 'llm', 'rag', 'faiss', 'sentenceTransformers', 'ollama', 'qwen', 'qwenVl', 'whisper', 'nim'],
   },
   {
     id: 'automation',
@@ -126,7 +130,7 @@ export const stackCategories: StackCategory[] = [
       en: 'The glue that turns a manual process into one that runs itself.',
       es: 'El pegamento que convierte un proceso manual en uno que funciona solo.',
     },
-    items: ['python', 'nodejs', 'apis', 'whatsapp', 'telegram', 'discord', 'email', 'excel', 'pdf', 'ocr', 'erp'],
+    items: ['python', 'nodejs', 'apis', 'whatsapp', 'telegram', 'pushover', 'discord', 'email', 'excel', 'pdf', 'ocr', 'erp'],
   },
   {
     id: 'backend',
@@ -162,6 +166,6 @@ export const stackCategories: StackCategory[] = [
       en: 'Cameras and images turned into events, counts and decisions.',
       es: 'Cámaras e imágenes convertidas en eventos, recuentos y decisiones.',
     },
-    items: ['yolo', 'opencv', 'ffmpeg', 'rtsp', 'cctv', 'gpuInference'],
+    items: ['yolo', 'yolov8', 'yoloPose', 'opencv', 'ffmpeg', 'rtsp', 'cctv', 'gpuInference'],
   },
 ];

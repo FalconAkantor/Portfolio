@@ -9,6 +9,7 @@ import { isLang } from './i18n/types';
 import { routeFromPath } from './i18n/routing';
 import { isMode } from './lib/mode';
 import { boot } from './lib/boot';
+import { startCursorLight } from './lib/cursorLight';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('#root not found');
@@ -29,3 +30,4 @@ if (container.hasChildNodes()) hydrateRoot(container, app);
 else createRoot(container).render(app);
 
 if (html.classList.contains('booting')) boot.start();
+if (mode === 'tech') startCursorLight();

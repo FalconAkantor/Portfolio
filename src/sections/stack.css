@@ -1,3 +1,84 @@
+/* ── Project map: the other half of the relation ─────────────────── */
+.constel {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.constel__label {
+  font-size: var(--step--2);
+  color: var(--text-faint);
+}
+
+.constel__list {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+}
+
+.constel__node {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+  color: var(--text-dim);
+  text-align: left;
+  transition:
+    border-color var(--dur-fast),
+    background var(--dur-fast),
+    opacity var(--dur-fast),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.constel__node:hover,
+.constel__node.is-lit {
+  border-color: var(--flow);
+  background: linear-gradient(180deg, rgb(92 200 214 / 0.12), rgb(92 200 214 / 0.03));
+  color: var(--text);
+}
+
+.constel__node.is-lit {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px -12px rgb(92 200 214 / 0.6);
+}
+
+.constel__node.is-dim {
+  opacity: 0.38;
+}
+
+.constel__pid {
+  font-size: var(--step--2);
+  color: var(--signal);
+}
+
+.constel__name {
+  font-weight: 650;
+  font-stretch: 108%;
+  line-height: 1.2;
+}
+
+.constel__count {
+  font-size: var(--step--2);
+  color: var(--text-faint);
+}
+
+.constel__open {
+  justify-self: start;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--flow);
+  border-radius: var(--radius-s);
+  background: var(--flow-soft);
+  color: var(--flow);
+  font-size: var(--step--1);
+}
+
+/* ── Categories ─────────────────────────────────────────────────── */
 .stack {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
@@ -14,10 +95,24 @@
   border-bottom: 1px solid var(--line);
 }
 
+.stack__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .stack__name {
   font-size: var(--step-1);
   font-stretch: 115%;
   font-weight: 700;
+}
+
+.stack__n {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-2);
 }
 
 .stack__purpose {
@@ -26,6 +121,88 @@
   color: var(--text-dim);
 }
 
+/* Tools: logo + name, lit by the project map or selected on their own */
+.tools {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 10px 0 7px;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.015);
+  color: var(--text-dim);
+  font-size: 0.84rem;
+  transition:
+    border-color var(--dur-fast),
+    color var(--dur-fast),
+    background var(--dur-fast),
+    opacity var(--dur-fast);
+}
+
+.tool:hover {
+  border-color: var(--text-faint);
+  color: var(--text);
+}
+
+.tool.is-linked,
+.tool.is-active {
+  border-color: var(--flow);
+  background: var(--flow-soft);
+  color: var(--text);
+}
+
+.tool.is-active {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+
+.tool.is-dim {
+  opacity: 0.32;
+}
+
+.logo {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  /* Mostly monochrome, with a hint of the brand colour. */
+  fill: color-mix(in srgb, var(--brand, var(--text-dim)) 40%, var(--text-dim));
+  transition: fill var(--dur-fast);
+}
+
+.tool:hover .logo,
+.tool.is-linked .logo,
+.tool.is-active .logo {
+  fill: color-mix(in srgb, var(--brand, var(--text)) 75%, var(--text));
+}
+
+.logo--mono {
+  display: inline-grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  font-size: 8.5px;
+  letter-spacing: -0.02em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+@media (pointer: coarse) {
+  .tool {
+    min-height: 40px;
+  }
+}
+
+/* ── Sticky cross-reference ─────────────────────────────────────── */
 .xref {
   position: sticky;
   bottom: 16px;

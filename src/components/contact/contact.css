@@ -147,3 +147,102 @@
     font-size: min(1.2rem, 4.1vw);
   }
 }
+
+/* ── Signature: the R signs the page ─────────────────────────────── */
+.sign {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+
+.sign__r {
+  width: clamp(64px, 5rem + 2vw, 104px);
+  height: auto;
+  overflow: visible;
+}
+
+.sign__stroke {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 10px rgb(242 169 59 / 0.35));
+}
+
+.sign__stroke--4 {
+  stroke-width: 4;
+}
+
+.sign.is-in .sign__stroke {
+  animation: sign-draw 700ms var(--ease-out) forwards;
+}
+
+.sign.is-in .sign__stroke--2 {
+  animation-delay: 500ms;
+  animation-duration: 900ms;
+}
+
+.sign.is-in .sign__stroke--3 {
+  animation-delay: 1300ms;
+}
+
+.sign.is-in .sign__stroke--4 {
+  animation-delay: 1850ms;
+  animation-duration: 500ms;
+}
+
+@keyframes sign-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.sign__text {
+  display: grid;
+  gap: 4px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 600ms ease 2.1s,
+    transform 600ms var(--ease-out) 2.1s;
+}
+
+.sign.is-in .sign__text {
+  opacity: 1;
+  transform: none;
+}
+
+.sign__name {
+  font-size: var(--step--1);
+  color: var(--text);
+}
+
+.sign__meaning {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sign__stroke {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .sign__text {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 599px) {
+  .sign {
+    justify-content: flex-start;
+  }
+}

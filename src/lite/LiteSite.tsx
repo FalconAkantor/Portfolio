@@ -12,6 +12,7 @@ import { ModeSwitch } from '../components/navigation/ModeSwitch';
 import { Footer } from '../components/navigation/Footer';
 import { ContactChannels } from '../components/contact/ContactChannels';
 import { Icon } from './icons';
+import { PhoneDemo } from './PhoneDemo';
 import './lite.css';
 
 /** The simple version: what I offer, how I work, examples and contact — no jargon. */
@@ -61,6 +62,7 @@ export function LiteSite() {
 
       <main id="main" className="lite" tabIndex={-1}>
         <section id="top" className="lhero" aria-labelledby="lite-title">
+          <div className="lhero__copy">
           <p className="lhero__kicker">{x.heroKicker}</p>
           <h1 id="lite-title" className="lhero__title">
             {x.heroTitle}
@@ -93,6 +95,8 @@ export function LiteSite() {
               {x.brandLead}
             </p>
           </div>
+          </div>
+          <PhoneDemo />
         </section>
 
         <section id="services" className="lsec" aria-labelledby="lite-services">

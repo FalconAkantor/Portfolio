@@ -273,11 +273,17 @@
   opacity: 0.7;
 }
 
-/* Cursor-follow spotlight used by interactive surfaces (set via --mx / --my). */
-.spotlight {
-  --mx: 50%;
-  --my: 50%;
-  background-image: radial-gradient(420px circle at var(--mx) var(--my), rgb(242 169 59 / 0.06), transparent 60%);
+/* Tech version, mouse: the panel border lights up under the cursor (lib/cursorLight.ts sets --px/--py).
+   Same specificity as .panel, so components that define their own background keep it. */
+@media (hover: hover) and (pointer: fine) {
+  :where(html[data-mode='tech']) .panel {
+    border-color: transparent;
+    background:
+      radial-gradient(460px circle at var(--px, -2000px) var(--py, -2000px), rgb(242 169 59 / 0.045), transparent 65%) padding-box,
+      linear-gradient(180deg, var(--surface-2), var(--surface)) padding-box,
+      radial-gradient(300px circle at var(--px, -2000px) var(--py, -2000px), rgb(242 169 59 / 0.9), transparent 70%) border-box,
+      linear-gradient(var(--line), var(--line)) border-box;
+  }
 }
 
 /* ── Wordmark ───────────────────────────────────────────────────── */

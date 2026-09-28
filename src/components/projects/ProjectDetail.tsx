@@ -79,7 +79,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, ro
 
         {project.suite ? (
           <section>
-            <h4 className="pdetail__h">{t.projects.suite}</h4>
+            <h4 className="pdetail__h">{project.suiteTitle ? l(project.suiteTitle) : t.projects.suite}</h4>
             <ul className="suite">
               {project.suite.map((item, i) => (
                 <li key={item.name.en} className="suite__item">

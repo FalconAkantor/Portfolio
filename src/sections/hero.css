@@ -297,7 +297,8 @@ html:is(.booting, .choosing) .hero__readout li {
 
 .hero__id {
   display: grid;
-  gap: 2px;
+  justify-items: start;
+  gap: 4px;
   font-size: var(--step--1);
   color: var(--text-dim);
 }
@@ -311,18 +312,51 @@ html:is(.booting, .choosing) .hero__readout li {
   font-size: 0.95rem;
 }
 
-.hero__brand {
-  margin-top: 4px;
+.hero__role {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
   color: var(--text-dim);
+}
+
+.hero__brand {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin-top: 6px;
+  padding: 4px 12px 4px 4px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: rgb(12 17 23 / 0.6);
+  color: var(--text-dim);
+}
+
+.hero__brand > span:nth-child(2) {
+  color: var(--text);
+}
+
+/* Phones: one idea per line, no crowding — the claim is already in the About section. */
+@media (max-width: 599px) {
+  .hero__id {
+    gap: 6px;
+  }
+
+  .hero__claim {
+    display: none;
+  }
+
+  .hero__alias {
+    font-size: 1rem;
+  }
 }
 
 .hero__brand-r {
   display: inline-grid;
   place-items: center;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.7em;
+  height: 1.7em;
   border: 1px solid var(--signal);
-  border-radius: var(--radius-s);
+  border-radius: 50%;
   color: var(--signal);
   font-weight: 600;
 }

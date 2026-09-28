@@ -25,12 +25,12 @@ La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió l
 | Módulo | Qué hace |
 | --- | --- |
 | `boot` | Arranque tipo terminal (solo en la primera visita; se salta con cualquier tecla), titular, comprobación de capacidades y terminal interactiva |
-| `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, renders de visión, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
+| `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, consola interactiva del CCTV autónomo —escena nocturna en vivo, sesión de evento, análisis de la IA, topics de Telegram, línea de tiempo de 24 h e investigación en lenguaje natural—, render de estantería, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
 | `network` | Mapa de integración animado (email, WhatsApp, cámaras, ERP, BD…) con nodos seleccionables |
 | `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
-| `stack` | Tecnologías agrupadas por propósito, con referencias cruzadas a los proyectos que las usan |
+| `stack` | Tecnologías agrupadas por propósito, con logo, y un mapa de dos direcciones: señalas un proyecto y se iluminan sus tecnologías; eliges una tecnología y se iluminan los proyectos que la usan |
 | `about` | Perfil, principios y ciclo idea → producción |
-| `contact` | Email y WhatsApp directos (solo mensajes, sin llamadas). Sin formularios |
+| `contact` | Email y WhatsApp directos (solo mensajes, sin llamadas). Sin formularios. La página termina «firmada»: la R de AUTOMARIZA se dibuja sola |
 
 **Terminal:** `help`, `brand`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `snap`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
 
@@ -41,7 +41,11 @@ La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió l
   - **Manual → Automatizado**: el trabajo hecho por personas se desintegra y entra el sistema;
   - el paso de **tech → sencilla**: la pantalla entera se deshace antes de cambiar;
   - el comando **`snap`** de la terminal: medio sistema desaparece y, tras unos segundos, vuelve.
-- Con `prefers-reduced-motion` no hay tecleo, grietas ni polvo: todo aparece directamente.
+- **Luz bajo el ratón:** con ratón, un foco suave ilumina la cuadrícula del fondo y el borde del panel que tienes debajo (`src/lib/cursorLight.ts`, sin tocar variables globales para no recalcular toda la página en cada frame).
+- **Grano de película:** una textura muy fina sobre todo, para que el negro no sea plano y los degradados no hagan bandas.
+- Con `prefers-reduced-motion` no hay tecleo, grietas, polvo ni foco: todo aparece directamente.
+
+**Versión sencilla:** en la portada, un móvil reproduce una conversación de ejemplo del sistema de stock por foto (foto del expositor → productos contados → lista de reposición al día siguiente), marcada como ilustrativa. Los iconos de los servicios se dibujan solos al pasar el ratón.
 
 ---
 
@@ -129,6 +133,7 @@ src/
 │   ├── graph.ts            ← geometría del mapa de integración
 │   ├── mode.tsx            ← versión activa (tech / sencilla)
 │   ├── snap.ts             ← motor de desintegración en polvo (canvas)
+│   ├── cursorLight.ts      ← foco que sigue al ratón (versión tech)
 │   ├── contact.ts          ← canales, formato del teléfono, enlace wa.me
 │   └── …                   ← storage seguro, eventos, formato, scroll
 ├── hooks/                  ← reloj de sesión, reduced-motion, in-view, sección activa
@@ -140,7 +145,8 @@ src/
 └── entry-server.tsx        ← render estático usado en el build
 scripts/
 ├── prerender.mjs           ← 4 HTML (idioma × versión), head SEO, sitemap, robots, 404
-└── generate-assets.mjs     ← regenera og-image e iconos (opcional)
+├── generate-assets.mjs     ← regenera og-image e iconos (opcional)
+└── generate-logos.mjs      ← regenera los logos del Stack desde Simple Icons (opcional)
 ```
 
 **Decisiones:**
@@ -157,6 +163,14 @@ scripts/
 
 **SEO:** title/description por idioma y versión, canonical, `hreflang`, Open Graph, Twitter/X card, JSON-LD `Person`, `sitemap.xml`, `robots.txt`, favicon SVG/PNG, manifest y página 404 propia.
 > En una *project page* (`usuario.github.io/Portfolio`), los buscadores solo leen el `robots.txt` de la raíz del dominio. Para que cuente, envía el sitemap desde Google Search Console o usa un dominio propio.
+
+## Regenerar logos de tecnologías
+
+Los logos del Stack salen de [Simple Icons](https://simpleicons.org) (CC0) y se incrustan solo los que se usan en `src/data/techLogos.ts`, así que no hay dependencia en tiempo de ejecución:
+
+```bash
+npm i --no-save simple-icons && node scripts/generate-logos.mjs
+```
 
 ## Regenerar imagen OG e iconos
 

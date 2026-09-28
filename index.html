@@ -16,32 +16,49 @@
     <script>
       /*
        * Runs before first paint:
-       *  1. Sends Spanish-speaking first-time visitors of the English root to /es/
-       *     (never the other way round, so shared /es/ links always work).
-       *  2. Shows the boot sequence on a first visit, unless reduced motion is requested.
-       *     A fallback timer removes it if the app bundle never starts.
+       *  1. Redirects only "upwards", never the other way round, so shared links always work:
+       *     English → /es/ for Spanish-speaking first-time visitors (or a stored preference),
+       *     tech → lite/ when the visitor already chose the simple version.
+       *  2. On a tech page with no version chosen yet, shows the "tech or simple?" chooser.
+       *     Otherwise, shows the boot sequence on a first visit, unless reduced motion is requested
+       *     or the visitor arrives on a deep link (#section), which goes straight to the content.
+       *     Fallback timers remove both overlays if the app bundle never starts.
        */
       (function () {
         var d = document.documentElement;
         try {
           var s = window.localStorage;
           var base = '%BASE_URL%';
+          var path = location.pathname.replace(/index\.html$/, '');
+          var rest = path.indexOf(base) === 0 ? path.slice(base.length) : '';
+          var isEs = /^es(\/|$)/.test(rest);
+          var isLite = d.getAttribute('data-mode') ? d.getAttribute('data-mode') === 'lite' : /(^|\/)lite\/?$/.test(rest);
           var pref = s.getItem('automariza:lang');
+          var mode = s.getItem('automariza:mode');
           var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-          var onRoot = d.lang === 'en' && location.pathname.replace(/index\.html$/, '') === base;
-          if (onRoot && (pref === 'es' || (!pref && /^es\b/i.test(nav)))) {
-            location.replace(base + 'es/' + location.hash);
+          var toEs = !isEs && (pref === 'es' || (!pref && /^es\b/i.test(nav)));
+          var toLite = !isLite && mode === 'lite';
+          if (toEs || toLite) {
+            location.replace(base + (isEs || toEs ? 'es/' : '') + (isLite || toLite ? 'lite/' : '') + location.hash);
+            return;
+          }
+          if (isLite) return;
+          if (!mode) {
+            d.classList.add('choosing');
+            setTimeout(function () {
+              if (!window.__automarizaChooser) d.classList.remove('choosing');
+            }, 4000);
             return;
           }
           var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (!s.getItem('automariza:booted') && !reduce) {
+          if (!s.getItem('automariza:booted') && !reduce && !location.hash) {
             d.classList.add('booting');
             setTimeout(function () {
-              if (!window.__nachoBootStarted) d.classList.remove('booting');
+              if (!window.__automarizaBoot) d.classList.remove('booting');
             }, 4000);
           }
         } catch (e) {
-          /* storage blocked: no boot sequence, no redirect */
+          /* storage blocked: no chooser, no boot sequence, no redirect */
         }
       })();
     </script>

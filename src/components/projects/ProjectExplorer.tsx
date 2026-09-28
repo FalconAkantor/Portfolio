@@ -57,7 +57,7 @@ export function ProjectExplorer() {
     };
     fromHash();
     window.addEventListener('hashchange', fromHash);
-    const off = listen('nacho:open-project', ({ id }) => openById(id));
+    const off = listen('automariza:open-project', ({ id }) => openById(id));
     return () => {
       window.removeEventListener('hashchange', fromHash);
       off();

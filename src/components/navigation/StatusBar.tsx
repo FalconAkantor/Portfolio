@@ -7,6 +7,7 @@ import { emit } from '../../lib/events';
 import { StatusDot } from '../ui/StatusDot';
 import { Wordmark } from '../ui/Wordmark';
 import { LangSwitch } from './LangSwitch';
+import { ModeSwitch } from './ModeSwitch';
 import './navigation.css';
 
 export function StatusBar({ active }: { active: SectionId }) {
@@ -40,11 +41,14 @@ export function StatusBar({ active }: { active: SectionId }) {
         <span className="statusbar__cell statusbar__cell--wide" aria-hidden="true">
           {now ? formatClock(now) : '--:--:--'} <span className="statusbar__dim">{now ? formatUtcOffset(now) : ''}</span>
         </span>
+        <span className="statusbar__cell statusbar__cell--mode">
+          <ModeSwitch />
+        </span>
         <LangSwitch className="statusbar__cell" />
         <button
           type="button"
           className="statusbar__term"
-          onClick={() => emit('nacho:terminal', { open: true })}
+          onClick={() => emit('automariza:terminal', { open: true })}
           aria-label={t.a11y.openTerminal}
           aria-keyshortcuts="Control+K Meta+K"
         >

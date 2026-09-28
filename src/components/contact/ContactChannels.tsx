@@ -7,7 +7,7 @@ import { Wordmark } from '../ui/Wordmark';
 import './contact.css';
 
 /** Two direct lines and nothing else: e-mail and WhatsApp (messages only). */
-export function ContactChannels() {
+export function ContactChannels({ showHook = true }: { showHook?: boolean }) {
   const { t } = useI18n();
   const c = t.contact;
   const email = site.contact.email.trim();
@@ -29,13 +29,15 @@ export function ContactChannels() {
 
   return (
     <div className="reach panel panel--ticks">
-      <div className="reach__hook">
-        <p className="reach__kicker mono">
-          <Wordmark /> · {c.hookKicker}
-        </p>
-        <h3 className="reach__title">{c.hookTitle}</h3>
-        <p className="reach__sub">{c.hookSub}</p>
-      </div>
+      {showHook ? (
+        <div className="reach__hook">
+          <p className="reach__kicker mono">
+            <Wordmark /> · {c.hookKicker}
+          </p>
+          <h3 className="reach__title">{c.hookTitle}</h3>
+          <p className="reach__sub">{c.hookSub}</p>
+        </div>
+      ) : null}
 
       <div className="reach__channels">
         {email ? (

@@ -6,20 +6,26 @@ import './styles/base.css';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { App } from './App';
 import { isLang } from './i18n/types';
-import { langFromPath } from './i18n/routing';
+import { routeFromPath } from './i18n/routing';
+import { isMode } from './lib/mode';
 import { boot } from './lib/boot';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('#root not found');
 
-const htmlLang = document.documentElement.lang;
-const lang = isLang(htmlLang) && container.hasChildNodes() ? htmlLang : langFromPath(window.location.pathname);
-document.documentElement.lang = lang;
+// Prerendered pages carry their language and version on <html>; the dev server derives them from the URL.
+const html = document.documentElement;
+const route = routeFromPath(window.location.pathname);
+const prerendered = container.hasChildNodes();
+const lang = prerendered && isLang(html.lang) ? html.lang : route.lang;
+const mode = prerendered && isMode(html.dataset.mode) ? html.dataset.mode : route.mode;
+html.lang = lang;
+html.dataset.mode = mode;
 
-const app = <App lang={lang} />;
+const app = <App lang={lang} mode={mode} />;
 
 // Production pages are prerendered → hydrate. The dev server serves an empty shell → render.
 if (container.hasChildNodes()) hydrateRoot(container, app);
 else createRoot(container).render(app);
 
-if (document.documentElement.classList.contains('booting')) boot.start();
+if (html.classList.contains('booting')) boot.start();

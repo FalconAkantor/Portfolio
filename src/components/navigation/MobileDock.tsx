@@ -53,7 +53,7 @@ export function MobileDock({ active }: { active: SectionId }) {
           className="dock__term"
           onClick={() => {
             setOpen(false);
-            emit('nacho:terminal', { open: true });
+            emit('automariza:terminal', { open: true });
           }}
           aria-label={t.a11y.openTerminal}
         >

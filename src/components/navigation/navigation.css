@@ -109,6 +109,10 @@
   color: var(--text-dim);
 }
 
+.statusbar__cell--mode {
+  padding: 0 10px;
+}
+
 @media (max-width: 1279px) {
   .statusbar__cell--wide {
     display: none;
@@ -128,6 +132,33 @@
   /* The terminal lives in the mobile dock. */
   .statusbar__term {
     display: none;
+  }
+
+  .statusbar {
+    gap: 8px;
+  }
+
+  .statusbar__cell {
+    padding: 0 10px;
+  }
+
+  .statusbar__cell--mode {
+    padding: 0 8px;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .statusbar__version {
+    display: none;
+  }
+
+  .statusbar__cell--mode {
+    padding: 0 4px;
+  }
+
+  .mode-switch a {
+    padding: 0 9px;
   }
 }
 
@@ -335,4 +366,44 @@
 
 .footer__dim {
   color: var(--text-faint);
+}
+
+/* ── Tech / Simple switch (top-right in both versions) ─────────── */
+.mode-switch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: var(--step--2);
+}
+
+.mode-switch a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 11px;
+  border-radius: 999px;
+  color: var(--text-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.mode-switch a:hover {
+  color: var(--text);
+}
+
+.mode-switch a.is-on {
+  background: var(--signal);
+  color: var(--void);
+}
+
+@media (pointer: coarse) {
+  .mode-switch a {
+    min-height: 34px;
+  }
 }

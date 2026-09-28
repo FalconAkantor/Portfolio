@@ -3,10 +3,10 @@ import type { SectionId } from '../data/navigation';
 
 /** App-wide events, so the terminal can drive the UI without prop drilling. */
 interface SystemEvents {
-  'nacho:open-project': { id: ProjectId };
-  'nacho:navigate': { section: SectionId };
-  'nacho:reboot': Record<string, never>;
-  'nacho:terminal': { open: boolean };
+  'automariza:open-project': { id: ProjectId };
+  'automariza:navigate': { section: SectionId };
+  'automariza:reboot': Record<string, never>;
+  'automariza:terminal': { open: boolean };
 }
 
 export type SystemEventName = keyof SystemEvents;

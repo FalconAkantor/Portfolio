@@ -6,10 +6,17 @@ Portfolio de **Nacho · AUTOMARIZA**: IA, automatización, sistemas e infraestru
 
 Contacto: **nacho.automariza@gmail.com** · WhatsApp **+34 624 42 15 03** (solo mensajes)
 
-La web no funciona como un portfolio clásico. Se presenta como un sistema operativo: arranca con una secuencia de boot, la navegación es un árbol de ficheros, los proyectos se inspeccionan como procesos y tiene una terminal funcional.
+La web tiene **dos versiones**, para todos los públicos. En la primera visita pregunta cuál prefieres, y en la esquina superior derecha se cambia en cualquier momento:
 
-- **EN** → `https://falconakantor.github.io/Portfolio/`
-- **ES** → `https://falconakantor.github.io/Portfolio/es/`
+- **⚡ Tech**: la web se presenta como un sistema operativo. Arranca con una secuencia de boot, se navega con un árbol de ficheros, los proyectos se inspeccionan como procesos y tiene una terminal que funciona.
+- **Sencilla**: qué hago, cómo trabajo, ejemplos reales y contacto. Sin tecnicismos. Cada ejemplo tiene un enlace *Verlo por dentro* que abre ese proyecto en la versión tech.
+
+| | Tech | Sencilla |
+| --- | --- | --- |
+| **EN** | `https://falconakantor.github.io/Portfolio/` | `…/Portfolio/lite/` |
+| **ES** | `…/Portfolio/es/` | `…/Portfolio/es/lite/` |
+
+La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió la sencilla, al volver a la raíz se le lleva a ella. Nunca se redirige de la sencilla a la tech, así que un enlace a `/lite/` siempre abre la sencilla.
 
 ---
 
@@ -58,7 +65,8 @@ Los datos están separados de los componentes:
 | `src/data/ai.ts` | Preguntas y etapas del recorrido RAG |
 | `src/data/network.ts` | Nodos y conexiones del mapa de integración (layout de escritorio y de móvil) |
 | `src/data/manifesto.ts` | Ciclo de vida y proceso manual vs. automatizado |
-| `src/i18n/ui.ts` | Todos los textos de la interfaz en EN y ES |
+| `src/data/lite.ts` | Versión sencilla: servicios, pasos y ejemplos (enlazados a los proyectos) |
+| `src/i18n/ui.ts` | Todos los textos de la interfaz en EN y ES (incluido el selector y la versión sencilla) |
 
 Todo el contenido es bilingüe (`{ en, es }`). El diccionario español se comprueba con TypeScript contra el inglés, así que si falta una traducción el build falla. Los proyectos solo pueden referenciar tecnologías que existan en `stack.ts`; si no, también falla.
 
@@ -78,7 +86,7 @@ npm run build      # typecheck + build + prerender → dist/
 npm run preview    # sirve dist/ en http://localhost:4173/Portfolio/
 ```
 
-Para volver a ver la secuencia de arranque: escribe `reboot` en la terminal, o borra `automariza:booted` de localStorage.
+Para volver a ver la secuencia de arranque: escribe `reboot` en la terminal, o borra `automariza:booted` de localStorage. Para volver a ver el selector tech/sencilla, borra `automariza:mode`.
 
 ---
 
@@ -104,29 +112,32 @@ El workflow calcula automáticamente la ruta base (`BASE_PATH`) y la URL públic
 ```
 src/
 ├── config/site.ts          ← datos personales y de contacto
-├── i18n/                   ← tipos, contexto, rutas por idioma, diccionario EN/ES
+├── i18n/                   ← tipos, contexto, rutas (idioma × versión), diccionario EN/ES
 ├── data/                   ← todo el contenido (sin JSX)
 ├── lib/
 │   ├── terminal/engine.ts  ← intérprete de la terminal (puro, testeado)
 │   ├── boot.ts             ← controlador de la secuencia de arranque
 │   ├── graph.ts            ← geometría del mapa de integración
-│   ├── brief.ts            ← petición de automatización (texto / mailto)
+│   ├── mode.tsx            ← versión activa (tech / sencilla)
+│   ├── contact.ts          ← canales, formato del teléfono, enlace wa.me
 │   └── …                   ← storage seguro, eventos, formato, scroll
 ├── hooks/                  ← reloj de sesión, reduced-motion, in-view, sección activa
-├── components/             ← boot, navigation, terminal, systems, projects, ai, vision, infra, contact, ui
+├── components/             ← chooser, boot, navigation, terminal, systems, projects, ai, vision, infra, contact, ui
+├── lite/                   ← versión sencilla (página, iconos, estilos)
 ├── sections/               ← una sección por módulo del sistema
 ├── App.tsx                 ← composición
 ├── main.tsx                ← cliente (hidrata el HTML prerenderizado)
 └── entry-server.tsx        ← render estático usado en el build
 scripts/
-├── prerender.mjs           ← HTML por idioma, head SEO, sitemap, robots, 404
+├── prerender.mjs           ← 4 HTML (idioma × versión), head SEO, sitemap, robots, 404
 └── generate-assets.mjs     ← regenera og-image e iconos (opcional)
 ```
 
 **Decisiones:**
 - **React + Vite + TypeScript y CSS propio**, sin Tailwind ni librerías de animación. Las animaciones son CSS, SVG/SMIL y un único canvas 2D (las partículas del hero).
-- **Prerender estático (SSG):** cada idioma es un HTML real con todo el contenido, que React hidrata después. Así hay SEO completo y la primera pintura no espera al JavaScript.
-- **Dos idiomas con URL propia** (`/` y `/es/`), enlazados con `hreflang`. En la primera visita, un navegador en español se redirige a `/es/`; nunca al revés, así que los enlaces a `/es/` siempre funcionan.
+- **Prerender estático (SSG):** cada combinación de idioma y versión es un HTML real con todo el contenido, que React hidrata después. Así hay SEO completo y la primera pintura no espera al JavaScript.
+- **Dos idiomas y dos versiones con URL propia** (`/`, `/lite/`, `/es/`, `/es/lite/`), con `hreflang` entre idiomas de la misma versión y title/description propios de la sencilla. En la primera visita, un navegador en español se redirige a `/es/`; nunca al revés, así que los enlaces a `/es/` siempre funcionan.
+- **Selector sin parpadeo:** el selector tech/sencilla y el boot vienen prerenderizados y ocultos. Un script inline decide antes de la primera pintura si se muestran, así que no hay saltos. Los enlaces profundos (`#proyecto`) se saltan el boot y van directos al contenido.
 - **Sin backend ni formularios:** el contacto es email (mailto) y WhatsApp (`wa.me`, abre la app en el móvil y WhatsApp Web en el ordenador, con un saludo ya escrito).
 - **Sin lazy-loading de secciones:** todas se prerenderizan y se hidratan al cargar. Partirlas en chunks solo retrasaría la hidratación sin reducir el total.
 
@@ -134,7 +145,7 @@ scripts/
 
 **Accesibilidad:** HTML semántico con landmarks y *skip link*, navegación completa por teclado (el explorador de proyectos sigue el patrón WAI-ARIA de pestañas; los nodos del grafo son botones), foco visible, `prefers-reduced-motion` respetado en todo (sin boot y sin animaciones), contraste AA en todos los textos, y resúmenes textuales de los diagramas para lectores de pantalla. Verificado con axe-core (WCAG 2.1 AA): 0 incidencias.
 
-**SEO:** title/description por idioma, canonical, `hreflang`, Open Graph, Twitter/X card, JSON-LD `Person`, `sitemap.xml`, `robots.txt`, favicon SVG/PNG, manifest y página 404 propia.
+**SEO:** title/description por idioma y versión, canonical, `hreflang`, Open Graph, Twitter/X card, JSON-LD `Person`, `sitemap.xml`, `robots.txt`, favicon SVG/PNG, manifest y página 404 propia.
 > En una *project page* (`usuario.github.io/Portfolio`), los buscadores solo leen el `robots.txt` de la raíz del dominio. Para que cuente, envía el sitemap desde Google Search Console o usa un dominio propio.
 
 ## Regenerar imagen OG e iconos

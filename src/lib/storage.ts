@@ -23,4 +23,5 @@ export function writeStorage(key: string, value: string): void {
 export const STORAGE_KEYS = {
   booted: 'booted',
   lang: 'lang',
+  mode: 'mode',
 } as const;

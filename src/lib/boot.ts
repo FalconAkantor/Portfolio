@@ -34,7 +34,7 @@ function clearTimers() {
 
 declare global {
   interface Window {
-    __nachoBootStarted?: boolean;
+    __automarizaBoot?: boolean;
   }
 }
 
@@ -48,7 +48,7 @@ export const boot = {
 
   start({ instant = false }: { instant?: boolean } = {}) {
     clearTimers();
-    window.__nachoBootStarted = true;
+    window.__automarizaBoot = true;
     document.documentElement.classList.add('booting');
     if (instant) {
       set({ phase: 'running', shown: bootLines.length });

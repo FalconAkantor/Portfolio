@@ -1,16 +1,21 @@
 import { DEFAULT_LANG, type Lang } from './types';
+import type { Mode } from '../lib/mode';
 
 /**
- * URL layout:
- *   <base>      → English (default)
- *   <base>es/   → Spanish
- * Each language is a real, prerendered HTML page (good for SEO and hreflang).
+ * URL layout — every combination is a real, prerendered page:
+ *   <base>            English · tech
+ *   <base>lite/       English · simple
+ *   <base>es/         Spanish · tech
+ *   <base>es/lite/    Spanish · simple
  */
-export function pathForLang(lang: Lang, base: string = import.meta.env.BASE_URL): string {
-  return lang === DEFAULT_LANG ? base : `${base}${lang}/`;
+export function pathFor(lang: Lang, mode: Mode = 'tech', base: string = import.meta.env.BASE_URL): string {
+  return `${base}${lang === DEFAULT_LANG ? '' : `${lang}/`}${mode === 'lite' ? 'lite/' : ''}`;
 }
 
-export function langFromPath(pathname: string, base: string = import.meta.env.BASE_URL): Lang {
+export function routeFromPath(pathname: string, base: string = import.meta.env.BASE_URL): { lang: Lang; mode: Mode } {
   const rest = pathname.startsWith(base) ? pathname.slice(base.length) : pathname.replace(/^\//, '');
-  return rest.startsWith('es') ? 'es' : 'en';
+  const parts = rest.split('/').filter(Boolean);
+  const lang: Lang = parts[0] === 'es' ? 'es' : 'en';
+  const mode: Mode = parts.includes('lite') ? 'lite' : 'tech';
+  return { lang, mode };
 }

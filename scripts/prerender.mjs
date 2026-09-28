@@ -1,10 +1,12 @@
 /**
  * Build step 3/3 — static prerender + SEO files.
  *
- *   dist/index.html      English page (fully rendered HTML, hydrated by React)
- *   dist/es/index.html   Spanish page
- *   dist/404.html        "process not found" page for GitHub Pages
- *   dist/sitemap.xml     both languages, with hreflang alternates
+ *   dist/index.html           English · tech version (fully rendered HTML, hydrated by React)
+ *   dist/lite/index.html      English · simple version
+ *   dist/es/index.html        Spanish · tech version
+ *   dist/es/lite/index.html   Spanish · simple version
+ *   dist/404.html             "process not found" page for GitHub Pages
+ *   dist/sitemap.xml          every page, with hreflang alternates
  *   dist/robots.txt
  *
  * Environment:
@@ -23,7 +25,8 @@ const { render, seo } = await import(pathToFileURL(path.join(ssrDir, 'entry-serv
 
 const base = normalizeBase(process.env.BASE_PATH ?? '/Portfolio/');
 const siteUrl = (process.env.SITE_URL?.trim() || seo.site.siteUrl).replace(/\/+$/, '');
-const pageUrl = (lang) => (lang === seo.defaultLang ? `${siteUrl}/` : `${siteUrl}/${lang}/`);
+const pagePath = (lang, mode) => `${lang === seo.defaultLang ? '' : `${lang}/`}${mode === 'lite' ? 'lite/' : ''}`;
+const pageUrl = (lang, mode) => `${siteUrl}/${pagePath(lang, mode)}`;
 const ogLocale = { en: 'en_US', es: 'es_ES' };
 
 function normalizeBase(value) {
@@ -47,13 +50,14 @@ const preloads = [displayFont, monoFont]
   .map((f) => `<link rel="preload" href="${base}assets/${f}" as="font" type="font/woff2" crossorigin />`)
   .join('\n    ');
 
-function head(lang) {
-  const meta = seo.meta[lang];
-  const url = pageUrl(lang);
+function head(lang, mode) {
+  const m = seo.meta[lang];
+  const meta = mode === 'lite' ? { ...m, title: m.liteTitle, description: m.liteDescription } : m;
+  const url = pageUrl(lang, mode);
   const image = `${siteUrl}/og-image.png`;
   const alternates = seo.langs
-    .map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l)}" />`)
-    .concat(`<link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang)}" />`)
+    .map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l, mode)}" />`)
+    .concat(`<link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang, mode)}" />`)
     .join('\n    ');
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -93,19 +97,20 @@ function head(lang) {
     <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`;
 }
 
-function page(lang) {
+function page(lang, mode) {
   const html = template
-    .replace(/<html lang="[^"]*"/, `<html lang="${lang}"`)
-    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, head(lang))
-    .replace('<!--app-html-->', render(lang));
+    .replace(/<html lang="[^"]*"/, `<html lang="${lang}" data-mode="${mode}"`)
+    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, head(lang, mode))
+    .replace('<!--app-html-->', render(lang, mode));
   if (html.includes('<!--head:start-->')) throw new Error('head markers were not replaced');
   return html;
 }
 
-for (const lang of seo.langs) {
-  const dir = lang === seo.defaultLang ? dist : path.join(dist, lang);
+const pages = seo.langs.flatMap((lang) => seo.modes.map((mode) => ({ lang, mode })));
+for (const { lang, mode } of pages) {
+  const dir = path.join(dist, pagePath(lang, mode));
   await mkdir(dir, { recursive: true });
-  await writeFile(path.join(dir, 'index.html'), page(lang));
+  await writeFile(path.join(dir, 'index.html'), page(lang, mode));
   console.log(`  prerendered ${path.relative(root, path.join(dir, 'index.html'))}`);
 }
 
@@ -132,7 +137,7 @@ await writeFile(
       <p><span class="a">visitor@automariza</span><span class="d">:~$</span> cd <span id="p"></span></p>
       <p class="e">404 · process not found</p>
       <p class="d">The page you asked for is not running on this system.</p>
-      <p><a href="${base}">cd ~ — back to ${esc(seo.site.systemName)}</a> · <a href="${base}es/">versión en español</a></p>
+      <p><a href="${base}">cd ~ — back to ${esc(seo.site.systemName)}</a> · <a href="${base}es/">versión en español</a> · <a href="${base}es/lite/">versión sencilla</a></p>
     </main>
     <script>document.getElementById('p').textContent = location.pathname;</script>
   </body>
@@ -143,13 +148,13 @@ await writeFile(
 const today = new Date().toISOString().slice(0, 10);
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${seo.langs
+${pages
   .map(
-    (lang) => `  <url>
-    <loc>${pageUrl(lang)}</loc>
+    ({ lang, mode }) => `  <url>
+    <loc>${pageUrl(lang, mode)}</loc>
     <lastmod>${today}</lastmod>
-${seo.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${pageUrl(l)}" />`).join('\n')}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang)}" />
+${seo.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${pageUrl(l, mode)}" />`).join('\n')}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang, mode)}" />
   </url>`,
   )
   .join('\n')}

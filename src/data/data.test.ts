@@ -3,10 +3,16 @@ import { projects } from './projects';
 import { stackCategories, tech } from './stack';
 import { networkEdges, networkNodes } from './network';
 import { sections } from './navigation';
+import { examples } from './lite';
 import { ui } from '../i18n/ui';
 import { LANGS } from '../i18n/types';
 
 describe('content integrity', () => {
+  it('simple-version examples point to real projects', () => {
+    const ids = new Set(projects.map((p) => p.id));
+    for (const e of examples) expect(ids.has(e.project), e.project).toBe(true);
+  });
+
   it('projects have unique ids and pids', () => {
     expect(new Set(projects.map((p) => p.id)).size).toBe(projects.length);
     expect(new Set(projects.map((p) => p.pid)).size).toBe(projects.length);

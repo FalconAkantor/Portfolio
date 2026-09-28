@@ -17,7 +17,7 @@ export function Stack() {
 
   const toggle = (id: TechId) => setSelected((cur) => (cur === id ? null : id));
   const open = (id: ProjectId) => {
-    emit('nacho:open-project', { id });
+    emit('automariza:open-project', { id });
     scrollToSection('projects');
   };
 

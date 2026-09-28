@@ -4,7 +4,7 @@ import { useI18n } from '../../i18n/context';
 import { emit } from '../../lib/events';
 import { scrollToSection } from '../../lib/scroll';
 import { boot } from '../../lib/boot';
-import { pathForLang } from '../../i18n/routing';
+import { pathFor } from '../../i18n/routing';
 import { STORAGE_KEYS, writeStorage } from '../../lib/storage';
 import { SESSION_START } from '../../hooks/useSessionClock';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -56,7 +56,7 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
             setEntries([]);
             break;
           case 'open-project':
-            emit('nacho:open-project', { id: effect.id });
+            emit('automariza:open-project', { id: effect.id });
             scrollToSection('projects', false);
             onNavigate?.();
             break;
@@ -66,7 +66,7 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
             break;
           case 'lang':
             writeStorage(STORAGE_KEYS.lang, effect.lang);
-            if (effect.lang !== lang) window.location.assign(pathForLang(effect.lang) + window.location.hash);
+            if (effect.lang !== lang) window.location.assign(pathFor(effect.lang, 'tech') + window.location.hash);
             break;
           case 'reboot':
             onNavigate?.();

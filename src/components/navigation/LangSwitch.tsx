@@ -1,25 +1,27 @@
 import type { MouseEvent } from 'react';
 import { useI18n } from '../../i18n/context';
-import { pathForLang } from '../../i18n/routing';
+import { pathFor } from '../../i18n/routing';
+import { useMode } from '../../lib/mode';
 import { STORAGE_KEYS, writeStorage } from '../../lib/storage';
 import type { Lang } from '../../i18n/types';
 
-/** Real link to the other prerendered language page; keeps the current section hash. */
+/** Real link to the other prerendered language page, in the same mode; keeps the section hash. */
 export function LangSwitch({ className = '' }: { className?: string }) {
   const { lang, t } = useI18n();
+  const mode = useMode();
   const other: Lang = lang === 'en' ? 'es' : 'en';
 
   const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
     writeStorage(STORAGE_KEYS.lang, other);
     if (event.metaKey || event.ctrlKey || event.shiftKey) return;
     event.preventDefault();
-    window.location.assign(pathForLang(other) + window.location.hash);
+    window.location.assign(pathFor(other, mode) + window.location.hash);
   };
 
   return (
     <a
       className={`lang-switch mono ${className}`}
-      href={pathForLang(other)}
+      href={pathFor(other, mode)}
       hrefLang={other}
       lang={other}
       onClick={onClick}

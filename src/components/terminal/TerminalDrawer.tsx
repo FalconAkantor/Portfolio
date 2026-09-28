@@ -27,7 +27,7 @@ export function TerminalDrawer() {
     returnFocus.current?.focus({ preventScroll: true });
   }, []);
 
-  useEffect(() => listen('nacho:terminal', ({ open: next }) => (next ? show() : hide())), [show, hide]);
+  useEffect(() => listen('automariza:terminal', ({ open: next }) => (next ? show() : hide())), [show, hide]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

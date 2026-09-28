@@ -1,0 +1,338 @@
+/* ── Pipeline flow ─────────────────────────────────────────────── */
+.flow {
+  --node: 9px;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  position: relative;
+}
+
+.flow__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  padding-bottom: 18px;
+}
+
+/* Connector line (vertical layout) */
+.flow__step::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: -2px;
+  left: 10px;
+  width: 1px;
+  background: var(--line-2);
+}
+
+.flow__step:last-child::before {
+  display: none;
+}
+
+.flow__node {
+  position: relative;
+  z-index: 1;
+  width: var(--node);
+  height: var(--node);
+  margin: 6px 0 0 6px;
+  border: 1px solid var(--text-faint);
+  background: var(--void);
+  transform: rotate(45deg);
+  animation: flow-node var(--cycle) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.flow__body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.flow__label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--step--1);
+  color: var(--text);
+  animation: flow-label var(--cycle) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.flow__num {
+  color: var(--text-faint);
+  font-size: var(--step--2);
+}
+
+.flow__detail {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.flow.is-paused .flow__node,
+.flow.is-paused .flow__label {
+  animation-play-state: paused;
+}
+
+@keyframes flow-node {
+  0%,
+  100% {
+    border-color: var(--text-faint);
+    background: var(--void);
+    box-shadow: none;
+  }
+  3%,
+  12% {
+    border-color: var(--flow);
+    background: var(--flow);
+    box-shadow: 0 0 12px var(--flow-glow);
+  }
+  22% {
+    border-color: var(--text-faint);
+    background: var(--void);
+    box-shadow: none;
+  }
+}
+
+@keyframes flow-label {
+  0%,
+  100% {
+    color: var(--text);
+  }
+  3%,
+  12% {
+    color: var(--flow);
+  }
+  22% {
+    color: var(--text);
+  }
+}
+
+/* Horizontal layout when there is room */
+@media (min-width: 900px) {
+  .flow--auto {
+    grid-template-columns: repeat(var(--steps), minmax(0, 1fr));
+  }
+
+  .flow--auto .flow__step {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 0 14px 0 0;
+  }
+
+  .flow--auto .flow__step::before {
+    top: 10px;
+    bottom: auto;
+    left: 16px;
+    right: 0;
+    width: auto;
+    height: 1px;
+  }
+
+  .flow--auto .flow__step:last-child::before {
+    display: none;
+  }
+
+  .flow--auto .flow__node {
+    margin: 6px 0 0 6px;
+  }
+}
+
+/* ── Integration graph ─────────────────────────────────────────── */
+.netwrap {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 1100px) {
+  .netwrap {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: start;
+  }
+}
+
+.netwrap__legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend::before {
+  content: '';
+  width: 16px;
+  height: 0;
+  border-top: 1px solid var(--flow);
+}
+
+.legend--watch::before {
+  border-top: 1px dashed var(--signal);
+}
+
+.netwrap__svg {
+  padding: clamp(8px, 2vw, 20px);
+}
+
+.net {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-mono);
+}
+
+.net--tall {
+  display: none;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+@media (max-width: 719px) {
+  .net--wide {
+    display: none;
+  }
+
+  .net--tall {
+    display: block;
+  }
+
+  .netwrap__legend {
+    display: none;
+  }
+}
+
+.net__edge {
+  fill: none;
+  stroke: var(--line-2);
+  stroke-width: 1;
+  transition:
+    stroke var(--dur-med),
+    opacity var(--dur-med);
+}
+
+.net__edge--watch {
+  stroke-dasharray: 3 5;
+}
+
+.net__edge.is-hot {
+  stroke: var(--flow);
+  opacity: 0.8;
+}
+
+.net__edge--watch.is-hot {
+  stroke: var(--signal);
+}
+
+.net__packet {
+  fill: var(--flow);
+  opacity: 0.55;
+}
+
+.net__packet.is-hot {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px var(--flow-glow));
+}
+
+.net__node {
+  cursor: pointer;
+  outline: none;
+}
+
+.net__node rect {
+  fill: var(--surface);
+  stroke: var(--line-2);
+  stroke-width: 1;
+  transition:
+    stroke var(--dur-fast),
+    fill var(--dur-fast);
+}
+
+.net__node text {
+  fill: var(--text-dim);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  transition: fill var(--dur-fast);
+}
+
+.net--tall .net__node text {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.net__led {
+  fill: var(--text-faint);
+}
+
+.net__node--input .net__led,
+.net__node--output .net__led {
+  fill: var(--flow);
+}
+
+.net__node--core .net__led {
+  fill: var(--signal);
+}
+
+.net__node--store .net__led {
+  fill: var(--ok);
+}
+
+.net__node--watch .net__led {
+  fill: var(--signal);
+}
+
+.net__node--core rect {
+  stroke: var(--text-faint);
+}
+
+.net__node.is-linked rect {
+  stroke: var(--flow);
+}
+
+.net__node.is-linked text {
+  fill: var(--text);
+}
+
+.net__node.is-active rect {
+  fill: var(--surface-3);
+  stroke: var(--signal);
+}
+
+.net__node.is-active text {
+  fill: var(--text);
+}
+
+.net__node:focus-visible rect {
+  stroke: var(--signal);
+  stroke-width: 2;
+}
+
+.netinfo__role {
+  color: var(--signal);
+}
+
+.netinfo__body {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.netinfo__name {
+  font-size: var(--step-1);
+  font-stretch: 115%;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.netinfo__desc {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+.netinfo__hint {
+  color: var(--text-faint);
+  font-size: var(--step--2);
+}

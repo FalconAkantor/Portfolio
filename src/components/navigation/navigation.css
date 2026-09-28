@@ -1,0 +1,338 @@
+/* ── Status bar ─────────────────────────────────────────────────── */
+.statusbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: var(--bar-height);
+  padding: 0 max(12px, env(safe-area-inset-left)) 0 max(14px, env(safe-area-inset-left));
+  background: rgb(5 7 10 / 0.82);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px) saturate(1.2);
+  font-size: var(--step--2);
+}
+
+.statusbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.statusbar__mark {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--signal);
+  background: linear-gradient(135deg, var(--signal) 0 50%, transparent 50%);
+}
+
+.statusbar__version {
+  color: var(--text-faint);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.statusbar__path {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-dim);
+}
+
+.statusbar__user {
+  color: var(--signal);
+}
+
+.statusbar__dim {
+  color: var(--text-faint);
+}
+
+.statusbar__node {
+  color: var(--text);
+}
+
+.statusbar__right {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.statusbar__cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--bar-height);
+  padding: 0 14px;
+  border-left: 1px solid var(--line);
+  color: var(--text-dim);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusbar__term {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: var(--bar-height);
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  transition: background var(--dur-fast);
+}
+
+.statusbar__term:hover {
+  background: var(--signal-soft);
+}
+
+.lang-switch {
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-faint);
+}
+
+.lang-switch .is-on {
+  color: var(--text);
+}
+
+.lang-switch:hover {
+  color: var(--text-dim);
+}
+
+@media (max-width: 1279px) {
+  .statusbar__cell--wide {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .statusbar__path,
+  .statusbar__cell--status {
+    display: none;
+  }
+
+  .statusbar {
+    justify-content: space-between;
+  }
+
+  /* The terminal lives in the mobile dock. */
+  .statusbar__term {
+    display: none;
+  }
+}
+
+/* ── System tree ────────────────────────────────────────────────── */
+.tree {
+  font-size: var(--step--1);
+}
+
+.tree__root {
+  margin-bottom: 10px;
+  color: var(--signal);
+  letter-spacing: 0.1em;
+  font-size: var(--step--2);
+}
+
+.tree__list {
+  list-style: none;
+}
+
+.tree__item a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding-right: 8px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color var(--dur-fast);
+}
+
+.tree__branch {
+  color: var(--text-faint);
+}
+
+.tree__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.tree__item a:hover {
+  color: var(--text);
+}
+
+.tree__item.is-active a {
+  color: var(--signal);
+}
+
+.tree__item.is-active .tree__node::after {
+  content: '  ◂';
+  color: var(--signal);
+}
+
+/* Desktop rail */
+.rail {
+  position: fixed;
+  top: var(--bar-height);
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: var(--rail-width);
+  padding: 28px 20px 22px 22px;
+  border-right: 1px solid var(--line);
+  background: rgb(5 7 10 / 0.6);
+}
+
+.rail__foot {
+  display: grid;
+  gap: 6px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.rail__foot kbd {
+  padding: 0 5px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  font-family: inherit;
+  color: var(--text-dim);
+}
+
+@media (min-width: 1100px) {
+  .rail {
+    display: flex;
+  }
+}
+
+/* ── Mobile dock ────────────────────────────────────────────────── */
+.dock {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 110;
+}
+
+@media (min-width: 1100px) {
+  .dock {
+    display: none;
+  }
+}
+
+.dock__scrim {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgb(0 0 0 / 0.55);
+  cursor: default;
+}
+
+.dock__sheet {
+  position: relative;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 20px 20px 12px;
+  border-top: 1px solid var(--line-2);
+  background: var(--surface);
+  animation: drawer-in var(--dur-med) var(--ease-out);
+}
+
+.dock__sheet .tree__item a {
+  min-height: 44px;
+  font-size: 0.95rem;
+}
+
+.dock__sheet .tree__label {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  margin-left: auto;
+  color: var(--text-faint);
+  font-size: var(--step--1);
+}
+
+.dock__bar {
+  position: relative;
+  display: flex;
+  border-top: 1px solid var(--line-2);
+  background: rgb(5 7 10 / 0.92);
+  backdrop-filter: blur(10px);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.dock__toggle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-align: left;
+}
+
+.dock__tilde {
+  color: var(--text-faint);
+}
+
+.dock__node {
+  color: var(--signal);
+}
+
+.dock__caret {
+  margin-left: auto;
+  color: var(--text-dim);
+}
+
+.dock__term {
+  width: 60px;
+  border: 0;
+  border-left: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+}
+
+/* ── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: clamp(5rem, 4rem + 4vw, 8rem);
+  padding: 22px 0 28px;
+  border-top: 1px solid var(--line);
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}
+
+.footer__name {
+  color: var(--signal);
+}
+
+.footer__dim {
+  color: var(--text-faint);
+}

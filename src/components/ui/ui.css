@@ -1,0 +1,281 @@
+/* ── Pane: one module of the system ─────────────────────────────── */
+.pane {
+  position: relative;
+  padding-block: clamp(4.5rem, 3rem + 6vw, 8.5rem) 0;
+}
+
+.pane__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.pane__tilde {
+  color: var(--text-faint);
+}
+
+.pane__path {
+  color: var(--signal);
+}
+
+.pane__path .pane__tilde + * {
+  color: inherit;
+}
+
+.pane__rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--line-2), transparent);
+}
+
+.pane__meta {
+  color: var(--text-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pane__head {
+  display: grid;
+  gap: 1.1rem;
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+}
+
+.pane__title {
+  max-width: 22ch;
+  font-size: var(--step-3);
+  font-stretch: 112%;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.pane__lead {
+  max-width: var(--measure);
+  color: var(--text-dim);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.65;
+}
+
+/* ── Panel: framed instrument surface ───────────────────────────── */
+.panel {
+  position: relative;
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+/* Corner ticks — the "instrument" frame, drawn only on panels that ask for it. */
+.panel--ticks::before,
+.panel--ticks::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--line-2);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.panel--ticks::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+  border-color: var(--signal);
+}
+
+.panel--ticks::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+.panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--text-dim);
+}
+
+.panel__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: inherit;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+/* ── Subheading inside sections ─────────────────────────────────── */
+.subhead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 1rem;
+  font-size: var(--step-1);
+  font-stretch: 108%;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.subhead::before {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 1px;
+  background: var(--signal);
+  transform: translateY(-0.3em);
+}
+
+/* ── LED ────────────────────────────────────────────────────────── */
+.led {
+  display: inline-block;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 0 3px rgb(82 209 142 / 0.12);
+}
+
+.led--signal {
+  background: var(--signal);
+  box-shadow: 0 0 0 3px var(--signal-soft);
+}
+
+.led--flow {
+  background: var(--flow);
+  box-shadow: 0 0 0 3px var(--flow-soft);
+}
+
+.led--rec {
+  background: var(--rec);
+  box-shadow: 0 0 0 3px rgb(239 91 76 / 0.14);
+}
+
+.led--idle {
+  background: var(--text-faint);
+  box-shadow: none;
+}
+
+.led--pulse {
+  animation: led-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* ── Chip ───────────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 2px 9px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text-dim);
+  font-size: var(--step--2);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.chip--button {
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.chip--button:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.chip.is-active {
+  color: var(--void);
+  background: var(--flow);
+  border-color: var(--flow);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    background var(--dur-fast),
+    color var(--dur-fast),
+    border-color var(--dur-fast);
+}
+
+.btn:hover {
+  border-color: var(--text-dim);
+  color: var(--text);
+}
+
+.btn--primary {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--void);
+}
+
+.btn--primary:hover {
+  background: #ffc063;
+  border-color: #ffc063;
+  color: var(--void);
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn__key {
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-s);
+  font-size: var(--step--2);
+  opacity: 0.7;
+}
+
+/* Cursor-follow spotlight used by interactive surfaces (set via --mx / --my). */
+.spotlight {
+  --mx: 50%;
+  --my: 50%;
+  background-image: radial-gradient(420px circle at var(--mx) var(--my), rgb(242 169 59 / 0.06), transparent 60%);
+}

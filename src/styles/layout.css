@@ -1,0 +1,27 @@
+.shell {
+  width: 100%;
+  max-width: calc(var(--content-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: calc(var(--bar-height) + 12px) var(--gutter) calc(72px + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1100px) {
+  .shell {
+    max-width: calc(var(--content-max) + var(--rail-width) + 2 * var(--gutter));
+    padding-left: calc(var(--rail-width) + var(--gutter));
+    padding-bottom: 0;
+  }
+}
+
+.main:focus {
+  outline: none;
+}
+
+.main > section {
+  scroll-margin-top: calc(var(--bar-height) + 8px);
+}
+
+/* The drawer's own close button replaces the shell label. */
+.term-drawer .term__shell {
+  visibility: hidden;
+}

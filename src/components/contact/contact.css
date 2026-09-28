@@ -1,0 +1,210 @@
+.brief {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+@media (min-width: 1000px) {
+  .brief {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: start;
+  }
+
+  .brief__preview {
+    position: sticky;
+    top: calc(var(--bar-height) + 20px);
+  }
+}
+
+.brief__fields {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.brief__types {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.brief__label {
+  display: block;
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+  font-stretch: 105%;
+}
+
+.brief__opt {
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+.brief__hint {
+  margin: -4px 0 8px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.brief__type-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.brief__type {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  color: var(--text-dim);
+  font-size: var(--step--1);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast),
+    border-color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.brief__type input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.brief__type:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.brief__type.is-on {
+  color: var(--void);
+  background: var(--flow);
+  border-color: var(--flow);
+}
+
+.brief__type:has(input:focus-visible) {
+  outline: 1px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.brief__field textarea,
+.brief__field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color var(--dur-fast);
+}
+
+.brief__field textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.brief__field textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.brief__field textarea:focus,
+.brief__field input:focus {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px var(--signal-soft);
+}
+
+.brief__field textarea[aria-invalid='true'] {
+  border-color: var(--rec);
+}
+
+.brief__error {
+  margin-top: 8px;
+  font-size: var(--step--1);
+  color: var(--rec);
+}
+
+.brief__row {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 600px) {
+  .brief__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.brief__ticket {
+  margin: 0;
+  padding: 16px;
+  min-height: 12rem;
+  max-height: 22rem;
+  overflow: auto;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.brief__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0 16px 14px;
+}
+
+.brief__status {
+  min-height: 1.5em;
+  padding: 0 16px 14px;
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}
+
+/* Channels */
+.channels {
+  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+}
+
+.channels__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 8px;
+}
+
+.channels__link {
+  display: grid;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.channels__link:hover {
+  border-color: var(--flow);
+  background: var(--flow-soft);
+  color: var(--text);
+}
+
+.channels__label {
+  font-size: var(--step--2);
+  color: var(--flow);
+}
+
+.channels__value {
+  overflow-wrap: anywhere;
+}

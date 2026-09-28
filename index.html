@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070a" />
+    <meta name="color-scheme" content="dark" />
+    <!--head:start-->
+    <title>Nacho · AI, automation & systems developer</title>
+    <meta name="description" content="Nacho (Akantor) — AI, automation and systems." />
+    <!--head:end-->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      /*
+       * Runs before first paint:
+       *  1. Sends Spanish-speaking first-time visitors of the English root to /es/
+       *     (never the other way round, so shared /es/ links always work).
+       *  2. Shows the boot sequence on a first visit, unless reduced motion is requested.
+       *     A fallback timer removes it if the app bundle never starts.
+       */
+      (function () {
+        var d = document.documentElement;
+        try {
+          var s = window.localStorage;
+          var base = '%BASE_URL%';
+          var pref = s.getItem('nacho.sys:lang');
+          var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+          var onRoot = d.lang === 'en' && location.pathname.replace(/index\.html$/, '') === base;
+          if (onRoot && (pref === 'es' || (!pref && /^es\b/i.test(nav)))) {
+            location.replace(base + 'es/' + location.hash);
+            return;
+          }
+          var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (!s.getItem('nacho.sys:booted') && !reduce) {
+            d.classList.add('booting');
+            setTimeout(function () {
+              if (!window.__nachoBootStarted) d.classList.remove('booting');
+            }, 4000);
+          }
+        } catch (e) {
+          /* storage blocked: no boot sequence, no redirect */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <noscript>
+      <style>
+        .hero__line, .hero__readout li { animation: none !important; }
+      </style>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,212 @@
+.feeds {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .feeds {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.feed {
+  margin: 0;
+  overflow: hidden;
+}
+
+.feed__frame {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Faint scanlines — the only "screen" effect on the page. */
+.feed__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.018) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+.feed__svg {
+  width: 100%;
+  height: auto;
+  font-family: var(--font-mono);
+}
+
+.feed__floor line {
+  stroke: #1a2430;
+  stroke-width: 1;
+}
+
+.feed__horizon {
+  stroke: #243142 !important;
+}
+
+.walker__shape {
+  fill: #2a3644;
+}
+
+.det {
+  fill: none;
+  stroke: var(--flow);
+  stroke-width: 1.2;
+}
+
+.det__label {
+  fill: var(--flow);
+  font-size: 10px;
+}
+
+.walker--a {
+  animation: walk-a 11s linear infinite;
+}
+
+.walker--b {
+  animation: walk-b 15s linear infinite;
+  animation-delay: -4s;
+}
+
+@keyframes walk-a {
+  from {
+    transform: translateX(-40px);
+  }
+  to {
+    transform: translateX(520px);
+  }
+}
+
+@keyframes walk-b {
+  from {
+    transform: translateX(520px);
+  }
+  to {
+    transform: translateX(-40px);
+  }
+}
+
+.feed__hud text {
+  fill: var(--text-dim);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.feed__corners {
+  fill: none;
+  stroke: var(--text-faint);
+  stroke-width: 1;
+}
+
+.feed__rec {
+  fill: var(--rec);
+  animation: led-pulse 1.6s ease-in-out infinite;
+}
+
+.feed__wa {
+  fill: var(--ok);
+}
+
+/* Shelf audit */
+.shelf__plank {
+  fill: #1b2531;
+}
+
+.shelf__box {
+  fill: #18212c;
+  stroke: #243142;
+}
+
+.shelf__code rect {
+  fill: #6b7785;
+}
+
+.det--shelf {
+  opacity: 0;
+  animation: detect 7.2s var(--ease-out) infinite;
+  animation-delay: calc(var(--i) * 0.28s);
+}
+
+@keyframes detect {
+  0%,
+  4% {
+    opacity: 0;
+  }
+  8%,
+  82% {
+    opacity: 1;
+  }
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.shelf__gap {
+  fill: none;
+  stroke: var(--signal);
+  stroke-dasharray: 4 3;
+  opacity: 0;
+  animation: detect 7.2s var(--ease-out) infinite;
+  animation-delay: calc(var(--i) * 0.28s);
+}
+
+.shelf__gap-label {
+  fill: var(--signal);
+  font-size: 16px;
+  opacity: 0;
+  animation: detect 7.2s var(--ease-out) infinite;
+  animation-delay: calc(var(--i) * 0.28s);
+}
+
+.feeds.is-paused *,
+.feeds.is-paused *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walker--a {
+    transform: translateX(150px);
+  }
+
+  .walker--b {
+    transform: translateX(340px);
+  }
+
+  .det--shelf,
+  .shelf__gap,
+  .shelf__gap-label {
+    opacity: 1;
+  }
+}
+
+.feed__caption {
+  display: grid;
+  gap: 14px;
+  padding: 14px 16px 16px;
+}
+
+.feed__link {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--flow);
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.feed__link:hover {
+  color: var(--text);
+}
+
+.feed__link-name {
+  color: var(--text-dim);
+}
+
+.feeds__note {
+  margin-top: 12px;
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}

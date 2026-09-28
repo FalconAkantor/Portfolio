@@ -1,0 +1,67 @@
+# git push → GitHub Actions → npm ci → lint · typecheck · test → build → GitHub Pages
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push supersedes a queued one but never cancels one in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build (typecheck + client + prerender)
+        run: npm run build
+        env:
+          # e.g. "/Portfolio/" for a project page, "/" for a custom domain or <user>.github.io
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+          # e.g. "https://falconakantor.github.io/Portfolio" — used for canonical URLs, sitemap, Open Graph
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

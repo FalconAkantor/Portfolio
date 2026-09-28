@@ -1,0 +1,127 @@
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gutter);
+  background-color: var(--void);
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+html.booting .boot {
+  display: flex;
+}
+
+html.booting body {
+  overflow: hidden;
+}
+
+.boot--closing {
+  animation: boot-out 420ms var(--ease-out) forwards;
+}
+
+@keyframes boot-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.boot__frame {
+  width: min(560px, 100%);
+  font-size: clamp(0.8rem, 0.74rem + 0.3vw, 0.95rem);
+}
+
+.boot__head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-2);
+  color: var(--text-dim);
+}
+
+.boot__head span:first-child {
+  color: var(--signal);
+}
+
+.boot__lines {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  min-height: calc(8 * 1.6em + 7 * 6px);
+}
+
+.boot__line {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 180ms var(--ease-out),
+    transform 180ms var(--ease-out);
+}
+
+.boot__line.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.boot__line--plain {
+  color: var(--signal);
+}
+
+.boot__line--plain:last-child {
+  margin-top: 10px;
+  color: var(--ok);
+  letter-spacing: 0.08em;
+}
+
+.boot__ok {
+  color: var(--ok);
+}
+
+.boot__progress {
+  height: 1px;
+  margin-top: 26px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+
+.boot__progress span {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transform-origin: left;
+  transition: transform 220ms linear;
+}
+
+.boot__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  color: var(--text-faint);
+  font-size: var(--step--2);
+}
+
+.boot__skip {
+  padding: 6px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+}
+
+.boot__skip:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+}

@@ -133,23 +133,24 @@
     background var(--dur-fast);
 }
 
-.lguide__pill:hover {
-  border-color: var(--line-2);
-  color: var(--text);
+/* Hover only where there is a real hover (on touch it would stick to the last tapped step). */
+@media (hover: hover) {
+  .lguide__pill:not(.is-on):hover {
+    border-color: var(--line-2);
+    color: var(--text);
+  }
 }
 
-.lguide__pill.is-done {
-  color: var(--text-dim);
-}
-
-.lguide__pill.is-done .lguide__n {
-  color: var(--ok);
-}
-
+/* Exactly one highlighted step: the current one. */
 .lguide__pill.is-on {
   border-color: var(--signal);
-  background: linear-gradient(180deg, var(--signal-soft), transparent);
-  color: var(--text);
+  background: var(--signal);
+  color: var(--void);
+}
+
+.lguide__pill:focus-visible {
+  outline: 2px solid var(--flow);
+  outline-offset: 2px;
 }
 
 .lguide__n {
@@ -158,7 +159,8 @@
 }
 
 .lguide__pill.is-on .lguide__n {
-  color: var(--signal);
+  color: var(--void);
+  font-weight: 600;
 }
 
 .lguide__pill-title {
@@ -172,7 +174,7 @@
   right: 0;
   bottom: 0;
   height: 3px;
-  background: var(--signal);
+  background: rgb(5 7 10 / 0.55);
   transform: scaleX(0);
   transform-origin: left;
 }

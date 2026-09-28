@@ -92,7 +92,7 @@ function Player({ steps, project, name }: { steps: GuideStep[]; project: Project
           <li key={i}>
             <button
               type="button"
-              className={`lguide__pill${i === index ? ' is-on' : ''}${i < index ? ' is-done' : ''}`}
+              className={`lguide__pill${i === index ? ' is-on' : ''}`}
               aria-current={i === index ? 'step' : undefined}
               onClick={() => go(i)}
             >

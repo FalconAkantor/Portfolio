@@ -175,3 +175,9 @@ ol {
     justify-content: center;
   }
 }
+
+/* Snapped to dust (lib/snap.ts): a canvas copy stands in while the real element fades. */
+.is-snapped {
+  opacity: 0 !important;
+  transition: opacity 180ms linear !important;
+}

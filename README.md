@@ -32,7 +32,16 @@ La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió l
 | `about` | Perfil, principios y ciclo idea → producción |
 | `contact` | Email y WhatsApp directos (solo mensajes, sin llamadas). Sin formularios |
 
-**Terminal:** `help`, `brand`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
+**Terminal:** `help`, `brand`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `snap`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
+
+**Efectos de la versión tech:**
+- **Titular tecleado:** «Construyo / sistemas / que piensan.» se escribe tecla a tecla, con el cursor avanzando. Es CSS puro, funciona en el HTML prerenderizado y espera a que se cierre el selector o el boot. Una vez escrito, cada pocos segundos (y al pasar el ratón) el titular se «rasga» como si saltara a otro universo: copias en cian y rojo desplazadas por franjas.
+- **El chasquido (polvo):** `src/lib/snap.ts` es un motor propio de desintegración. Repinta los elementos en un canvas leyendo sus estilos (cajas, bordes, texto, imágenes), los sustituye por esa copia y la deshace en partículas que se lleva el viento, en barrido y a grumos. También funciona al revés (el polvo vuelve y lo reconstruye). Se usa en:
+  - el cierre del **boot** (el log se convierte en polvo);
+  - **Manual → Automatizado**: el trabajo hecho por personas se desintegra y entra el sistema;
+  - el paso de **tech → sencilla**: la pantalla entera se deshace antes de cambiar;
+  - el comando **`snap`** de la terminal: medio sistema desaparece y, tras unos segundos, vuelve.
+- Con `prefers-reduced-motion` no hay tecleo, grietas ni polvo: todo aparece directamente.
 
 ---
 
@@ -119,6 +128,7 @@ src/
 │   ├── boot.ts             ← controlador de la secuencia de arranque
 │   ├── graph.ts            ← geometría del mapa de integración
 │   ├── mode.tsx            ← versión activa (tech / sencilla)
+│   ├── snap.ts             ← motor de desintegración en polvo (canvas)
 │   ├── contact.ts          ← canales, formato del teléfono, enlace wa.me
 │   └── …                   ← storage seguro, eventos, formato, scroll
 ├── hooks/                  ← reloj de sesión, reduced-motion, in-view, sección activa

@@ -10,6 +10,7 @@ import { SESSION_START } from '../../hooks/useSessionClock';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 import { useInView } from '../../hooks/useInView';
 import { site } from '../../config/site';
+import { balance } from '../../lib/snap';
 import './terminal.css';
 
 interface Entry extends TermLine {
@@ -27,7 +28,7 @@ interface TerminalProps {
 }
 
 const PROMPT_USER = `visitor@${site.systemName.toLowerCase()}`;
-const QUICK = ['help', 'projects', 'stack', 'ai', 'contact'] as const;
+const QUICK = ['help', 'projects', 'stack', 'contact', 'snap'] as const;
 const DEMO_COMMAND = 'projects';
 
 let keySeed = 0;
@@ -68,6 +69,11 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
             writeStorage(STORAGE_KEYS.lang, effect.lang);
             if (effect.lang !== lang) window.location.assign(pathFor(effect.lang, 'tech') + window.location.hash);
             break;
+          case 'snap':
+            onNavigate?.();
+            // Let a drawer slide away first, so it is not part of the dust.
+            if (!reducedMotion) window.setTimeout(() => void balance(), variant === 'drawer' ? 380 : 120);
+            break;
           case 'reboot':
             onNavigate?.();
             boot.start({ instant: reducedMotion });
@@ -75,7 +81,7 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
         }
       }
     },
-    [lang, onNavigate, reducedMotion],
+    [lang, onNavigate, reducedMotion, variant],
   );
 
   const execute = useCallback(

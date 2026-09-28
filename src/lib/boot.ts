@@ -1,5 +1,6 @@
 import { bootLines } from '../data/boot';
 import { STORAGE_KEYS, writeStorage } from './storage';
+import { SNAPPED, canSnap, snap } from './snap';
 
 /**
  * Boot sequence controller — a tiny external store.
@@ -65,11 +66,15 @@ export const boot = {
   finish() {
     if (state.phase === 'off') return;
     clearTimers();
+    // The boot log turns to dust and blows away while the overlay fades out.
+    const frame = document.querySelector('.boot__frame');
+    if (frame && canSnap()) void snap([frame], { duration: 1900 });
     set({ phase: 'closing', shown: bootLines.length });
     writeStorage(STORAGE_KEYS.booted, '1');
     timers.push(
       window.setTimeout(() => {
         document.documentElement.classList.remove('booting');
+        frame?.classList.remove(SNAPPED);
         set(OFF);
       }, FADE),
     );

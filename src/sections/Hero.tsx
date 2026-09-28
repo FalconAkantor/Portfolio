@@ -3,6 +3,7 @@ import { site } from '../config/site';
 import { useI18n } from '../i18n/context';
 import { scrollToSection } from '../lib/scroll';
 import { ParticleField } from '../components/hero/ParticleField';
+import { TypedHeadline } from '../components/hero/TypedHeadline';
 import { Terminal } from '../components/terminal/Terminal';
 import { Wordmark } from '../components/ui/Wordmark';
 import './hero.css';
@@ -26,14 +27,7 @@ export function Hero() {
 
       <h1 id="boot-title" className="hero__title">
         <span className="sr-only">{t.hero.headlineA11y}</span>
-        <span className="hero__lines" aria-hidden="true">
-          {t.hero.headline.map((lineText, i) => (
-            <span key={lineText} className="hero__line" style={{ ['--i' as string]: i }}>
-              {lineText}
-              {i === t.hero.headline.length - 1 ? <span className="hero__cursor" /> : null}
-            </span>
-          ))}
-        </span>
+        <TypedHeadline lines={t.hero.headline} />
       </h1>
 
       <div className="hero__grid">

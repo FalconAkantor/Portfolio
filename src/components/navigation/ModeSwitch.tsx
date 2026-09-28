@@ -3,6 +3,7 @@ import { useI18n } from '../../i18n/context';
 import { pathFor } from '../../i18n/routing';
 import { useMode, type Mode } from '../../lib/mode';
 import { STORAGE_KEYS, writeStorage } from '../../lib/storage';
+import { canSnap, snap, visibleBlocks } from '../../lib/snap';
 import './navigation.css';
 
 /** Top-right switch between the tech and the simple version. Plain links, so it works without JS. */
@@ -18,7 +19,15 @@ export function ModeSwitch({ className = '' }: { className?: string }) {
     }
     if (event.metaKey || event.ctrlKey || event.shiftKey) return;
     event.preventDefault();
-    window.location.assign(pathFor(lang, target));
+    const href = pathFor(lang, target);
+    // Leaving the tech version: the whole screen disintegrates first.
+    if (mode === 'tech' && canSnap()) {
+      const blocks = visibleBlocks([document.querySelector('.statusbar'), document.querySelector('.rail'), document.querySelector('main')]);
+      void snap(blocks, { duration: 1700 });
+      window.setTimeout(() => window.location.assign(href), 1350);
+      return;
+    }
+    window.location.assign(href);
   };
 
   return (

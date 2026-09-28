@@ -28,7 +28,8 @@ export type TermEffect =
   | { type: 'open-project'; id: ProjectId }
   | { type: 'navigate'; section: SectionId }
   | { type: 'lang'; lang: Lang }
-  | { type: 'reboot' };
+  | { type: 'reboot' }
+  | { type: 'snap' };
 
 export interface TermContext {
   lang: Lang;
@@ -202,6 +203,11 @@ const commands: Command[] = [
       if (!isLang(wanted)) return result([line(t.terminal.langUsage, 'error')]);
       return result([line(t.terminal.langSwitch(wanted), 'ok')], [{ type: 'lang', lang: wanted }]);
     },
+  },
+  {
+    name: 'snap',
+    aliases: ['thanos', 'balance'],
+    run: (_a, { t }) => result(t.terminal.snap.map((text, i) => line(text, i === 0 ? 'accent' : 'dim')), [{ type: 'snap' }]),
   },
   { name: 'reboot', aliases: ['restart'], run: (_a, { t }) => result([line(t.terminal.rebooting, 'accent')], [{ type: 'reboot' }]) },
   { name: 'clear', aliases: ['cls'], run: () => result([], [{ type: 'clear' }]) },

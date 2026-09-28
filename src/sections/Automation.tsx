@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { canSnap, snap } from '../lib/snap';
 import { Pane } from '../components/ui/Pane';
 import { automationFlows } from '../data/automation';
 import { orderIntake } from '../data/manifesto';
@@ -13,6 +14,24 @@ export function Automation() {
   const [mode, setMode] = useState<Mode>('manual');
   const cols = t.automation.columns;
   const steps = orderIntake[mode];
+  const listRef = useRef<HTMLOListElement>(null);
+  const switching = useRef(false);
+
+  // Going automatic: the manual work done by people turns to dust, then the system takes over.
+  const choose = (next: Mode) => {
+    if (next === mode || switching.current) return;
+    const people = listRef.current?.querySelectorAll('.process__row--person');
+    if (next === 'automated' && people?.length && canSnap()) {
+      switching.current = true;
+      void snap([...people], { duration: 1400 });
+      window.setTimeout(() => {
+        switching.current = false;
+        setMode(next);
+      }, 520);
+      return;
+    }
+    setMode(next);
+  };
 
   return (
     <Pane id="automation" title={t.automation.title} lead={t.automation.lead} meta={`flows · ${String(automationFlows.length).padStart(2, '0')}`}>
@@ -21,7 +40,7 @@ export function Automation() {
           <h3 className="subhead">{t.manifesto.compareTitle}</h3>
           <div className="segmented mono" role="group" aria-label={t.manifesto.compareTitle}>
             {(['manual', 'automated'] as const).map((m) => (
-              <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)}>
+              <button key={m} type="button" aria-pressed={mode === m} onClick={() => choose(m)}>
                 {t.manifesto[m]}
               </button>
             ))}
@@ -33,7 +52,7 @@ export function Automation() {
             <span className="panel__title">order-intake.flow</span>
             <span>{t.manifesto.compareNote}</span>
           </div>
-          <ol className="process__list" aria-live="polite">
+          <ol ref={listRef} className="process__list" aria-live="polite">
             {steps.map((step, i) => (
               <li key={`${mode}-${i}`} className={`process__row process__row--${step.actor}`} style={{ ['--i' as string]: i }}>
                 <span className="process__idx mono" aria-hidden="true">

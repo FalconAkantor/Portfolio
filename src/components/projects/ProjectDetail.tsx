@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { Project } from '../../data/projects';
 import { useI18n } from '../../i18n/context';
-import { PipelineFlow } from '../systems/PipelineFlow';
+import { LiveGuide } from './LiveGuide';
 import { TechChip } from '../ui/TechChip';
 import { StatusDot } from '../ui/StatusDot';
 import { ProjectTrace } from './ProjectTrace';
@@ -94,13 +94,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, ro
           </section>
         ) : null}
 
-        <section>
-          <h4 className="pdetail__h">{t.projects.pipeline}</h4>
-          <PipelineFlow
-            label={`${t.projects.pipeline}: ${l(project.name)}`}
-            steps={project.pipeline.map((s, i) => ({ key: `${project.id}-${i}`, label: l(s.label), detail: l(s.detail) }))}
-          />
-        </section>
+        <LiveGuide key={project.id} project={project.id} name={l(project.name)} />
 
         <div className="pdetail__split">
           <section>

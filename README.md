@@ -26,6 +26,7 @@ La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió l
 | --- | --- |
 | `boot` | Arranque tipo terminal (solo en la primera visita; se salta con cualquier tecla), titular, comprobación de capacidades y terminal interactiva |
 | `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, consola interactiva del CCTV autónomo —escena nocturna en vivo, sesión de evento, análisis de la IA, topics de Telegram, línea de tiempo de 24 h e investigación en lenguaje natural—, render de estantería, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
+| *guía en vivo* | Dentro de cada proyecto, un reproductor «Cómo funciona, paso a paso y en vivo»: avanza solo (o paso a paso), explica qué está pasando, qué entra y qué sale, y enseña el fragmento de código que lo hace, marcado como *extracto simplificado del código real* o *boceto ilustrativo*. Contenido en `src/data/guides.ts`, que se carga aparte para no pesar en la primera carga |
 | `network` | Mapa de integración animado (email, WhatsApp, cámaras, ERP, BD…) con nodos seleccionables |
 | `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
 | `stack` | Tecnologías agrupadas por propósito, con logo, y un mapa de dos direcciones: señalas un proyecto y se iluminan sus tecnologías; eliges una tecnología y se iluminan los proyectos que la usan |
@@ -78,6 +79,7 @@ Los datos están separados de los componentes:
 | `src/data/ai.ts` | Preguntas y etapas del recorrido RAG |
 | `src/data/network.ts` | Nodos y conexiones del mapa de integración (layout de escritorio y de móvil) |
 | `src/data/manifesto.ts` | Ciclo de vida y proceso manual vs. automatizado |
+| `src/data/guides.ts` | Guías en vivo: pasos, explicación, entrada/salida y código de cada proyecto |
 | `src/data/lite.ts` | Versión sencilla: servicios, pasos y ejemplos (enlazados a los proyectos) |
 | `src/i18n/ui.ts` | Todos los textos de la interfaz en EN y ES (incluido el selector y la versión sencilla) |
 

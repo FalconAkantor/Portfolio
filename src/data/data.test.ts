@@ -53,3 +53,22 @@ describe('content integrity', () => {
     for (const l of LANGS) expect(ui[l].hero.readout).toHaveLength(5);
   });
 });
+
+describe('live guides', () => {
+  it('every project has a complete guide in every language', async () => {
+    const { guides } = await import('./guides');
+    for (const p of projects) {
+      const steps = guides[p.id];
+      expect(steps.length, p.id).toBeGreaterThanOrEqual(5);
+      for (const s of steps) {
+        for (const l of LANGS) {
+          expect(s.title[l].length, `${p.id} title ${l}`).toBeGreaterThan(3);
+          expect(s.text[l].length, `${p.id} text ${l}`).toBeGreaterThan(40);
+          expect(s.input[l].length).toBeGreaterThan(0);
+          expect(s.output[l].length).toBeGreaterThan(0);
+        }
+        expect(s.code.src.split('\n').length, `${p.id} code`).toBeLessThanOrEqual(16);
+      }
+    }
+  });
+});

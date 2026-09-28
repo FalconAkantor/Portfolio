@@ -1,0 +1,522 @@
+/* ── Live guide: how each project works, step by step ────────────── */
+.lguide {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.lguide__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+
+.lguide__h {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0;
+}
+
+.lguide__live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.lguide__live.is-on {
+  background: var(--rec);
+  box-shadow: 0 0 0 0 rgb(239 91 76 / 0.6);
+  animation: lguide-live 1.6s ease-out infinite;
+}
+
+@keyframes lguide-live {
+  to {
+    box-shadow: 0 0 0 8px rgb(239 91 76 / 0);
+  }
+}
+
+.lguide__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}
+
+.lguide__btn {
+  display: grid;
+  place-items: center;
+  min-width: 34px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: -0.08em;
+}
+
+.lguide__btn:hover {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.lguide__btn--play {
+  min-width: 42px;
+  border-color: var(--signal);
+  background: var(--signal-soft);
+  color: var(--signal);
+}
+
+.lguide__btn[disabled] {
+  opacity: 0.5;
+}
+
+.lguide__count {
+  margin-left: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (pointer: coarse) {
+  .lguide__btn {
+    min-width: 42px;
+    height: 40px;
+  }
+}
+
+.lguide__placeholder {
+  min-height: 460px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: linear-gradient(100deg, #070a0f 30%, #0c1117 50%, #070a0f 70%);
+  background-size: 200% 100%;
+  animation: lguide-shimmer 1.4s linear infinite;
+}
+
+@keyframes lguide-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Steps rail */
+.lguide__rail {
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.lguide__pill {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 9px 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  color: var(--text-dim);
+  text-align: left;
+  overflow: hidden;
+  transition:
+    border-color var(--dur-fast),
+    color var(--dur-fast),
+    background var(--dur-fast);
+}
+
+.lguide__pill:hover {
+  border-color: var(--line-2);
+  color: var(--text);
+}
+
+.lguide__pill.is-done {
+  color: var(--text-dim);
+}
+
+.lguide__pill.is-done .lguide__n {
+  color: var(--ok);
+}
+
+.lguide__pill.is-on {
+  border-color: var(--signal);
+  background: linear-gradient(180deg, var(--signal-soft), transparent);
+  color: var(--text);
+}
+
+.lguide__n {
+  font-size: var(--step--2);
+  color: var(--text-faint);
+}
+
+.lguide__pill.is-on .lguide__n {
+  color: var(--signal);
+}
+
+.lguide__pill-title {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.lguide__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.lguide__progress.is-running {
+  animation: lguide-progress var(--dur) linear forwards;
+}
+
+@keyframes lguide-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Phones and small tablets: the rail becomes numbered dots; the title is in the stage. */
+@media (max-width: 899px) {
+  .lguide__pill {
+    place-items: center;
+    padding: 8px 4px 10px;
+  }
+
+  .lguide__pill-title {
+    display: none;
+  }
+}
+
+/* Stage */
+.lguide__stage {
+  display: grid;
+  gap: 14px;
+  padding: clamp(14px, 1rem + 1vw, 22px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background:
+    radial-gradient(80% 120% at 0% 0%, rgb(242 169 59 / 0.06), transparent 60%),
+    #070a0f;
+  min-width: 0;
+}
+
+/* Wide: explanation on the left, the data going in and out on the right, code below. */
+@media (min-width: 900px) {
+  .lguide__explain {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.62fr);
+    column-gap: 22px;
+    align-items: start;
+  }
+
+  .lguide__explain > :not(.lguide__io) {
+    grid-column: 1;
+  }
+
+  .lguide__explain > .lguide__io {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 0;
+  }
+
+  .lguide__io .lguide__arrow {
+    justify-self: center;
+    width: 2px;
+    height: 26px;
+    background: linear-gradient(180deg, var(--line-2), rgb(82 209 142 / 0.6));
+  }
+
+  .lguide__io .lguide__arrow::after {
+    right: auto;
+    top: auto;
+    left: -4px;
+    bottom: -8px;
+    border-left-color: transparent;
+    border-top-color: rgb(82 209 142 / 0.8);
+  }
+
+  .lguide__io .lguide__arrow i {
+    left: -3px;
+    animation-name: lguide-packet-down;
+  }
+}
+
+@keyframes lguide-packet-down {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 8px);
+    opacity: 0;
+  }
+}
+
+.lguide__explain {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  animation: lguide-in 420ms var(--ease-out) both;
+}
+
+@keyframes lguide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.lguide__kicker {
+  font-size: var(--step--2);
+  color: var(--signal);
+}
+
+.lguide__title {
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.45rem);
+  font-stretch: 110%;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.lguide__text {
+  color: var(--text-dim);
+  line-height: 1.6;
+  font-size: 0.96rem;
+}
+
+.lguide__io {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px minmax(0, 1fr);
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.lguide__box {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+}
+
+.lguide__box code {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.lguide__box-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.lguide__box--out {
+  border-color: rgb(82 209 142 / 0.45);
+  animation: lguide-in 420ms var(--ease-out) 900ms both;
+}
+
+.lguide__box--out .lguide__box-label {
+  color: var(--ok);
+}
+
+/* A packet travels from input to output */
+.lguide__arrow {
+  position: relative;
+  align-self: center;
+  height: 2px;
+  background: linear-gradient(90deg, var(--line-2), rgb(82 209 142 / 0.6));
+}
+
+.lguide__arrow::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -4px;
+  border: 5px solid transparent;
+  border-left-color: rgb(82 209 142 / 0.8);
+}
+
+.lguide__arrow i {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 10px var(--signal);
+  animation: lguide-packet 1.4s ease-in-out 300ms infinite;
+}
+
+@keyframes lguide-packet {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 8px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 559px) {
+  .lguide__io {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lguide__arrow {
+    justify-self: center;
+    width: 2px;
+    height: 22px;
+    background: linear-gradient(180deg, var(--line-2), rgb(82 209 142 / 0.6));
+  }
+
+  .lguide__arrow::after {
+    right: auto;
+    top: auto;
+    left: -4px;
+    bottom: -8px;
+    border-left-color: transparent;
+    border-top-color: rgb(82 209 142 / 0.8);
+  }
+
+  .lguide__arrow i {
+    left: -3px;
+    animation-name: lguide-packet-down;
+  }
+}
+
+.lguide__sample {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+/* Code */
+.lguide__code {
+  display: grid;
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: #04060a;
+  overflow: hidden;
+}
+
+.lguide__file {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--2);
+  color: var(--text);
+}
+
+.lguide__file span:last-child {
+  color: var(--text-faint);
+}
+
+.lguide__file span.is-real {
+  color: var(--ok);
+}
+
+.lguide__code pre:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -2px;
+}
+
+.lguide__code pre {
+  margin: 0;
+  padding: 10px 0 12px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: #c7d0d9;
+  tab-size: 4;
+}
+
+.lguide__line {
+  display: block;
+  padding-right: 14px;
+  white-space: pre;
+  animation: lguide-line 260ms var(--ease-out) both;
+  animation-delay: calc(var(--i) * 45ms);
+}
+
+@keyframes lguide-line {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+}
+
+.lguide__ln {
+  display: inline-block;
+  width: 3.2ch;
+  margin-right: 1.4ch;
+  text-align: right;
+  color: var(--text-faint);
+  user-select: none;
+}
+
+.tk-c {
+  color: #6f7b89;
+  font-style: italic;
+}
+
+.tk-s {
+  color: #9fd6a8;
+}
+
+.tk-k {
+  color: var(--signal);
+}
+
+.tk-n {
+  color: #d9a3f0;
+}
+
+.tk-d {
+  color: var(--flow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lguide__line,
+  .lguide__explain,
+  .lguide__box--out,
+  .lguide__arrow i {
+    animation: none !important;
+  }
+}

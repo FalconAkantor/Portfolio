@@ -130,7 +130,7 @@ export const networkNodes: NetworkNode[] = [
     tech: ['python', 'nodejs', 'apis', 'flask'],
     wide: { x: 780, y: 240 },
     tall: { x: 122, y: 500 },
-    width: { tall: 132 },
+    width: { tall: 132, wide: 164 },
   },
   {
     id: 'reports',
@@ -170,7 +170,7 @@ export const networkNodes: NetworkNode[] = [
     tech: ['glances', 'docker', 'suricata', 'telegram', 'discord'],
     wide: { x: 560, y: 448 },
     tall: { x: 290, y: 500 },
-    width: { tall: 132 },
+    width: { tall: 132, wide: 164 },
   },
 ];
 

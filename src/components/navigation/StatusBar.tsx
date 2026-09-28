@@ -5,6 +5,7 @@ import { useSessionClock, SESSION_START } from '../../hooks/useSessionClock';
 import { formatClock, formatDuration, formatUtcOffset } from '../../lib/format';
 import { emit } from '../../lib/events';
 import { StatusDot } from '../ui/StatusDot';
+import { Wordmark } from '../ui/Wordmark';
 import { LangSwitch } from './LangSwitch';
 import './navigation.css';
 
@@ -15,9 +16,9 @@ export function StatusBar({ active }: { active: SectionId }) {
 
   return (
     <header className="statusbar">
-      <a className="statusbar__brand mono" href="#boot">
+      <a className="statusbar__brand mono" href="#boot" aria-label={`${site.brand.name} — ${t.a11y.home}`}>
         <span className="statusbar__mark" aria-hidden="true" />
-        <span>{site.systemName}</span>
+        <Wordmark />
         <span className="statusbar__version">v{site.version}</span>
       </a>
 

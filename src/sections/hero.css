@@ -138,7 +138,24 @@ html.booting .hero__readout li {
 }
 
 .hero__alias {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.hero__brand {
+  margin-top: 4px;
+  color: var(--text-dim);
+}
+
+.hero__brand-r {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid var(--signal);
+  border-radius: var(--radius-s);
   color: var(--signal);
+  font-weight: 600;
 }
 
 .hero__at {
@@ -192,6 +209,12 @@ html.booting .hero__readout li {
 
 .hero__terminal {
   min-width: 0;
+}
+
+@media (max-width: 959px) {
+  .hero__copy .hero__readout {
+    order: 1;
+  }
 }
 
 @media (max-width: 599px) {

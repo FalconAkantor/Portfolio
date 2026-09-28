@@ -61,6 +61,8 @@ function head(lang) {
     name: seo.site.shortName,
     alternateName: seo.site.handle,
     description: seo.site.role[lang],
+    brand: { '@type': 'Brand', name: seo.site.brand.name, slogan: seo.site.brand.claim[lang] },
+    ...(seo.site.contact.email ? { email: `mailto:${seo.site.contact.email}` } : {}),
     url,
     ...(seo.sameAs.length ? { sameAs: seo.sameAs } : {}),
     knowsAbout: seo.knowsAbout,
@@ -68,7 +70,7 @@ function head(lang) {
 
   return `<title>${esc(meta.title)}</title>
     <meta name="description" content="${esc(meta.description)}" />
-    <meta name="author" content="${esc(seo.site.handle)}" />
+    <meta name="author" content="${esc(`${seo.site.shortName} · ${seo.site.brand.name}`)}" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="${url}" />
     ${alternates}
@@ -127,7 +129,7 @@ await writeFile(
   </head>
   <body>
     <main>
-      <p><span class="a">visitor@nacho.sys</span><span class="d">:~$</span> cd <span id="p"></span></p>
+      <p><span class="a">visitor@automariza</span><span class="d">:~$</span> cd <span id="p"></span></p>
       <p class="e">404 · process not found</p>
       <p class="d">The page you asked for is not running on this system.</p>
       <p><a href="${base}">cd ~ — back to ${esc(seo.site.systemName)}</a> · <a href="${base}es/">versión en español</a></p>

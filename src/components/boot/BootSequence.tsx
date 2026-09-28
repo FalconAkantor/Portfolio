@@ -3,10 +3,11 @@ import { bootLines } from '../../data/boot';
 import { boot } from '../../lib/boot';
 import { site } from '../../config/site';
 import { useI18n } from '../../i18n/context';
+import { Wordmark } from '../ui/Wordmark';
 import './boot.css';
 
 export function BootSequence() {
-  const { t } = useI18n();
+  const { t, l } = useI18n();
   const { phase, shown } = useSyncExternalStore(boot.subscribe, boot.getSnapshot, boot.getServerSnapshot);
   const active = phase !== 'off';
 
@@ -35,7 +36,7 @@ export function BootSequence() {
     >
       <div className="boot__frame mono">
         <p className="boot__head">
-          <span>{site.systemName}</span>
+          <Wordmark />
           <span>v{site.version}</span>
         </p>
         <ol className="boot__lines">
@@ -49,6 +50,7 @@ export function BootSequence() {
         <div className="boot__progress" aria-hidden="true">
           <span style={{ transform: `scaleX(${progress / 100})` }} />
         </div>
+        <p className={`boot__meaning${shown >= bootLines.length ? ' is-shown' : ''}`}>{l(site.brand.meaning)}.</p>
         <div className="boot__foot">
           <span>{t.boot.hint}</span>
           <button type="button" className="boot__skip" onClick={() => boot.finish()} tabIndex={active ? 0 : -1}>

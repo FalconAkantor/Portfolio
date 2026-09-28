@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#05070a" />
     <meta name="color-scheme" content="dark" />
     <!--head:start-->
-    <title>Nacho · AI, automation & systems developer</title>
-    <meta name="description" content="Nacho (Akantor) — AI, automation and systems." />
+    <title>AUTOMARIZA · Nacho — AI, automation & systems developer</title>
+    <meta name="description" content="AUTOMARIZA — automation that reasons. AI, automation and systems by Nacho." />
     <!--head:end-->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -26,7 +26,7 @@
         try {
           var s = window.localStorage;
           var base = '%BASE_URL%';
-          var pref = s.getItem('nacho.sys:lang');
+          var pref = s.getItem('automariza:lang');
           var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
           var onRoot = d.lang === 'en' && location.pathname.replace(/index\.html$/, '') === base;
           if (onRoot && (pref === 'es' || (!pref && /^es\b/i.test(nav)))) {
@@ -34,7 +34,7 @@
             return;
           }
           var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          if (!s.getItem('nacho.sys:booted') && !reduce) {
+          if (!s.getItem('automariza:booted') && !reduce) {
             d.classList.add('booting');
             setTimeout(function () {
               if (!window.__nachoBootStarted) d.classList.remove('booting');

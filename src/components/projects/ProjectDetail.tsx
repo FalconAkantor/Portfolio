@@ -12,35 +12,46 @@ interface ProjectDetailProps {
   onPrev: () => void;
   onNext: () => void;
   panelId: string;
-  tabId: string;
+  labelledBy: string;
+  role: 'tabpanel' | 'region';
+  /** Inside the accordion: the card header already shows id and name. */
+  compact?: boolean;
 }
 
 const BUILT_PREVIEW = 4;
 
-export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: ProjectDetailProps) {
+export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, role, compact = false }: ProjectDetailProps) {
   const { t, l } = useI18n();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const built = l(project.built);
   const showAll = expandedId === project.id || built.length <= BUILT_PREVIEW;
 
   return (
-    <div id={panelId} role="tabpanel" aria-labelledby={tabId} className="pdetail panel panel--ticks" tabIndex={-1}>
-      <header className="pdetail__bar panel__head">
-        <span className="panel__title">
-          <StatusDot status="ok" pulse />
-          <span>
-            pid {project.pid}
-            <span className="pdetail__path"> · {project.path}</span>
+    <div
+      id={panelId}
+      role={role}
+      aria-labelledby={labelledBy}
+      className={`pdetail${compact ? ' pdetail--compact' : ' panel panel--ticks'}`}
+      tabIndex={-1}
+    >
+      {compact ? null : (
+        <header className="pdetail__bar panel__head">
+          <span className="panel__title">
+            <StatusDot status="ok" pulse />
+            <span>
+              pid {project.pid}
+              <span className="pdetail__path"> · {project.path}</span>
+            </span>
           </span>
-        </span>
-        <span className="pdetail__status">
-          {t.projects.domains[project.domain]} · {t.projects.online}
-        </span>
-      </header>
+          <span className="pdetail__status">
+            {t.projects.domains[project.domain]} · {t.projects.online}
+          </span>
+        </header>
+      )}
 
       <div className="pdetail__body">
         <div className="pdetail__intro">
-          <h3 className="pdetail__name">{l(project.name)}</h3>
+          {compact ? null : <h3 className="pdetail__name">{l(project.name)}</h3>}
           <p className="pdetail__summary">{l(project.summary)}</p>
         </div>
 

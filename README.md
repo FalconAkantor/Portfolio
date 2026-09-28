@@ -1,6 +1,10 @@
-# NACHO.SYS
+# AUTOMARIZA
 
-Portfolio de **Nacho / Akantor**: IA, automatización, sistemas e infraestructura.
+Portfolio de **Nacho · AUTOMARIZA**: IA, automatización, sistemas e infraestructura.
+
+> **La R es de Razonamiento.** Automatizar sin pensar solo consigue que los errores ocurran más rápido; cada sistema de AUTOMARIZA razona antes de actuar.
+
+Contacto: **nacho.automariza@gmail.com**
 
 La web no funciona como un portfolio clásico. Se presenta como un sistema operativo: arranca con una secuencia de boot, la navegación es un árbol de ficheros, los proyectos se inspeccionan como procesos y tiene una terminal funcional.
 
@@ -14,24 +18,24 @@ La web no funciona como un portfolio clásico. Se presenta como un sistema opera
 | Módulo | Qué hace |
 | --- | --- |
 | `boot` | Arranque tipo terminal (solo en la primera visita; se salta con cualquier tecla), titular, comprobación de capacidades y terminal interactiva |
-| `projects/` | Los 5 MVP. Cada uno con su visual propio (réplica interactiva del Agent Workspace, renders de visión, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
+| `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, renders de visión, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
 | `network` | Mapa de integración animado (email, WhatsApp, cámaras, ERP, BD…) con nodos seleccionables |
 | `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
 | `stack` | Tecnologías agrupadas por propósito, con referencias cruzadas a los proyectos que las usan |
 | `about` | Perfil, principios y ciclo idea → producción |
 | `contact` | Generador de peticiones de automatización (mailto / copiar), sin backend |
 
-**Terminal:** `help`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
+**Terminal:** `help`, `brand`, `projects`, `open <n|id>`, `stack [categoría]`, `ai`, `automation`, `infrastructure`, `vision`, `contact`, `goto <sección>`, `ls`, `whoami`, `date`, `uptime`, `history`, `lang <en|es>`, `reboot`, `clear`. Tiene autocompletado con Tab e historial con ↑/↓. Se abre desde cualquier punto con `Ctrl/⌘ + K` o con `` ` ``.
 
 ---
 
 ## Configurar tus datos (un único archivo)
 
-Todo lo personal está en **`src/config/site.ts`**:
+Todo lo personal está en **`src/config/site.ts`**: la marca (`brand`: nombre, letra destacada, significado, lema e historia) y el contacto:
 
 ```ts
 contact: {
-  email: '',     // TODO: email público → activa el botón "Enviar por email"
+  email: 'nacho.automariza@gmail.com',
   linkedin: '',  // TODO: https://www.linkedin.com/in/…
   github: 'https://github.com/FalconAkantor',
   telegram: '',  // TODO: usuario sin @
@@ -74,7 +78,7 @@ npm run build      # typecheck + build + prerender → dist/
 npm run preview    # sirve dist/ en http://localhost:4173/Portfolio/
 ```
 
-Para volver a ver la secuencia de arranque: escribe `reboot` en la terminal, o borra `nacho.sys:booted` de localStorage.
+Para volver a ver la secuencia de arranque: escribe `reboot` en la terminal, o borra `automariza:booted` de localStorage.
 
 ---
 

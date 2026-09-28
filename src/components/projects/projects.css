@@ -469,3 +469,138 @@
 .built__more:hover {
   border-color: var(--flow);
 }
+
+/* ── Accordion (phones and tablets) ────────────────────────────── */
+.pacc {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.pacc__item {
+  position: relative;
+  /* html already has scroll-padding for the status bar */
+  scroll-margin-top: 0;
+  overflow: hidden;
+  transition: border-color var(--dur-med);
+}
+
+.pacc__item::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: transparent;
+  transition: background var(--dur-med);
+}
+
+.pacc__item.is-open {
+  border-color: rgb(242 169 59 / 0.45);
+}
+
+.pacc__item.is-open::before {
+  background: var(--signal);
+}
+
+.pacc__h {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.pacc__head {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 16px 16px 16px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pacc__head:active {
+  background: rgb(255 255 255 / 0.02);
+}
+
+.pacc__item.is-open .pacc__head {
+  background: linear-gradient(180deg, var(--signal-soft), transparent);
+  border-bottom: 1px solid var(--line);
+}
+
+.pacc__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--step--2);
+  color: var(--text-dim);
+}
+
+.pacc__pid {
+  color: var(--signal);
+}
+
+.pacc__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  padding: 3px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  color: var(--text);
+}
+
+.pacc__item.is-open .pacc__state {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.pacc__chev {
+  display: inline-block;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.pacc__item.is-open .pacc__chev {
+  transform: rotate(180deg);
+}
+
+.pacc__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1rem + 1.6vw, 1.8rem);
+  font-stretch: 118%;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.pacc__tagline {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+
+.pacc__panel {
+  animation: pacc-in 320ms var(--ease-out);
+}
+
+@keyframes pacc-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.pdetail--compact .pdetail__body {
+  padding: 18px 16px;
+}
+
+.pdetail--compact .pdetail__foot {
+  padding: 14px 16px;
+}
+
+/* Open card: the summary inside says it better than the one-line tagline. */
+.pacc__item.is-open .pacc__tagline {
+  display: none;
+}

@@ -39,7 +39,7 @@ export interface Project {
   /** Process id shown in the explorer — purely a visual identifier. */
   pid: string;
   name: Localized;
-  /** Module path inside NACHO.SYS — purely visual. */
+  /** Module path inside AUTOMARIZA — purely visual. */
   path: string;
   domain: ProjectDomain;
   /** One-line hook shown in the process table. */

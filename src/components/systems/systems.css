@@ -191,7 +191,7 @@
   margin-inline: auto;
 }
 
-@media (max-width: 719px) {
+@media (max-width: 899px) {
   .net--wide {
     display: none;
   }
@@ -335,4 +335,17 @@
 .netinfo__hint {
   color: var(--text-faint);
   font-size: var(--step--2);
+}
+
+/* Tablets: tall map on the left, node info pinned beside it. */
+@media (min-width: 600px) and (max-width: 1099px) {
+  .netwrap {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+    align-items: start;
+  }
+
+  .netinfo {
+    position: sticky;
+    top: calc(var(--bar-height) + 16px);
+  }
 }

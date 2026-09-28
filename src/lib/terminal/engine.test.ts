@@ -5,6 +5,7 @@ import { projects } from '../../data/projects';
 
 const ctx = (overrides: Partial<TermContext> = {}): TermContext => ({
   lang: 'en',
+  l: (v) => v.en,
   t: ui.en,
   history: [],
   sessionStart: 0,
@@ -73,6 +74,7 @@ describe('terminal engine', () => {
 
   it('localizes output', () => {
     expect(runCommand('projects', ctx({ lang: 'es', t: ui.es })).lines[0]!.text).toBe('PROYECTOS ENCONTRADOS:');
+    expect(runCommand('brand', ctx({ lang: 'es', l: (v) => v.es, t: ui.es })).lines[0]!.text).toContain('Razonamiento');
   });
 
   it('reports uptime from the session start', () => {

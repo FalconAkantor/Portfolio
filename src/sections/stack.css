@@ -107,3 +107,8 @@
   color: var(--text-dim);
   font-size: 0.9rem;
 }
+
+/* Only pin the cross-reference to the viewport once something is selected. */
+.xref:not(.is-open) {
+  position: static;
+}

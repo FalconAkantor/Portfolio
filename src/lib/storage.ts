@@ -2,7 +2,7 @@
  * localStorage wrapper that never throws (private mode, blocked storage, SSR).
  * Only used for per-visitor conveniences: boot already seen, preferred language.
  */
-const PREFIX = 'nacho.sys:';
+const PREFIX = 'automariza:';
 
 export function readStorage(key: string): string | null {
   try {

@@ -46,8 +46,8 @@ html.booting body {
   color: var(--text-dim);
 }
 
-.boot__head span:first-child {
-  color: var(--signal);
+.boot__head .wordmark {
+  color: var(--text);
 }
 
 .boot__lines {
@@ -124,4 +124,15 @@ html.booting body {
 .boot__skip:hover {
   color: var(--text);
   border-color: var(--text-dim);
+}
+
+.boot__meaning {
+  margin-top: 14px;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 300ms var(--ease-out);
+}
+
+.boot__meaning.is-shown {
+  opacity: 1;
 }

@@ -4,6 +4,7 @@ import { useI18n } from '../i18n/context';
 import { scrollToSection } from '../lib/scroll';
 import { ParticleField } from '../components/hero/ParticleField';
 import { Terminal } from '../components/terminal/Terminal';
+import { Wordmark } from '../components/ui/Wordmark';
 import './hero.css';
 
 export function Hero() {
@@ -41,9 +42,15 @@ export function Hero() {
 
           <p className="hero__id mono">
             <span className="hero__alias">
-              {site.shortName} / {site.handle}
+              {site.shortName} <span className="hero__at">·</span> <Wordmark />
             </span>
             <span className="hero__role">{l(site.role)}</span>
+            <span className="hero__brand">
+              <span className="hero__brand-r" aria-hidden="true">
+                R
+              </span>{' '}
+              {l(site.brand.meaning)} — {l(site.brand.claim).toLowerCase()}
+            </span>
           </p>
 
           <div className="hero__readout mono">

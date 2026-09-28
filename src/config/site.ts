@@ -5,8 +5,9 @@
  *  Everything personal or deployment-specific lives here.
  *
  *  PRIVACY
- *  The site identifies its author only by alias (Nacho / Akantor). Do not add
- *  a full name, surnames, employer, job title at a company or private e-mail.
+ *  The site identifies its author only by first name and brand (Nacho ·
+ *  AUTOMARIZA). Do not add surnames, an employer, a job title at a company or a
+ *  private e-mail — the only public address is the brand one below.
  *
  *  CONTACT PLACEHOLDERS
  *  Any channel left as an empty string is simply not rendered. Fill in the real
@@ -29,7 +30,20 @@ export interface ContactConfig {
   whatsapp: string;
 }
 
+export interface BrandConfig {
+  name: string;
+  /** Index of the letter the brand plays on (the R). */
+  accentIndex: number;
+  /** What the accented letter means. */
+  meaning: Localized;
+  /** One-line claim. */
+  claim: Localized;
+  /** Why the brand is called that — shown in the "about" section. */
+  story: Localized;
+}
+
 export interface SiteConfig {
+  brand: BrandConfig;
   /** Public name. Deliberately a first name / alias only. */
   shortName: string;
   /** Online handle. */
@@ -50,9 +64,19 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
+  brand: {
+    name: 'AUTOMARIZA',
+    accentIndex: 6,
+    meaning: { en: 'The R stands for Reasoning', es: 'La R es de Razonamiento' },
+    claim: { en: 'Automation that reasons.', es: 'Automatización que razona.' },
+    story: {
+      en: 'Automating without thinking only makes mistakes happen faster. So every system I build reasons before it acts: it reads the document, checks it against the data, decides — and asks a person when something doesn’t add up. Automate, with reasoning: AUTOMARIZA.',
+      es: 'Automatizar sin pensar solo consigue que los errores ocurran más rápido. Por eso cada sistema que construyo razona antes de actuar: lee el documento, lo contrasta con los datos, decide y, cuando algo no cuadra, pregunta a una persona. Automatizar, con razonamiento: AUTOMARIZA.',
+    },
+  },
   shortName: 'Nacho',
   handle: 'Akantor',
-  systemName: 'NACHO.SYS',
+  systemName: 'AUTOMARIZA',
   version: '1.0.0',
   role: {
     en: 'AI, automation & systems developer',
@@ -60,7 +84,7 @@ export const site: SiteConfig = {
   },
   siteUrl: 'https://falconakantor.github.io/Portfolio',
   contact: {
-    email: '', // TODO(config): real public e-mail
+    email: 'nacho.automariza@gmail.com',
     linkedin: '', // TODO(config): https://www.linkedin.com/in/…
     github: 'https://github.com/FalconAkantor',
     telegram: '', // TODO(config): username without @

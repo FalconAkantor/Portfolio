@@ -1,5 +1,5 @@
 /**
- * NACHO.SYS shell — a small, pure command interpreter.
+ * AUTOMARIZA shell — a small, pure command interpreter.
  * It knows nothing about React or the DOM: it turns an input string into
  * output lines plus "effects" that the UI layer applies (navigate, open a project…).
  */
@@ -32,6 +32,8 @@ export type TermEffect =
 
 export interface TermContext {
   lang: Lang;
+  /** Resolve a localized value in the active language. */
+  l: <T>(value: Record<Lang, T>) => T;
   t: UIStrings;
   history: readonly string[];
   sessionStart: number;
@@ -73,13 +75,23 @@ const commands: Command[] = [
     run: (_a, ctx) => result([...listOf(ctx.t.terminal.about), section('about', ctx)]),
   },
   {
+    name: 'brand',
+    aliases: ['automariza', 'r'],
+    run: (_a, ctx) =>
+      result([
+        line(`AUTOMA[R]IZA — ${ctx.l(site.brand.meaning)}.`, 'accent'),
+        line(ctx.l(site.brand.story), 'default'),
+        section('about', ctx),
+      ]),
+  },
+  {
     name: 'projects',
     aliases: ['ps'],
     run: (_a, { t, lang }) =>
       result([
         line(t.terminal.projectsFound, 'accent'),
         ...projects.map((p, i) => ({
-          ...line(`${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`, 'default', `${p.pid} · ${p.tagline[lang]}`),
+          ...line(`${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`, 'default', `${p.pid} · ${t.projects.domains[p.domain]}`),
           command: `open ${p.id}`,
         })),
         line(t.terminal.openHint, 'dim'),

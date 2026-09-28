@@ -121,7 +121,7 @@ export function WorkspaceDemo() {
         onPointerCancel={onPointerUp}
       >
         <span className="wsd__watermark mono" aria-hidden="true">
-          NACHO.OS · {w.desktop} {desktop + 1}
+          AUTOMARIZA · {w.desktop} {desktop + 1}
         </span>
         {preview ? <div className={`wsd__preview wsd__preview--${preview}`} aria-hidden="true" /> : null}
 

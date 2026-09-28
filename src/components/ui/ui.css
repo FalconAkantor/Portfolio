@@ -279,3 +279,28 @@
   --my: 50%;
   background-image: radial-gradient(420px circle at var(--mx) var(--my), rgb(242 169 59 / 0.06), transparent 60%);
 }
+
+/* ── Wordmark ───────────────────────────────────────────────────── */
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.wordmark__r {
+  position: relative;
+  color: var(--signal);
+}
+
+/* The R carries a tiny underline — "the reasoning part". */
+.wordmark__r::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.14em;
+  height: 0.08em;
+  min-height: 1px;
+  background: var(--signal);
+}

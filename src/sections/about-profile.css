@@ -1,26 +1,72 @@
+.brand {
+  display: grid;
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  margin-bottom: clamp(3rem, 2rem + 3vw, 4.5rem);
+  padding: clamp(1.25rem, 0.8rem + 2.5vw, 2.75rem);
+  overflow: hidden;
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgb(242 169 59 / 0.09), transparent 60%),
+    linear-gradient(180deg, var(--surface-2), var(--surface));
+}
+
+.brand__mark {
+  font-size: clamp(2.3rem, 0.4rem + 8vw, 6.2rem);
+  font-stretch: 125%;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.brand__mark .wordmark {
+  letter-spacing: -0.02em;
+}
+
+.brand__text {
+  display: grid;
+  gap: 1rem;
+  max-width: 62ch;
+}
+
+.brand__meaning {
+  font-size: var(--step-2);
+  font-stretch: 110%;
+  font-weight: 700;
+  color: var(--signal);
+}
+
+.brand__story {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+@media (min-width: 1100px) {
+  .brand {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    column-gap: 3rem;
+  }
+
+  .brand__mark {
+    font-size: clamp(3rem, 4.4vw, 4.6rem);
+  }
+}
+
 .formula {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.2em 0;
-  margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
-  font-size: clamp(1.4rem, 0.8rem + 2.4vw, 2.8rem);
-  font-stretch: 122%;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
+  gap: 0.35em 0;
+  margin-top: 0.5rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text);
 }
 
 .formula__plus {
-  margin: 0 0.3em;
+  margin: 0 0.7em;
   color: var(--signal);
-  font-weight: 400;
-}
-
-.formula > span:nth-child(odd):not(.sr-only) .formula__word {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--text-dim);
 }
 
 .operator__aliases {

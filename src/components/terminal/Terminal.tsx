@@ -34,7 +34,7 @@ let keySeed = 0;
 const nextKey = () => ++keySeed;
 
 export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalProps) {
-  const { t, lang } = useI18n();
+  const { t, lang, l } = useI18n();
   const inputId = useId();
   const [entries, setEntries] = useState<Entry[]>(() => [{ key: 0, tone: 'dim', text: t.terminal.welcome }]);
   const [value, setValue] = useState('');
@@ -89,6 +89,7 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
       const nextHistory = [...history, input].slice(-50);
       const { lines, effects } = runCommand(input, {
         lang,
+        l,
         t,
         history: nextHistory,
         sessionStart: SESSION_START,
@@ -100,7 +101,7 @@ export function Terminal({ variant, autoFocus = false, onNavigate }: TerminalPro
       // Effects that clear the screen must run after the echo has been queued.
       applyEffects(effects);
     },
-    [applyEffects, history, lang, t],
+    [applyEffects, history, lang, l, t],
   );
 
   // The demo calls the latest execute() without restarting when it changes.

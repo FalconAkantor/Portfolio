@@ -6,13 +6,14 @@ import type { Lang } from './types';
  */
 const en = {
   meta: {
-    title: 'Nacho · AI, automation & systems developer',
+    title: 'AUTOMARIZA · Nacho — AI, automation & systems developer',
     description:
-      'Nacho (Akantor) — AI developer building automation, computer vision, RAG/LLM systems and GPU infrastructure end to end, from the idea to production.',
-    ogAlt: 'NACHO.SYS — I build systems that think.',
+      'AUTOMARIZA — automation that reasons. Nacho builds AI systems, business automation, computer vision, local LLM/RAG and GPU infrastructure end to end, from the idea to production.',
+    ogAlt: 'AUTOMARIZA — I build systems that think.',
   },
   a11y: {
     skip: 'Skip to content',
+    home: 'back to the top',
     openTerminal: 'Open terminal',
     closeTerminal: 'Close terminal',
     switchLang: 'Ver en español',
@@ -95,6 +96,8 @@ const en = {
     trace: 'Trace',
     traceNote: 'Illustrative trace, not live telemetry.',
     previous: 'Previous project',
+    open: 'open',
+    close: 'close',
     next: 'Next project',
     domains: {
       platform: 'platform',
@@ -158,6 +161,13 @@ const en = {
     title: 'Tell me what you want to automate.',
     lead:
       'If there is a process in your company that eats hours, depends on copying data between systems or should simply run by itself, describe it. I’ll tell you how I would build it.',
+    hookKicker: 'direct line',
+    hookTitle: 'What is still done by hand in your company?',
+    hookSub: 'Write to me with the process that eats the most hours. I’ll reply with how I would turn it into a system that reasons.',
+    writeEmail: 'Write an e-mail',
+    copyEmail: 'Copy address',
+    copiedEmail: 'Address copied',
+    orBrief: 'Or build the request step by step',
     typeLegend: 'What kind of process is it?',
     types: {
       orders: 'Orders & email',
@@ -195,12 +205,13 @@ const en = {
   terminal: {
     label: 'Interactive terminal',
     inputLabel: 'Terminal command',
-    welcome: 'NACHO.SYS shell. Type "help" to list commands.',
+    welcome: 'AUTOMARIZA shell — the R stands for Reasoning. Type "help" to list commands.',
     notFound: (cmd: string) => `command not found: ${cmd}. Type "help".`,
     help: 'Available commands:',
     commands: {
       help: 'list commands',
       about: 'who is behind this system',
+      brand: 'why AUTOMARIZA — what the R means',
       projects: 'list running projects',
       open: 'open a project — open <id|number>',
       stack: 'technology stack — stack [category]',
@@ -276,13 +287,14 @@ export type UIStrings = typeof en;
 
 const es: UIStrings = {
   meta: {
-    title: 'Nacho · Desarrollador de IA, automatización y sistemas',
+    title: 'AUTOMARIZA · Nacho — Desarrollador de IA, automatización y sistemas',
     description:
-      'Nacho (Akantor) — desarrollador de IA que construye automatización, visión artificial, sistemas RAG/LLM e infraestructura GPU de extremo a extremo, de la idea a producción.',
-    ogAlt: 'NACHO.SYS — Construyo sistemas que piensan.',
+      'AUTOMARIZA — automatización que razona. Nacho construye sistemas de IA, automatización empresarial, visión artificial, LLM/RAG local e infraestructura GPU de extremo a extremo, de la idea a producción.',
+    ogAlt: 'AUTOMARIZA — Construyo sistemas que piensan.',
   },
   a11y: {
     skip: 'Saltar al contenido',
+    home: 'volver arriba',
     openTerminal: 'Abrir terminal',
     closeTerminal: 'Cerrar terminal',
     switchLang: 'View in English',
@@ -365,6 +377,8 @@ const es: UIStrings = {
     trace: 'Traza',
     traceNote: 'Traza ilustrativa, no telemetría real.',
     previous: 'Proyecto anterior',
+    open: 'abrir',
+    close: 'cerrar',
     next: 'Proyecto siguiente',
     domains: {
       platform: 'plataforma',
@@ -428,6 +442,13 @@ const es: UIStrings = {
     title: 'Cuéntame qué quieres automatizar.',
     lead:
       'Si en tu empresa hay un proceso que se come horas, que depende de copiar datos entre sistemas o que simplemente debería funcionar solo, descríbelo. Te diré cómo lo construiría.',
+    hookKicker: 'línea directa',
+    hookTitle: '¿Qué se sigue haciendo a mano en tu empresa?',
+    hookSub: 'Escríbeme con el proceso que más horas os roba. Te respondo con cómo lo convertiría en un sistema que razona.',
+    writeEmail: 'Escribir un email',
+    copyEmail: 'Copiar dirección',
+    copiedEmail: 'Dirección copiada',
+    orBrief: 'O prepara la petición paso a paso',
     typeLegend: '¿Qué tipo de proceso es?',
     types: {
       orders: 'Pedidos y email',
@@ -465,12 +486,13 @@ const es: UIStrings = {
   terminal: {
     label: 'Terminal interactiva',
     inputLabel: 'Comando de terminal',
-    welcome: 'Shell de NACHO.SYS. Escribe "help" para ver los comandos.',
+    welcome: 'Shell de AUTOMARIZA — la R es de Razonamiento. Escribe "help" para ver los comandos.',
     notFound: (cmd: string) => `comando no encontrado: ${cmd}. Escribe "help".`,
     help: 'Comandos disponibles:',
     commands: {
       help: 'lista los comandos',
       about: 'quién está detrás de este sistema',
+      brand: 'por qué AUTOMARIZA — qué significa la R',
       projects: 'lista los proyectos en ejecución',
       open: 'abre un proyecto — open <id|número>',
       stack: 'stack tecnológico — stack [categoría]',

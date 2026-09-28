@@ -1,14 +1,18 @@
 import { Pane } from '../components/ui/Pane';
 import { BriefComposer } from '../components/contact/BriefComposer';
+import { EmailCard } from '../components/contact/EmailCard';
 import { contactChannels } from '../lib/contact';
 import { useI18n } from '../i18n/context';
 
 export function Contact() {
   const { t } = useI18n();
-  const channels = contactChannels();
+  // The e-mail has its own card; the list shows the other channels.
+  const channels = contactChannels().filter((ch) => ch.id !== 'email');
 
   return (
     <Pane id="contact" title={t.contact.title} lead={t.contact.lead} meta="port 443 · open">
+      <EmailCard />
+      <h3 className="subhead contact__or">{t.contact.orBrief}</h3>
       <BriefComposer />
       {channels.length ? (
         <div className="channels">

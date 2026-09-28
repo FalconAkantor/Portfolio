@@ -6,7 +6,8 @@ export interface BootLine {
 }
 
 export const bootLines: BootLine[] = [
-  { text: 'BOOTING NACHO.SYSTEM...' },
+  { text: 'BOOTING AUTOMARIZA...' },
+  { text: 'REASONING ENGINE', ok: true },
   { text: 'AI ENGINE', ok: true },
   { text: 'AUTOMATION ENGINE', ok: true },
   { text: 'COMPUTER VISION', ok: true },

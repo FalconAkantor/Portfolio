@@ -504,13 +504,13 @@ export const projects: Project[] = [
   {
     id: 'stock-audit',
     pid: '0x07',
-    name: { en: 'WhatsApp Stock Audit', es: 'Auditoría de stock por WhatsApp' },
+    name: { en: 'WhatsApp Stock Audit · Node.js', es: 'Auditoría de stock por WhatsApp · Node.js' },
     path: '/srv/automation/stock-audit',
     domain: 'automation',
     featured: false,
     summary: {
-      en: 'Pharmacies send photos over WhatsApp; AI checks the optical/pharmaceutical stock and returns the audit as Excel or PDF.',
-      es: 'Las farmacias envían fotos por WhatsApp; la IA revisa el stock óptico/farmacéutico y devuelve la auditoría en Excel o PDF.',
+      en: 'A separate, lighter tool built in Node.js: whatsapp-web.js receives the pharmacy’s photos, OpenAI vision checks the optical/pharmaceutical stock and the audit comes back as Excel (ExcelJS) or PDF (PDFKit).',
+      es: 'Una herramienta aparte y más ligera, hecha en Node.js: whatsapp-web.js recibe las fotos de la farmacia, la visión de OpenAI revisa el stock óptico/farmacéutico y la auditoría vuelve en Excel (ExcelJS) o PDF (PDFKit).',
     },
     problem: {
       en: 'Auditing product stock in each pharmacy meant someone counting boxes by hand, checking codes and colours, and typing the results into a spreadsheet.',

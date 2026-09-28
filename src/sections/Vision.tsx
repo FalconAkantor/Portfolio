@@ -12,7 +12,7 @@ import './vision.css';
 
 const FEEDS: { project: ProjectId; titleKey: 'feedCctv' | 'feedShelf'; Feed: () => JSX.Element }[] = [
   { project: 'cctv', titleKey: 'feedCctv', Feed: CctvFeed },
-  { project: 'stock-audit', titleKey: 'feedShelf', Feed: ShelfFeed },
+  { project: 'inventory-ai', titleKey: 'feedShelf', Feed: ShelfFeed },
 ];
 
 export function Vision() {

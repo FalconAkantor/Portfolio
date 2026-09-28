@@ -29,12 +29,13 @@ describe('terminal engine', () => {
     const { lines } = runCommand('projects', ctx());
     const rows = lines.filter((l) => l.command?.startsWith('open '));
     expect(rows).toHaveLength(projects.length);
-    expect(rows[0]!.text).toBe('01 / AI CCTV');
+    expect(rows[0]!.text).toBe('01 / AI INVENTORY');
+    expect(rows[0]!.hint).toContain('★');
     expect(rows.map((r) => r.command)).toEqual(projects.map((p) => `open ${p.id}`));
   });
 
   it('opens projects by number, id and prefix', () => {
-    expect(runCommand('open 2', ctx()).effects).toEqual([{ type: 'open-project', id: 'stock-audit' }]);
+    expect(runCommand('open 2', ctx()).effects).toEqual([{ type: 'open-project', id: 'cctv' }]);
     expect(runCommand('open rag', ctx()).effects).toEqual([{ type: 'open-project', id: 'rag' }]);
     expect(runCommand('open gpu', ctx()).effects).toEqual([{ type: 'open-project', id: 'gpu-infra' }]);
     expect(runCommand('open nope', ctx()).lines[0]!.tone).toBe('error');

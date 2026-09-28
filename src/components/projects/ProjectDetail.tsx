@@ -27,6 +27,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, tabId }: Proje
           </span>
         </span>
         <span className="pdetail__status">
+          {project.featured ? <span className="pdetail__featured">★ {t.projects.featured} · </span> : null}
           {t.projects.domains[project.domain]} · {t.projects.online}
         </span>
       </header>

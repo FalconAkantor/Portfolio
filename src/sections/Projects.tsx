@@ -6,7 +6,7 @@ import { projects } from '../data/projects';
 export function Projects() {
   const { t } = useI18n();
   return (
-    <Pane id="projects" title={t.projects.title} lead={t.projects.lead} meta={`ps · ${String(projects.length).padStart(2, '0')} running`}>
+    <Pane id="projects" title={t.projects.title} lead={t.projects.lead} meta={`ps · ${String(projects.length).padStart(2, '0')} running · ${projects.filter((p) => p.featured).length} ★`}>
       <ProjectExplorer />
     </Pane>
   );

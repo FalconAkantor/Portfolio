@@ -355,3 +355,24 @@
     display: none;
   }
 }
+
+.ptable__pid {
+  position: relative;
+}
+
+.ptable__star {
+  position: absolute;
+  left: -1.35ch;
+  color: var(--signal);
+  font-size: 0.8em;
+}
+
+.pdetail__featured {
+  color: var(--signal);
+}
+
+@media (max-width: 599px) {
+  .pdetail__featured {
+    display: none;
+  }
+}

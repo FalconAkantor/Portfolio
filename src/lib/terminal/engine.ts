@@ -78,7 +78,11 @@ const commands: Command[] = [
       result([
         line(t.terminal.projectsFound, 'accent'),
         ...projects.map((p, i) => ({
-          ...line(`${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`, 'default', `${p.pid} · ${t.projects.domains[p.domain]}`),
+          ...line(
+            `${String(i + 1).padStart(2, '0')} / ${p.name[lang].toUpperCase()}`,
+            p.featured ? 'accent' : 'default',
+            `${p.featured ? '★ ' : ''}${p.pid} · ${t.projects.domains[p.domain]}`,
+          ),
           command: `open ${p.id}`,
         })),
         line(t.terminal.openHint, 'dim'),

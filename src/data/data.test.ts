@@ -32,6 +32,11 @@ describe('content integrity', () => {
     }
   });
 
+  it('featured tools are listed first', () => {
+    const firstRegular = projects.findIndex((p) => !p.featured);
+    expect(projects.slice(firstRegular).some((p) => p.featured)).toBe(false);
+  });
+
   it('section ids are unique', () => {
     expect(new Set(sections.map((s) => s.id)).size).toBe(sections.length);
   });

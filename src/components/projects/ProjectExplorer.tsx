@@ -89,7 +89,15 @@ export function ProjectExplorer() {
                 onClick={() => select(i)}
                 onKeyDown={onKeyDown}
               >
-                <span className="ptable__pid">{p.pid}</span>
+                <span className="ptable__pid">
+                  {p.featured ? (
+                    <span className="ptable__star" aria-hidden="true">
+                      ★
+                    </span>
+                  ) : null}
+                  {p.pid}
+                  {p.featured ? <span className="sr-only"> · {t.projects.featured}</span> : null}
+                </span>
                 <span className="ptable__name">{l(p.name)}</span>
                 <span className="ptable__col-domain">{t.projects.domains[p.domain]}</span>
                 <span className="ptable__col-status">

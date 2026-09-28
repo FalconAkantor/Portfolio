@@ -75,7 +75,8 @@ const en = {
   },
   projects: {
     title: 'Running processes',
-    lead: 'Systems I have built — from cameras and GPUs to purchasing, stock and margins. Select one to inspect what it does and how it is put together.',
+    lead: 'Systems I have designed and built end to end. Featured tools first (★). Select one to inspect what it does and how it is put together.',
+    featured: 'featured tool',
     columns: { pid: 'pid', name: 'process', domain: 'domain', status: 'status' },
     online: 'online',
     problem: 'Problem',
@@ -248,7 +249,7 @@ const en = {
     ai: [
       'Local LLMs: Ollama · DeepSeek · DeepSeek-R1 · Mistral · NVIDIA NIM',
       'RAG: Sentence Transformers (all-mpnet-base-v2) + FAISS',
-      'Vision: YOLO / YOLOv5 on CUDA',
+      'Vision: YOLO / YOLOv5 on CUDA · Qwen multimodal on Ollama, fully local',
       'Runs on self-operated NVIDIA GPU infrastructure.',
     ],
     automation: [
@@ -356,7 +357,8 @@ const es: UIStrings = {
   },
   projects: {
     title: 'Procesos en ejecución',
-    lead: 'Sistemas que he construido: de cámaras y GPUs a compras, stock y márgenes. Selecciona uno para ver qué hace y cómo está montado.',
+    lead: 'Sistemas que he diseñado y construido de principio a fin. Primero, las herramientas destacadas (★). Selecciona uno para ver qué hace y cómo está montado.',
+    featured: 'herramienta destacada',
     columns: { pid: 'pid', name: 'proceso', domain: 'dominio', status: 'estado' },
     online: 'online',
     problem: 'Problema',
@@ -529,7 +531,7 @@ const es: UIStrings = {
     ai: [
       'LLMs locales: Ollama · DeepSeek · DeepSeek-R1 · Mistral · NVIDIA NIM',
       'RAG: Sentence Transformers (all-mpnet-base-v2) + FAISS',
-      'Visión: YOLO / YOLOv5 sobre CUDA',
+      'Visión: YOLO / YOLOv5 sobre CUDA · Qwen multimodal en Ollama, 100 % local',
       'Corre sobre infraestructura propia con GPUs NVIDIA.',
     ],
     automation: [

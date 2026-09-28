@@ -39,6 +39,14 @@ export const automationFlows: AutomationFlow[] = [
     result: { en: 'Structured order, ready to process', es: 'Pedido estructurado, listo para procesar' },
   },
   {
+    id: 'display-restock',
+    channel: 'whatsapp',
+    name: { en: 'Display restocking by photo', es: 'Reposición de expositores por foto' },
+    trigger: { en: 'A display is due for review', es: 'A un expositor le toca revisión' },
+    engine: { en: 'WhatsApp asks for a photo; local AI counts every unit', es: 'WhatsApp pide una foto; la IA local cuenta cada unidad' },
+    result: { en: 'The replenishment list, every morning', es: 'La lista de reposición, cada mañana' },
+  },
+  {
     id: 'doc-extraction',
     channel: 'documents',
     name: { en: 'Data extraction from documents', es: 'Extracción de datos de documentos' },

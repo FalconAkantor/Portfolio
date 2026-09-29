@@ -4,11 +4,9 @@ import { useInView } from '../../../hooks/useInView';
 import { WorkspaceDemo } from './WorkspaceDemo';
 import { SentinelConsole } from '../../vision/SentinelConsole';
 import { ShelfFeed } from '../../vision/ShelfFeed';
-import { RagSimulator } from '../../ai/RagSimulator';
-import { Rack } from '../../infra/Rack';
-import { SignalGrid } from '../../infra/SignalGrid';
+import { DocsDemo } from '../../docs/DocsDemo';
+import { BridgeDemo } from '../../bridge/BridgeDemo';
 import '../../vision/vision.css';
-import '../../infra/infra.css';
 
 /** The signature visual of each project, shown at the top of the inspector. */
 export function ProjectVisual({ kind }: { kind: VisualKind }) {
@@ -25,16 +23,9 @@ export function ProjectVisual({ kind }: { kind: VisualKind }) {
           <ShelfFeed />
         </div>
       ) : null}
-      {kind === 'rag' ? <RagSimulator /> : null}
-      {kind === 'rack' ? (
-        <div className="pvisual__rack">
-          <Rack />
-          <div className="panel">
-            <SignalGrid />
-          </div>
-        </div>
-      ) : null}
-      {kind === 'rag' ? null : <figcaption className="pvisual__note mono">{note}</figcaption>}
+      {kind === 'docs' ? <DocsDemo active={inView} /> : null}
+      {kind === 'bridge' ? <BridgeDemo active={inView} /> : null}
+      <figcaption className="pvisual__note mono">{note}</figcaption>
     </figure>
   );
 }

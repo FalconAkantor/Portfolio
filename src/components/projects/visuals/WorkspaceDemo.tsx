@@ -36,7 +36,7 @@ const WINDOWS: WinDef[] = [
   { id: 'gpu', desktop: 0, icon: '▦', title: { en: 'Server · GPUs', es: 'Servidor · GPUs' }, rect: { x: 55, y: 51, w: 43, h: 45 } },
   { id: 'assistant', desktop: 0, icon: '✦', title: { en: 'AI assistant', es: 'Asistente IA' }, rect: { x: 2, y: 59, w: 50, h: 37 } },
   { id: 'margins', desktop: 1, icon: '▥', title: { en: 'Margin report', es: 'Informe de márgenes' }, rect: { x: 3, y: 4, w: 55, h: 58 } },
-  { id: 'vast', desktop: 1, icon: '◫', title: { en: 'Vast.ai market', es: 'Mercado Vast.ai' }, rect: { x: 50, y: 30, w: 47, h: 62 } },
+  { id: 'docs', desktop: 1, icon: '▤', title: { en: 'Document library', es: 'Biblioteca documental' }, rect: { x: 50, y: 30, w: 47, h: 62 } },
   { id: 'note', desktop: 1, icon: '✎', title: { en: 'Sticky note', es: 'Nota' }, rect: { x: 6, y: 66, w: 30, h: 28 } },
 ];
 
@@ -299,14 +299,20 @@ function WindowContent({ id }: { id: string }) {
           <p className="wsd__muted mono">{es ? 'por familia' : 'by family'} · {w.sample}</p>
         </div>
       );
-    case 'vast':
+    case 'docs':
       return (
-        <div className="wsd__bars wsd__bars--flow" aria-hidden="true">
-          {[24, 46, 72, 58, 35, 20, 12].map((h, i) => (
-            <span key={i} style={{ height: `${h}%` }} />
+        <ul className="wsd__rows mono" aria-hidden="true">
+          {[
+            ['PDF', 'tarifa_proveedor_2026.pdf', '#tarifa'],
+            ['XLSX', 'margenes_T2.xlsx', '#márgenes'],
+            ['DOCX', 'alta_proveedor.docx', '#procedimiento'],
+          ].map(([kind, file, tag]) => (
+            <li key={file}>
+              <span className="wsd__muted">{kind}</span> {file} <span className="wsd__tag">{tag}</span>
+            </li>
           ))}
-          <p className="wsd__muted mono">VRAM · {w.sample}</p>
-        </div>
+          <li className="wsd__muted">{w.sample}</li>
+        </ul>
       );
     case 'note':
       return <p className="wsd__note">{es ? 'Viernes: revisar tarifas nuevas de proveedores.' : 'Friday: review new supplier price lists.'}</p>;

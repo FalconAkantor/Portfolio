@@ -622,10 +622,55 @@
   text-transform: none;
 }
 
+/* Examples: a 3 × 2 grid on wide screens (five systems + a call to action) */
+.lexamples {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+
 @media (min-width: 760px) {
   .lexamples {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media (min-width: 1040px) {
+  .lexamples {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.lexample__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lexample__glyph {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--signal-soft);
+  color: var(--signal);
+}
+
+.lexample__glyph .pglyph {
+  color: inherit;
+}
+
+.lexample--cta {
+  align-content: center;
+  border-style: dashed;
+  border-color: rgb(82 209 142 / 0.45);
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgb(82 209 142 / 0.1), transparent 60%),
+    linear-gradient(180deg, var(--surface-2), var(--surface));
+}
+
+.lexample--cta .lbtn {
+  justify-self: start;
+  margin-top: 6px;
 }
 
 @media (max-width: 559px) {

@@ -55,7 +55,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, ro
           <p className="pdetail__summary">{l(project.summary)}</p>
         </div>
 
-        <ProjectVisual key={project.id} kind={project.visual} />
+        <ProjectVisual key={`visual-${project.id}`} kind={project.visual} />
 
         <dl className="hud" aria-label={t.projects.specs}>
           {project.specs.map((spec) => (
@@ -94,7 +94,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, ro
           </section>
         ) : null}
 
-        <LiveGuide key={project.id} project={project.id} name={l(project.name)} />
+        <LiveGuide key={`guide-${project.id}`} project={project.id} name={l(project.name)} />
 
         <div className="pdetail__split">
           <section>
@@ -116,7 +116,7 @@ export function ProjectDetail({ project, onPrev, onNext, panelId, labelledBy, ro
               </button>
             ) : null}
           </section>
-          <ProjectTrace key={project.id} project={project} />
+          <ProjectTrace key={`trace-${project.id}`} project={project} />
         </div>
 
         <section>

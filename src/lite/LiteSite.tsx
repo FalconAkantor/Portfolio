@@ -13,6 +13,7 @@ import { Footer } from '../components/navigation/Footer';
 import { ContactChannels } from '../components/contact/ContactChannels';
 import { Icon } from './icons';
 import { PhoneDemo } from './PhoneDemo';
+import { ProjectGlyph } from '../components/projects/ProjectGlyph';
 import './lite.css';
 
 /** The simple version: what I offer, how I work, examples and contact — no jargon. */
@@ -146,7 +147,12 @@ export function LiteSite() {
               const hash = `#project-${project.id}`;
               return (
                 <li key={e.project} className="lcard lexample">
-                  <p className="lexample__name">{l(project.name)}</p>
+                  <p className="lexample__name">
+                    <span className="lexample__glyph" aria-hidden="true">
+                      <ProjectGlyph kind={project.visual} />
+                    </span>
+                    {l(project.name)}
+                  </p>
                   <h3 className="lcard__title">{l(e.title)}</h3>
                   <p className="lcard__text">{l(e.text)}</p>
                   <a className="lexample__link" href={pathFor(lang, 'tech') + hash} onClick={(ev) => toTech(ev, hash)}>
@@ -155,6 +161,14 @@ export function LiteSite() {
                 </li>
               );
             })}
+            <li className="lcard lexample lexample--cta">
+              <h3 className="lcard__title">{x.ctaCardTitle}</h3>
+              <p className="lcard__text">{x.ctaCardText}</p>
+              <a className="btn btn--wa lbtn" href={wa} target="_blank" rel="noopener noreferrer">
+                {x.ctaCardButton}
+                <span className="sr-only"> ({t.a11y.externalLink})</span>
+              </a>
+            </li>
           </ul>
         </section>
 

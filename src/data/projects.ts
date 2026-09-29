@@ -4,12 +4,12 @@ import type { TechId } from './stack';
 /** Same text in every language (technical names, product names…). */
 export const same = (text: string): Localized => ({ en: text, es: text });
 
-export type ProjectId = 'workspace' | 'inventory-ai' | 'cctv' | 'rag' | 'gpu-lab';
+export type ProjectId = 'workspace' | 'cctv' | 'inventory-ai' | 'docs' | 'whatsapp-desk';
 
 export type ProjectDomain = 'platform' | 'vision' | 'ai' | 'infrastructure';
 
 /** Signature visual rendered inside the project inspector. */
-export type ProjectVisual = 'workspace' | 'shelf' | 'cctv' | 'rag' | 'rack';
+export type ProjectVisual = 'workspace' | 'shelf' | 'cctv' | 'docs' | 'bridge';
 
 export interface ProjectSpec {
   key: Localized;
@@ -125,13 +125,6 @@ export const projects: Project[] = [
         line: {
           en: 'Quarterly or yearly gross-margin reports straight from ERP data, exported to Excel by customer, delivery note, family and subfamily.',
           es: 'Informes trimestrales o anuales de margen bruto directamente desde los datos del ERP, exportados a Excel por cliente, albarán, familia y subfamilia.',
-        },
-      },
-      {
-        name: { en: 'Vast.ai Market Analyzer', es: 'Analizador de mercado Vast.ai' },
-        line: {
-          en: 'Crawls the Vast.ai GPU market with rate-limited API calls — supply, VRAM, occupancy, profitability by model and country — and ranks your own hosting against it.',
-          es: 'Recorre el mercado de GPUs de Vast.ai con llamadas a la API limitadas —oferta, VRAM, ocupación y rentabilidad por modelo y país— y sitúa tu propio hosting frente a él.',
         },
       },
       {
@@ -359,127 +352,215 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'rag',
+    id: 'docs',
     pid: '0x04',
-    name: { en: 'Local RAG Knowledge System', es: 'Sistema RAG con IA local' },
-    path: '/srv/ai/rag',
+    name: { en: 'AI Document Library', es: 'Biblioteca documental con IA' },
+    path: '/srv/docs/library',
     domain: 'ai',
-    visual: 'rag',
-    tagline: { en: 'Semantic search and answers over company documents, on own GPUs', es: 'Búsqueda semántica y respuestas sobre documentación, en GPUs propias' },
+    visual: 'docs',
+    tagline: {
+      en: 'Every PDF, Excel and Word file described, searchable by meaning, versioned and approved',
+      es: 'Cada PDF, Excel y Word descrito, buscable por significado, con versiones y aprobaciones',
+    },
     summary: {
-      en: 'Semantic search and generated answers over large volumes of documents, RMAs and internal knowledge — with the models running on own NVIDIA GPUs.',
-      es: 'Búsqueda semántica y respuestas generadas sobre grandes volúmenes de documentos, RMAs y conocimiento interno, con los modelos corriendo en GPUs NVIDIA propias.',
+      en: 'The company’s documents in one place that reads them for you: any PDF, Excel, Word, PowerPoint or scanned image is described and tagged by a local AI, found by meaning, answered from, checked for duplicates, versioned and approved — with permissions per department.',
+      es: 'Los documentos de la empresa en un solo sitio que los lee por ti: cualquier PDF, Excel, Word, PowerPoint o imagen escaneada queda descrito y etiquetado por una IA local, se encuentra por significado, responde preguntas, detecta duplicados, guarda versiones y pasa por aprobación, con permisos por departamento.',
     },
     problem: {
-      en: 'Knowledge is spread across documents, RMAs and internal notes. Keyword search misses it, and the answer ends up depending on the one person who remembers.',
-      es: 'El conocimiento está repartido entre documentos, RMAs y notas internas. La búsqueda por palabras clave no lo encuentra y la respuesta acaba dependiendo de quien se acuerda.',
+      en: 'Procedures, price lists and forms live in shared folders nobody can search: files named “final_v3_OK.pdf”, the same Excel saved five times, scanned PDFs with no text, and the answer to “how do we do this?” depends on who you ask.',
+      es: 'Los procedimientos, las tarifas y los formularios viven en carpetas compartidas que nadie puede buscar: archivos llamados «final_v3_OK.pdf», el mismo Excel guardado cinco veces, PDFs escaneados sin texto, y la respuesta a «¿esto cómo se hace?» depende de a quién preguntes.',
     },
     solution: {
-      en: 'Documents are embedded with all-mpnet-base-v2 and indexed in FAISS; each question retrieves the relevant context and a local LLM (DeepSeek, DeepSeek-R1 or Mistral on Ollama, or NVIDIA NIM) writes the answer.',
-      es: 'Los documentos se vectorizan con all-mpnet-base-v2 y se indexan en FAISS; cada pregunta recupera el contexto relevante y un LLM local (DeepSeek, DeepSeek-R1 o Mistral en Ollama, o NVIDIA NIM) redacta la respuesta.',
+      en: 'Every upload is read — text straight from PDF, Word, Excel and PowerPoint, OCR when a PDF or image is a scan. A local model writes a short description and tags; the text is cut into chunks and embedded, so search works by meaning and any document can be questioned. A SHA-256 fingerprint and semantic similarity catch duplicates, and a background scheduler does the heavy AI work in the hours you choose.',
+      es: 'Cada archivo que se sube se lee: el texto sale directamente de PDF, Word, Excel y PowerPoint, y se pasa OCR cuando un PDF o una imagen es un escaneo. Un modelo local escribe una descripción corta y etiquetas; el texto se trocea y se vectoriza, así la búsqueda funciona por significado y se le puede preguntar a cualquier documento. Una huella SHA-256 y la similitud semántica detectan duplicados, y un planificador en segundo plano hace el trabajo pesado de IA en las horas que elijas.',
     },
+    suiteTitle: { en: 'What it does for the team', es: 'Lo que hace por el equipo' },
+    suite: [
+      {
+        name: { en: 'Reads any file', es: 'Lee cualquier archivo' },
+        line: {
+          en: 'PDF (with OCR fallback for scans), Word including tables, headers and text boxes, Excel and legacy .xls, PowerPoint with speaker notes, and images with text. Formats with nothing to read are skipped automatically.',
+          es: 'PDF (con OCR de respaldo para escaneos), Word incluidas tablas, cabeceras y cuadros de texto, Excel y el .xls antiguo, PowerPoint con notas del presentador e imágenes con texto. Los formatos sin nada que leer se descartan solos.',
+        },
+      },
+      {
+        name: { en: 'Describes and tags itself', es: 'Se describe y se etiqueta solo' },
+        line: {
+          en: 'A local model returns a two-to-three-sentence description and 3–6 tags as strict JSON, with the rule of never inventing what is not in the document. Uploads without a description are chased: their owners get a reminder email.',
+          es: 'Un modelo local devuelve una descripción de dos o tres frases y de 3 a 6 etiquetas en JSON estricto, con la regla de no inventar nada que no esté en el documento. Lo que queda sin describir se persigue: su autor recibe un email recordatorio.',
+        },
+      },
+      {
+        name: { en: 'Search by meaning, ask anything', es: 'Busca por significado, pregunta lo que sea' },
+        line: {
+          en: 'Semantic search ranks documents by their embedding, their best chunk and a keyword boost on name, description and tags. Ask the whole library, or chat with one document; answers come from its own text.',
+          es: 'La búsqueda semántica ordena los documentos por su vector, por su mejor fragmento y por un refuerzo de palabras clave en nombre, descripción y etiquetas. Pregunta a toda la biblioteca o chatea con un documento; las respuestas salen de su propio texto.',
+        },
+      },
+      {
+        name: { en: 'No more duplicates', es: 'Se acabaron los duplicados' },
+        line: {
+          en: 'Identical files are caught by SHA-256; near-identical and similar ones by semantic similarity (above 0.97 and 0.92). A pair marked “not a duplicate” is never flagged again.',
+          es: 'Los archivos idénticos se detectan por SHA-256; los casi idénticos y los parecidos, por similitud semántica (por encima de 0,97 y de 0,92). Un par marcado como «no es duplicado» no vuelve a salir.',
+        },
+      },
+      {
+        name: { en: 'Versions, approvals and comments', es: 'Versiones, aprobaciones y comentarios' },
+        line: {
+          en: 'Every new upload of a document becomes a version you can compare, view or restore. Documents can be sent for approval to reviewers, and commented with @mentions that notify by email.',
+          es: 'Cada nueva subida de un documento se convierte en una versión que se puede comparar, ver o restaurar. Los documentos se pueden enviar a aprobación a revisores y comentar con @menciones que avisan por email.',
+        },
+      },
+      {
+        name: { en: 'Permissions by department', es: 'Permisos por departamento' },
+        line: {
+          en: 'Areas with their own sub-admins, groups and per-folder permissions (read, download, upload, edit…). Everything is audited, deletions go to a 30-day bin, and folders download as ZIP.',
+          es: 'Áreas con sus propios subadministradores, grupos y permisos por carpeta (leer, descargar, subir, editar…). Todo queda auditado, lo borrado va a una papelera de 30 días y las carpetas se descargan en ZIP.',
+        },
+      },
+    ],
     built: {
       en: [
-        'Ingestion of documents, RMAs and internal documentation',
-        'Embeddings with all-mpnet-base-v2 (Sentence Transformers) and vector index in FAISS',
-        'Semantic search and context retrieval',
-        'Answers generated by local models: DeepSeek, DeepSeek-R1, Mistral on Ollama, or NVIDIA NIM',
-        'Runs entirely on self-operated NVIDIA GPU infrastructure',
+        'Inline viewers for Excel and Word, so a spreadsheet can be read in the browser without downloading it',
+        'Background scheduler with an active time window (it can cross midnight) that processes pending descriptions and embeddings',
+        'Semaphores for the AI calls and write locks for every JSON store, so parallel workers never corrupt the library',
+        'Robust model output: a JSON-mode request first, a retry without it, and cleanup of any reasoning text',
+        'A skip list for files that cannot be read, so the AI never retries them in a loop',
+        'Help assistant that knows the platform itself and a “improve this text” button for descriptions',
       ],
       es: [
-        'Ingesta de documentos, RMAs y documentación interna',
-        'Embeddings con all-mpnet-base-v2 (Sentence Transformers) e índice vectorial en FAISS',
-        'Búsqueda semántica y recuperación de contexto',
-        'Respuestas generadas por modelos locales: DeepSeek, DeepSeek-R1, Mistral en Ollama, o NVIDIA NIM',
-        'Funciona íntegramente sobre infraestructura propia con GPUs NVIDIA',
+        'Visores integrados de Excel y Word, para leer una hoja de cálculo en el navegador sin descargarla',
+        'Planificador en segundo plano con franja horaria activa (puede cruzar la medianoche) que procesa las descripciones y los vectores pendientes',
+        'Semáforos para las llamadas a la IA y locks de escritura en cada almacén JSON, para que los workers en paralelo nunca corrompan la biblioteca',
+        'Salida del modelo a prueba de fallos: primero en modo JSON, un reintento sin él y limpieza de cualquier texto de razonamiento',
+        'Una lista de exclusión para los archivos que no se pueden leer, para que la IA no los reintente en bucle',
+        'Asistente de ayuda que conoce la propia plataforma y un botón de «mejorar este texto» para las descripciones',
       ],
     },
     specs: [
-      { key: { en: 'embeddings', es: 'embeddings' }, value: same('all-mpnet-base-v2') },
-      { key: { en: 'index', es: 'índice' }, value: same('FAISS') },
-      { key: { en: 'models', es: 'modelos' }, value: same('DeepSeek · DeepSeek-R1 · Mistral') },
-      { key: { en: 'serving', es: 'serving' }, value: same('Ollama · NVIDIA NIM') },
+      { key: { en: 'reads', es: 'lee' }, value: same('PDF · Excel · Word · PowerPoint · OCR') },
+      { key: { en: 'ai', es: 'ia' }, value: { en: 'local LLM · Ollama', es: 'LLM local · Ollama' } },
+      { key: { en: 'search', es: 'búsqueda' }, value: { en: 'nomic-embed-text · semantic + keywords', es: 'nomic-embed-text · semántica + palabras' } },
+      { key: { en: 'duplicates', es: 'duplicados' }, value: same('SHA-256 · similarity ≥ 0.92') },
+      { key: { en: 'workflow', es: 'flujo' }, value: { en: 'versions · approvals · @mentions', es: 'versiones · aprobaciones · @menciones' } },
+      { key: { en: 'backend', es: 'backend' }, value: same('Flask · Python') },
     ],
     pipeline: [
-      { label: { en: 'Documents', es: 'Documentos' }, detail: { en: 'Docs, RMAs, knowledge bases.', es: 'Docs, RMAs, bases de conocimiento.' } },
-      { label: { en: 'Embeddings', es: 'Embeddings' }, detail: { en: 'all-mpnet-base-v2.', es: 'all-mpnet-base-v2.' } },
-      { label: same('FAISS'), detail: { en: 'Similarity index.', es: 'Índice de similitud.' } },
-      { label: { en: 'Retrieve', es: 'Recuperar' }, detail: { en: 'By meaning, not keywords.', es: 'Por significado, no por palabras.' } },
-      { label: { en: 'Local LLM', es: 'LLM local' }, detail: { en: 'Ollama or NIM on GPU.', es: 'Ollama o NIM en GPU.' } },
-      { label: { en: 'Answer', es: 'Respuesta' }, detail: { en: 'Grounded in own data.', es: 'Basada en datos propios.' } },
+      { label: { en: 'Upload', es: 'Subida' }, detail: { en: 'Any file, any folder.', es: 'Cualquier archivo, cualquier carpeta.' } },
+      { label: { en: 'Read', es: 'Leer' }, detail: { en: 'Text or OCR.', es: 'Texto u OCR.' } },
+      { label: { en: 'Describe', es: 'Describir' }, detail: { en: 'Summary + tags.', es: 'Resumen + etiquetas.' } },
+      { label: { en: 'Embed', es: 'Vectorizar' }, detail: { en: 'Search by meaning.', es: 'Búsqueda por significado.' } },
+      { label: { en: 'Duplicates', es: 'Duplicados' }, detail: { en: 'Hash + similarity.', es: 'Hash + parecido.' } },
+      { label: { en: 'Ask', es: 'Preguntar' }, detail: { en: 'Answers from its own text.', es: 'Respuestas de su propio texto.' } },
     ],
-    stack: ['python', 'rag', 'sentenceTransformers', 'mpnet', 'faiss', 'ollama', 'deepseek', 'deepseekR1', 'mistral', 'nim', 'cuda'],
+    stack: ['python', 'flask', 'ollama', 'qwen', 'embeddings', 'ocr', 'tesseract', 'pdf', 'excel', 'bcrypt', 'email'],
     trace: [
-      { src: 'embed', msg: 'model all-mpnet-base-v2 ready', level: 'ok' },
-      { src: 'faiss', msg: 'index loaded', level: 'ok' },
-      { src: 'query', msg: 'question received' },
-      { src: 'faiss', msg: 'similarity search · top-k context' },
-      { src: 'ollama', msg: 'generating with local model' },
-      { src: 'answer', msg: 'response returned with sources', level: 'ok' },
+      { src: 'upload', msg: 'tarifa_proveedor_2026.pdf · 2.4 MB', level: 'ok' },
+      { src: 'extract', msg: 'pypdf returned 38 chars → OCR (tesseract)' },
+      { src: 'extract', msg: 'ocr · 6,812 chars from 4 pages', level: 'ok' },
+      { src: 'ai', msg: 'description + 5 tags · json ok' },
+      { src: 'embed', msg: 'nomic-embed-text · 5 chunks' },
+      { src: 'dupes', msg: 'similar to tarifa_proveedor_2025.pdf · 0.94', level: 'warn' },
+      { src: 'version', msg: 'v3 registered · approval requested' },
+      { src: 'mail', msg: 'reviewers notified', level: 'ok' },
     ],
   },
   {
-    id: 'gpu-lab',
+    id: 'whatsapp-desk',
     pid: '0x05',
-    name: { en: 'GPU Lab & Observability', es: 'Laboratorio GPU y observabilidad' },
-    path: '/srv/infra/gpu-lab',
-    domain: 'infrastructure',
-    visual: 'rack',
-    tagline: { en: 'Multi-GPU servers, Vast.ai hosting and home-grown monitoring', es: 'Servidores multi-GPU, hosting en Vast.ai y monitorización propia' },
+    name: { en: 'WhatsApp Sales Desk', es: 'Mostrador comercial de WhatsApp' },
+    path: '/srv/sales/whatsapp-desk',
+    domain: 'platform',
+    visual: 'bridge',
+    tagline: {
+      en: 'An AI answers on WhatsApp; the whole team steps in from Discord, from one single number',
+      es: 'Una IA atiende por WhatsApp y todo el equipo entra desde Discord, con un único número',
+    },
     summary: {
-      en: 'The metal under the AI: multi-GPU inference servers, GPU hosting on the Vast.ai marketplace and a home-grown monitoring stack that reports to Telegram and Discord.',
-      es: 'El hierro bajo la IA: servidores de inferencia multi-GPU, hosting de GPUs en el marketplace de Vast.ai y una monitorización propia que avisa por Telegram y Discord.',
+      en: 'A sales assistant on the company’s WhatsApp that recommends from the real catalogue — and, the moment a customer asks for a person, opens a private Discord channel where several teammates can answer from the same WhatsApp number, files included, then hand the chat back to the AI.',
+      es: 'Un asistente comercial en el WhatsApp de la empresa que recomienda a partir del catálogo real y, en cuanto un cliente pide una persona, abre un canal privado de Discord donde varios compañeros pueden responder desde el mismo número de WhatsApp, archivos incluidos, y luego devolver el chat a la IA.',
     },
     problem: {
-      en: 'Running AI on your own terms — private data, local models, no per-token bill — needs someone who can build, operate and watch the machines, not just call an API.',
-      es: 'Ejecutar IA en tus propios términos —datos privados, modelos locales, sin factura por token— exige a alguien que monte, opere y vigile las máquinas, no solo que llame a una API.',
+      en: 'A WhatsApp number can only be in one pair of hands. Customers write at all hours, the same questions get answered again and again, and when a real person is needed, the chat is stuck on one phone and nobody else knows what was said.',
+      es: 'Un número de WhatsApp solo puede estar en unas manos. Los clientes escriben a todas horas, las mismas preguntas se responden una y otra vez, y cuando hace falta una persona de verdad, el chat está atado a un móvil y nadie más sabe qué se ha dicho.',
     },
     solution: {
-      en: 'Servers with multiple NVIDIA GPUs, Threadripper PRO and large RAM, prepared with CUDA and Docker to serve local models; virtualisation and storage around them; and monitoring scripts that watch everything and alert only when a human is needed.',
-      es: 'Servidores con varias GPUs NVIDIA, Threadripper PRO y mucha RAM, preparados con CUDA y Docker para servir modelos locales; virtualización y almacenamiento alrededor; y scripts de monitorización que lo vigilan todo y solo avisan cuando hace falta una persona.',
+      en: 'A bot on whatsapp-web.js answers with an AI model grounded in the catalogue, which is refreshed every day by a scraper. Each customer gets their own private Discord channel, created silently in the background. Writing “asistente” opens the bridge: everything flows both ways — text, photos, PDFs — agents appear on WhatsApp with their name, and “!cerrar” gives the conversation back to the AI.',
+      es: 'Un bot sobre whatsapp-web.js responde con un modelo de IA anclado al catálogo, que un scraper actualiza cada día. Cada cliente tiene su propio canal privado de Discord, creado en segundo plano. Escribir «asistente» abre el puente: todo fluye en los dos sentidos —texto, fotos, PDFs—, los agentes aparecen en WhatsApp con su nombre y «!cerrar» devuelve la conversación a la IA.',
     },
+    suiteTitle: { en: 'How the desk works', es: 'Cómo funciona el mostrador' },
+    suite: [
+      {
+        name: { en: 'Recommends from the real catalogue', es: 'Recomienda desde el catálogo real' },
+        line: {
+          en: 'It works out use case and budget, picks candidates and asks the model for at most three recommendations — never an invented price or URL, never an impossible combination.',
+          es: 'Deduce el uso y el presupuesto, elige candidatos y pide al modelo como mucho tres recomendaciones: nunca un precio ni una URL inventados, nunca una combinación imposible.',
+        },
+      },
+      {
+        name: { en: 'A channel per customer', es: 'Un canal por cliente' },
+        line: {
+          en: 'The first message creates the customer’s private Discord channel, visible only to the staff role, and renames it with their name once they confirm it. The team can step in at any time, even before anyone asks.',
+          es: 'El primer mensaje crea el canal privado del cliente en Discord, visible solo para el rol del equipo, y lo renombra con su nombre en cuanto lo confirma. El equipo puede entrar cuando quiera, incluso antes de que nadie lo pida.',
+        },
+      },
+      {
+        name: { en: 'Many people, one number', es: 'Muchas personas, un número' },
+        line: {
+          en: 'Whatever any teammate writes in the channel reaches the customer on WhatsApp, signed with their name; whatever the customer sends — text, photos, documents, audio — lands in the channel.',
+          es: 'Lo que cualquier compañero escriba en el canal le llega al cliente por WhatsApp, firmado con su nombre; lo que envíe el cliente —texto, fotos, documentos, audio— aparece en el canal.',
+        },
+      },
+      {
+        name: { en: 'Back to the AI with one word', es: 'De vuelta a la IA con una palabra' },
+        line: {
+          en: '“!cerrar” closes the bridge and tells both sides; writing again in a closed channel reopens it automatically. The mapping survives restarts and follows the customer across WhatsApp id changes.',
+          es: '«!cerrar» cierra el puente y avisa a los dos lados; volver a escribir en un canal cerrado lo reabre solo. La relación entre cliente y canal sobrevive a los reinicios y sigue al cliente aunque WhatsApp le cambie el identificador.',
+        },
+      },
+    ],
     built: {
       en: [
-        'Machines with multiple RTX 3090 and RTX 4090, plus RTX 5090 and RTX 6000 Ada',
-        'Threadripper PRO, large RAM, CUDA and Docker serving local models',
-        'Proxmox virtualisation (QCOW2, VHDX) and Synology storage over CIFS/Samba',
-        'GPU hosting on the Vast.ai marketplace, with its own market analyzer',
-        'Custom monitoring of CPU, RAM, GPU, containers, processes, services, cameras and inference',
-        'Network and defensive security: nmap, arp-scan, tcpdump, tshark, Suricata — alerts to Telegram and Discord',
+        'Catalogue refreshed every 24 h by a Python scraper launched from the bot, then re-indexed by product, capacity and price',
+        'The customer’s name is asked once, confirmed and remembered, and used naturally in every answer',
+        'Demand insights: what customers ask for and what gets recommended, summarised for the sales team',
+        'Health watchdog and real reconnection when WhatsApp Web breaks, with global anti-crash guards',
+        'Long answers split to fit WhatsApp, contact cards (vCard) and broadcast lists with a safe pace',
       ],
       es: [
-        'Máquinas con varias RTX 3090 y RTX 4090, además de RTX 5090 y RTX 6000 Ada',
-        'Threadripper PRO, mucha RAM, CUDA y Docker sirviendo modelos locales',
-        'Virtualización con Proxmox (QCOW2, VHDX) y almacenamiento Synology por CIFS/Samba',
-        'Hosting de GPUs en el marketplace de Vast.ai, con su propio analizador de mercado',
-        'Monitorización propia de CPU, RAM, GPU, contenedores, procesos, servicios, cámaras e inferencia',
-        'Red y ciberseguridad defensiva: nmap, arp-scan, tcpdump, tshark, Suricata, con avisos a Telegram y Discord',
+        'Catálogo actualizado cada 24 h por un scraper en Python que lanza el propio bot, y reindexado por producto, capacidad y precio',
+        'El nombre del cliente se pide una vez, se confirma y se recuerda, y se usa con naturalidad en cada respuesta',
+        'Información de demanda: qué piden los clientes y qué se les recomienda, resumido para el equipo comercial',
+        'Vigilante de salud y reconexión real cuando WhatsApp Web se rompe, con protecciones globales contra caídas',
+        'Respuestas largas partidas para WhatsApp, tarjetas de contacto (vCard) y listas de difusión a ritmo seguro',
       ],
     },
     specs: [
-      { key: { en: 'gpus', es: 'gpus' }, value: same('RTX 3090 · 4090 · 5090 · 6000 Ada') },
-      { key: { en: 'cpu', es: 'cpu' }, value: same('Threadripper PRO') },
-      { key: { en: 'platform', es: 'plataforma' }, value: same('CUDA · Docker · Proxmox') },
-      { key: { en: 'marketplace', es: 'marketplace' }, value: same('Vast.ai') },
-      { key: { en: 'alerts', es: 'avisos' }, value: same('Telegram · Discord') },
+      { key: { en: 'channel', es: 'canal' }, value: same('WhatsApp · whatsapp-web.js') },
+      { key: { en: 'team', es: 'equipo' }, value: same('Discord · discord.js') },
+      { key: { en: 'ai', es: 'ia' }, value: same('Gemini 2.5 Flash') },
+      { key: { en: 'catalogue', es: 'catálogo' }, value: { en: 'daily scraper · Python', es: 'scraper diario · Python' } },
+      { key: { en: 'handoff', es: 'relevo' }, value: { en: '“asistente” ↔ “!cerrar”', es: '«asistente» ↔ «!cerrar»' } },
+      { key: { en: 'runtime', es: 'runtime' }, value: same('Node.js') },
     ],
     pipeline: [
-      { label: same('Hardware'), detail: { en: 'Multi-GPU, Threadripper PRO.', es: 'Multi-GPU, Threadripper PRO.' } },
-      { label: { en: 'Hypervisor', es: 'Hipervisor' }, detail: { en: 'Linux, Proxmox, VMs.', es: 'Linux, Proxmox, VMs.' } },
-      { label: same('CUDA · Docker'), detail: { en: 'Reproducible GPU services.', es: 'Servicios GPU reproducibles.' } },
-      { label: { en: 'Models', es: 'Modelos' }, detail: { en: 'LLMs, embeddings, vision.', es: 'LLMs, embeddings, visión.' } },
-      { label: { en: 'Watch', es: 'Vigilar' }, detail: { en: 'Hosts, GPUs, network.', es: 'Hosts, GPUs, red.' } },
-      { label: { en: 'Alert', es: 'Avisar' }, detail: { en: 'Telegram · Discord.', es: 'Telegram · Discord.' } },
+      { label: { en: 'Customer writes', es: 'Escribe el cliente' }, detail: { en: 'On WhatsApp.', es: 'Por WhatsApp.' } },
+      { label: { en: 'AI answers', es: 'Responde la IA' }, detail: { en: 'From the catalogue.', es: 'Desde el catálogo.' } },
+      { label: { en: '“asistente”', es: '«asistente»' }, detail: { en: 'Asks for a person.', es: 'Pide una persona.' } },
+      { label: same('Discord'), detail: { en: 'Private channel, team alerted.', es: 'Canal privado, equipo avisado.' } },
+      { label: { en: 'Team replies', es: 'Responde el equipo' }, detail: { en: 'Same WhatsApp number.', es: 'Mismo número de WhatsApp.' } },
+      { label: same('!cerrar'), detail: { en: 'Back to the AI.', es: 'Vuelta a la IA.' } },
     ],
-    stack: ['nvidia', 'cuda', 'multiGpu', 'docker', 'linux', 'proxmox', 'synology', 'vastai', 'ollama', 'glances', 'nmap', 'tshark', 'suricata', 'telegram', 'discord'],
+    stack: ['nodejs', 'whatsappWebJs', 'whatsapp', 'discordjs', 'discord', 'gemini', 'llm', 'python', 'apis'],
     trace: [
-      { src: 'pcie', msg: 'nvidia gpus enumerated' },
-      { src: 'driver', msg: 'cuda runtime available', level: 'ok' },
-      { src: 'docker', msg: 'nvidia container runtime ready', level: 'ok' },
-      { src: 'vast', msg: 'host listed on marketplace' },
-      { src: 'net', msg: 'arp-scan · new device on segment', level: 'warn' },
-      { src: 'suricata', msg: 'ruleset loaded · watching' },
-      { src: 'telegram', msg: 'alert delivered', level: 'ok' },
+      { src: 'wa', msg: 'message from customer · session restored' },
+      { src: 'discord', msg: 'private channel ensured · staff only', level: 'ok' },
+      { src: 'ai', msg: 'intent: 3D design · budget ~2,000 €' },
+      { src: 'ai', msg: '3 recommendations · urls from catalogue', level: 'ok' },
+      { src: 'wa', msg: '"asistente" → handoff opened', level: 'warn' },
+      { src: 'discord', msg: '@everyone · new WhatsApp enquiry' },
+      { src: 'bridge', msg: 'agent reply → WhatsApp · file forwarded', level: 'ok' },
+      { src: 'bridge', msg: '!cerrar → AI active again', level: 'ok' },
     ],
   },
 ];

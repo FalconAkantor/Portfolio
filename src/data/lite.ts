@@ -6,7 +6,7 @@ import type { ProjectId } from './projects';
  * told for people who just want to know what I offer.
  */
 
-export type ServiceIcon = 'documents' | 'assistant' | 'chat' | 'camera' | 'report' | 'server';
+export type ServiceIcon = 'documents' | 'assistant' | 'chat' | 'camera' | 'report' | 'library';
 
 export interface Service {
   id: string;
@@ -37,10 +37,10 @@ export const services: Service[] = [
   {
     id: 'bots',
     icon: 'chat',
-    title: { en: 'WhatsApp and Telegram bots', es: 'Bots de WhatsApp y Telegram' },
+    title: { en: 'WhatsApp that answers — and a team behind it', es: 'Un WhatsApp que atiende, con tu equipo detrás' },
     text: {
-      en: 'Your customers or your team send photos, requests or questions by WhatsApp, and the system handles them and notifies whoever needs to know.',
-      es: 'Tus clientes o tu equipo envían fotos, peticiones o dudas por WhatsApp, y el sistema lo gestiona y avisa a quien tenga que saberlo.',
+      en: 'An assistant answers your customers at any hour, and when a person is needed, your whole team replies from the same number — without passing the phone around.',
+      es: 'Un asistente atiende a tus clientes a cualquier hora y, cuando hace falta una persona, todo tu equipo responde desde el mismo número, sin pasarse el móvil.',
     },
   },
   {
@@ -62,12 +62,12 @@ export const services: Service[] = [
     },
   },
   {
-    id: 'infra',
-    icon: 'server',
-    title: { en: 'Your own AI, on your own servers', es: 'Tu propia IA, en tus propios equipos' },
+    id: 'library',
+    icon: 'library',
+    title: { en: 'Documents that sort themselves', es: 'Documentos que se ordenan solos' },
     text: {
-      en: 'Artificial intelligence running on your machines instead of someone else’s cloud, with everything monitored and alerts when something needs attention.',
-      es: 'Inteligencia artificial funcionando en tus máquinas en lugar de en la nube de otro, con todo vigilado y avisos cuando algo necesita atención.',
+      en: 'Every PDF, Excel and Word file in one place: described, searchable by what it says, with versions, approvals and no duplicates. Even scanned papers can be searched.',
+      es: 'Todos tus PDF, Excel y Word en un solo sitio: descritos, buscables por lo que dicen, con versiones, aprobaciones y sin duplicados. Hasta los papeles escaneados se pueden buscar.',
     },
   },
 ];
@@ -113,19 +113,27 @@ export const examples: { project: ProjectId; title: Localized; text: Localized }
     },
   },
   {
+    project: 'docs',
+    title: { en: 'Documents that answer questions', es: 'Documentos que responden preguntas' },
+    text: {
+      en: 'Upload a PDF, an Excel or even a scanned sheet: it is read, described and filed. Then ask “how do we register a supplier?” and get the answer with the document it comes from.',
+      es: 'Sube un PDF, un Excel o hasta una hoja escaneada: se lee, se describe y se archiva. Después pregunta «¿cómo se da de alta un proveedor?» y tendrás la respuesta con el documento del que sale.',
+    },
+  },
+  {
+    project: 'whatsapp-desk',
+    title: { en: 'One WhatsApp, the whole team', es: 'Un WhatsApp, todo el equipo' },
+    text: {
+      en: 'An assistant answers your customers on WhatsApp. When they want a person, your team replies from Discord — several people, the same number, files included.',
+      es: 'Un asistente atiende a tus clientes por WhatsApp. Cuando quieren una persona, tu equipo responde desde Discord: varias personas, el mismo número y con archivos.',
+    },
+  },
+  {
     project: 'workspace',
     title: { en: 'All the tools in one place', es: 'Todas las herramientas en un solo sitio' },
     text: {
       en: 'An online desktop where every tool a team uses works together, with a single login and an assistant that tells you which one to use.',
       es: 'Un escritorio online donde todas las herramientas de un equipo funcionan juntas, con un solo inicio de sesión y un asistente que te dice cuál usar.',
-    },
-  },
-  {
-    project: 'rag',
-    title: { en: 'A search engine that understands questions', es: 'Un buscador que entiende preguntas' },
-    text: {
-      en: 'Ask like you would ask a colleague and get the answer from the company’s own documentation — without sending data outside.',
-      es: 'Pregunta como se lo preguntarías a un compañero y obtén la respuesta de la propia documentación de la empresa, sin enviar datos fuera.',
     },
   },
 ];

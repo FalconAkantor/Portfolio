@@ -484,225 +484,312 @@ def daily_restock():
     },
   ],
 
-  rag: [
+  docs: [
     {
-      title: { en: 'Gather the documents', es: 'Reunir los documentos' },
+      title: { en: 'Read any file', es: 'Leer cualquier archivo' },
       text: {
-        en: 'Manuals, RMAs and internal notes are loaded and cut into overlapping chunks, so an answer never depends on a sentence being split in half. Each chunk keeps where it came from.',
-        es: 'Los manuales, los RMAs y las notas internas se cargan y se cortan en trozos que se solapan, para que una respuesta nunca dependa de una frase partida por la mitad. Cada trozo recuerda de dónde viene.',
+        en: 'Each format has its own reader: pypdf for PDFs, the full Word structure (tables, headers, text boxes), up to 10 sheets of an Excel, PowerPoint with its notes. If a PDF gives back almost no text, it is a scan — and it goes to OCR.',
+        es: 'Cada formato tiene su lector: pypdf para los PDF, toda la estructura de Word (tablas, cabeceras, cuadros de texto), hasta 10 hojas de un Excel, PowerPoint con sus notas. Si un PDF devuelve casi nada de texto, es un escaneo, y pasa a OCR.',
       },
-      input: { en: 'manual.pdf · rma_2291.txt · notes/', es: 'manual.pdf · rma_2291.txt · notas/' },
-      output: { en: '14,320 chunks with source', es: '14.320 trozos con su origen' },
+      input: same('tarifa_proveedor_2026.pdf'),
+      output: { en: 'pypdf: 38 characters → OCR: 6,812 characters', es: 'pypdf: 38 caracteres → OCR: 6.812 caracteres' },
       code: {
-        file: 'ingest.py',
-        real: false,
-        src: `def chunks(text, size=800, overlap=150):
-    for start in range(0, len(text), size - overlap):
-        yield text[start:start + size]
+        file: 'library.py',
+        real: true,
+        src: `def extract_text_from_file(abs_path, max_chars=8000):
+    ext = os.path.splitext(abs_path)[1].lower()
+    if ext == '.pdf':
+        text = _pdf_text_via_pypdf(abs_path, max_chars)          # fast path
+        if len(text.strip()) < 200:                              # almost nothing: a scan
+            ocr_text = _pdf_text_via_ocr(abs_path, max_chars)    # Tesseract + Poppler
+            if len(ocr_text.strip()) > len(text.strip()):
+                return ocr_text
+        return text
+    if ext == '.docx':           return _docx_extract_full(abs_path, max_chars)
+    if ext in ('.xlsx', '.xlsm'): return _xlsx_extract_full(abs_path, max_chars)
+    if ext == '.pptx':           return _pptx_extract(abs_path, max_chars)
+    if ext in ('.png', '.jpg', '.tiff'): return _ocr_image_file(abs_path, max_chars)
+    return EXTRACT_UNSUPPORTED_FORMAT        # goes straight to the skip list`,
+      },
+    },
+    {
+      title: { en: 'Describe and tag it', es: 'Describirlo y etiquetarlo' },
+      text: {
+        en: 'A local model on Ollama catalogues the document: a description of at most 40 words and 3 to 6 tags, as strict JSON and with the rule of not inventing anything that is not in the text. If JSON mode fails, it retries without it and cleans the answer.',
+        es: 'Un modelo local en Ollama cataloga el documento: una descripción de 40 palabras como mucho y de 3 a 6 etiquetas, en JSON estricto y con la regla de no inventar nada que no esté en el texto. Si el modo JSON falla, reintenta sin él y limpia la respuesta.',
+      },
+      input: { en: 'file name + first 6,000 characters', es: 'nombre del archivo + primeros 6.000 caracteres' },
+      output: same('{"descripcion": "Tarifa del proveedor para 2026…", "tags": ["tarifa", "proveedor", "2026"]}'),
+      code: {
+        file: 'library.py',
+        real: true,
+        src: `system = (
+    'You catalogue internal company documents.\\n'
+    'Return ONLY a valid JSON object: {"descripcion": "...", "tags": ["tag1", "tag2"]}\\n'
+    '- Description in Spanish, 40 words at most.\\n'
+    '- 3 to 6 relevant tags, lowercase, no spaces.\\n'
+    '- Do not invent anything that is not in the document.'
+)
+body = {"model": OLLAMA_MODEL, "format": "json", "stream": False,
+        "options": {"temperature": 0.2, "num_predict": 1200},
+        "messages": [{"role": "system", "content": system},
+                     {"role": "user", "content": f"File: {filename}\\n\\n{text[:6000]}"}]}`,
+      },
+    },
+    {
+      title: { en: 'Cut it into meaning', es: 'Trocearlo en significado' },
+      text: {
+        en: 'The text is cut into 1,500-character chunks that overlap by 200, breaking at a paragraph, a line or a full stop whenever possible. Each chunk gets a vector (nomic-embed-text), so search and questions work by meaning.',
+        es: 'El texto se corta en fragmentos de 1.500 caracteres que se solapan 200, partiendo por un párrafo, una línea o un punto siempre que se puede. Cada fragmento recibe un vector (nomic-embed-text), así la búsqueda y las preguntas funcionan por significado.',
+      },
+      input: { en: '6,812 characters of text', es: '6.812 caracteres de texto' },
+      output: { en: '5 chunks · 5 vectors', es: '5 fragmentos · 5 vectores' },
+      code: {
+        file: 'library.py',
+        real: true,
+        src: `def chunk_text(text, chunk_size=1500, overlap=200):
+    chunks, start = [], 0
+    while start < len(text):
+        end = min(start + chunk_size, len(text))
+        if end < len(text):                        # try to break at a natural boundary
+            for sep in ['\\n\\n', '\\n', '. ', ' ']:
+                idx = text.rfind(sep, start, end)
+                if idx > start + chunk_size // 2:
+                    end = idx + len(sep)
+                    break
+        chunks.append(text[start:end].strip())
+        if end >= len(text):
+            break
+        start = end - overlap
+    return [c for c in chunks if c]`,
+      },
+    },
+    {
+      title: { en: 'Catch the duplicates', es: 'Pillar los duplicados' },
+      text: {
+        en: 'Two checks. Identical files share the same SHA-256 fingerprint. Near-identical and similar ones are found by comparing their vectors: above 0.97 almost the same, above 0.92 similar. A pair someone marked as “not a duplicate” is never reported again.',
+        es: 'Dos comprobaciones. Los archivos idénticos comparten la misma huella SHA-256. Los casi idénticos y los parecidos se encuentran comparando sus vectores: por encima de 0,97, casi iguales; por encima de 0,92, parecidos. Un par que alguien marcó como «no es duplicado» no vuelve a aparecer.',
+      },
+      input: { en: 'new file vs. the whole library', es: 'archivo nuevo contra toda la biblioteca' },
+      output: { en: 'similar to tarifa_proveedor_2025.pdf · 0.94', es: 'parecido a tarifa_proveedor_2025.pdf · 0,94' },
+      code: {
+        file: 'library.py',
+        real: true,
+        src: `def find_duplicates_global(username, semantic_threshold=0.92):
+    # 1) identical: same SHA-256
+    by_hash = {}
+    for path, info in load_hashes().items():
+        if can_read(username, path):
+            by_hash.setdefault(info['hash'], []).append(path)
+    identical = [pair for group in by_hash.values() if len(group) > 1
+                 for pair in combinations(group, 2) if not is_pair_dismissed(*pair)]
+    # 2) near-identical (> 0.97) and similar (> threshold) by embedding
+    for a, b in combinations(readable_embeddings(username), 2):
+        score = cosine_similarity(a.vector, b.vector)
+        if score > semantic_threshold and not is_pair_dismissed(a.path, b.path):
+            (near if score > 0.97 else similar).append((a.path, b.path, score))`,
+      },
+    },
+    {
+      title: { en: 'Find by meaning — and by name', es: 'Buscar por significado y por nombre' },
+      text: {
+        en: 'A question is embedded and compared with every document the person may read: the whole document, its best chunk, plus a boost when the keywords appear in the file name, the description or the tags — so meaning and the way people name things both count.',
+        es: 'La pregunta se vectoriza y se compara con cada documento que esa persona puede leer: el documento entero, su mejor fragmento y un refuerzo cuando las palabras clave aparecen en el nombre del archivo, en la descripción o en las etiquetas; así cuentan tanto el significado como la forma en que la gente nombra las cosas.',
+      },
+      input: { en: '“how do we register a new supplier?”', es: '«¿cómo se da de alta un proveedor nuevo?»' },
+      output: { en: 'alta_proveedor.docx 91 % · checklist_compras.pdf 78 %', es: 'alta_proveedor.docx 91 % · checklist_compras.pdf 78 %' },
+      code: {
+        file: 'library.py',
+        real: true,
+        src: `def _keyword_boost(question, doc_name, desc, tags):
+    keywords = [w for w in normalise(question).split() if len(w) >= 3 and w not in STOPWORDS]
+    boost = 0.0
+    for kw in keywords:
+        if kw in doc_name.lower():  boost += 0.15   # someone named the file like that
+        if kw in desc.lower():      boost += 0.12   # curated by the AI or a person
+        if kw in ' '.join(tags):    boost += 0.10   # explicit tag
+    return min(boost, 0.5)
 
-docs = [(path, piece) for path in sources() for piece in chunks(read_text(path))]`,
+score = max(doc_similarity, best_chunk_similarity) + _keyword_boost(question, name, desc, tags)`,
       },
     },
     {
-      title: { en: 'Turn text into meaning', es: 'Convertir texto en significado' },
+      title: { en: 'Heavy work at quiet hours', es: 'El trabajo pesado, en horas tranquilas' },
       text: {
-        en: 'Each chunk becomes a 768-dimensional vector with all-mpnet-base-v2. Texts that mean the same thing end up close together, even if they use different words.',
-        es: 'Cada trozo se convierte en un vector de 768 dimensiones con all-mpnet-base-v2. Los textos que significan lo mismo acaban cerca, aunque usen palabras distintas.',
+        en: 'Descriptions and vectors for pending documents are produced by a background scheduler every 30 minutes, only inside the time window you set — which may cross midnight — and with semaphores so the AI server is never flooded.',
+        es: 'Las descripciones y los vectores de los documentos pendientes los produce un planificador en segundo plano cada 30 minutos, solo dentro de la franja horaria que elijas —que puede cruzar la medianoche— y con semáforos para no saturar nunca el servidor de IA.',
       },
-      input: { en: '“the fan does not spin after the update”', es: '«el ventilador no gira tras la actualización»' },
-      output: same('[0.021, -0.113, 0.087, … ×768]'),
+      input: { en: 'pending documents · 23:00', es: 'documentos pendientes · 23:00' },
+      output: { en: 'window 22:00–07:00 active → 12 processed', es: 'franja 22:00–07:00 activa → 12 procesados' },
       code: {
-        file: 'ingest.py',
-        real: false,
-        src: `from sentence_transformers import SentenceTransformer
+        file: 'library.py',
+        real: true,
+        src: `def is_in_active_window():
+    cfg = load_scheduler_config()
+    if not cfg.get('time_window_enabled'):
+        return True
+    now = datetime.now().hour
+    start, end = cfg['window_start_hour'] % 24, cfg['window_end_hour'] % 24
+    if start == end:
+        return True                      # 24 h
+    if start < end:
+        return start <= now < end        # e.g. 09:00 → 18:00
+    return now >= start or now < end     # crosses midnight: 22:00 → 07:00
 
-model = SentenceTransformer("all-mpnet-base-v2", device="cuda")
-vectors = model.encode([piece for _, piece in docs],
-                       batch_size=64, normalize_embeddings=True)`,
-      },
-    },
-    {
-      title: { en: 'Index them', es: 'Indexarlos' },
-      text: {
-        en: 'The vectors go into a FAISS index on the GPU machine. With normalised vectors, inner product is cosine similarity, and a search over thousands of chunks takes milliseconds.',
-        es: 'Los vectores van a un índice FAISS en la máquina con GPU. Con vectores normalizados, el producto interno es la similitud coseno, y buscar entre miles de trozos tarda milisegundos.',
-      },
-      input: { en: '14,320 vectors', es: '14.320 vectores' },
-      output: same('index.faiss'),
-      code: {
-        file: 'ingest.py',
-        real: false,
-        src: `import faiss
-
-index = faiss.IndexFlatIP(vectors.shape[1])   # inner product = cosine (normalised)
-index.add(vectors)
-faiss.write_index(index, "index.faiss")`,
-      },
-    },
-    {
-      title: { en: 'Find by meaning', es: 'Buscar por significado' },
-      text: {
-        en: 'The question is embedded with the same model and the index returns the closest chunks — by meaning, not by keywords. Those chunks are the only context the model will see.',
-        es: 'La pregunta se vectoriza con el mismo modelo y el índice devuelve los trozos más cercanos, por significado y no por palabras clave. Esos trozos son el único contexto que verá el modelo.',
-      },
-      input: { en: '“why does the fan stop after updating?”', es: '«¿por qué se para el ventilador al actualizar?»' },
-      output: { en: 'top-5: rma_2291 (0.82), manual p.44 (0.79) …', es: 'top-5: rma_2291 (0,82), manual p.44 (0,79)…' },
-      code: {
-        file: 'ask.py',
-        real: false,
-        src: `q = model.encode([question], normalize_embeddings=True)
-scores, ids = index.search(q, k=5)
-context = [docs[i] for i in ids[0]]`,
-      },
-    },
-    {
-      title: { en: 'A local model writes the answer', es: 'Un modelo local redacta la respuesta' },
-      text: {
-        en: 'A local LLM — DeepSeek, DeepSeek-R1 or Mistral on Ollama, or NVIDIA NIM — writes the answer using only that context. The data never leaves the company’s own GPUs.',
-        es: 'Un LLM local —DeepSeek, DeepSeek-R1 o Mistral en Ollama, o NVIDIA NIM— redacta la respuesta usando solo ese contexto. Los datos nunca salen de las GPUs propias de la empresa.',
-      },
-      input: { en: 'question + 5 chunks', es: 'pregunta + 5 trozos' },
-      output: { en: 'answer draft', es: 'borrador de respuesta' },
-      code: {
-        file: 'ask.py',
-        real: false,
-        src: `prompt = ("Answer ONLY from the context. If it is not there, say you do not know.\\n\\n"
-          + "\\n---\\n".join(piece for _, piece in context)
-          + f"\\n\\nQuestion: {question}")
-answer = ollama.chat(model="deepseek-r1", messages=[{"role": "user", "content": prompt}])`,
-      },
-    },
-    {
-      title: { en: 'Answer with its sources', es: 'Responder con sus fuentes' },
-      text: {
-        en: 'The answer is returned together with the documents it came from, so anyone can check it. If the context does not contain the answer, the system says so instead of making one up.',
-        es: 'La respuesta vuelve junto con los documentos de los que sale, para que cualquiera pueda comprobarla. Si el contexto no contiene la respuesta, el sistema lo dice en lugar de inventársela.',
-      },
-      input: { en: 'answer draft + chunk sources', es: 'borrador + origen de los trozos' },
-      output: { en: '“Known firmware issue — see RMA 2291 and manual p.44.”', es: '«Fallo conocido de firmware: ver RMA 2291 y manual p.44.»' },
-      code: {
-        file: 'ask.py',
-        real: false,
-        src: `return {
-    "answer": answer["message"]["content"],
-    "sources": sorted({path for path, _ in context}),
-}`,
+_OLLAMA_SEMAPHORE = threading.Semaphore(2)   # at most 2 AI calls at a time`,
       },
     },
   ],
 
-  'gpu-lab': [
+  'whatsapp-desk': [
     {
-      title: { en: 'The hardware', es: 'El hardware' },
+      title: { en: 'A channel for every customer', es: 'Un canal para cada cliente' },
       text: {
-        en: 'Multi-GPU workstations and servers on Threadripper PRO: the machines the models run on. Everything above depends on knowing exactly what each one has and how it is doing.',
-        es: 'Estaciones y servidores multi-GPU con Threadripper PRO: las máquinas donde corren los modelos. Todo lo de encima depende de saber exactamente qué tiene cada una y cómo está.',
+        en: 'The first message from a new customer silently creates their private Discord channel — hidden from everyone except the staff role — so the team can step in whenever they want. The link survives restarts and follows the customer even if WhatsApp changes their id.',
+        es: 'El primer mensaje de un cliente nuevo crea en silencio su canal privado de Discord —oculto para todos salvo el rol del equipo—, para que el equipo pueda entrar cuando quiera. La relación sobrevive a los reinicios y sigue al cliente aunque WhatsApp le cambie el identificador.',
       },
-      input: { en: 'a server with several NVIDIA GPUs', es: 'un servidor con varias GPUs NVIDIA' },
-      output: { en: 'inventory: GPUs · VRAM · driver · CUDA', es: 'inventario: GPUs · VRAM · driver · CUDA' },
+      input: { en: 'first WhatsApp message from +34 600…', es: 'primer mensaje de WhatsApp de +34 600…' },
+      output: same('#wa-600123456 · staff only'),
       code: {
-        file: 'gpu_inventory.py',
-        real: false,
-        src: `import pynvml
+        file: 'bot.js',
+        real: true,
+        src: `const perms = [
+  { id: guild.roles.everyone, deny: [Flags.ViewChannel, Flags.SendMessages] },
+  { id: STAFF_ROLE_ID, allow: [Flags.ViewChannel, Flags.SendMessages, Flags.ReadMessageHistory] },
+];
+const channel = await guild.channels.create({
+  name: \`wa-\${phone}\`,
+  type: ChannelType.GuildText,
+  parent: category.id,
+  permissionOverwrites: perms,
+  topic: \`Customer channel for \${phone}\`,
+});
+await map.link(jid, channel.id, /* active */ false, phone);   // survives restarts`,
+      },
+    },
+    {
+      title: { en: 'The AI answers from the catalogue', es: 'La IA responde desde el catálogo' },
+      text: {
+        en: 'The bot works out the use case and the budget, picks candidates from the catalogue — refreshed every 24 hours by a scraper — and asks the model for at most three recommendations, with strict rules: no invented prices, no invented or shortened URLs, no impossible combinations.',
+        es: 'El bot deduce el uso y el presupuesto, elige candidatos del catálogo —que un scraper actualiza cada 24 horas— y pide al modelo como mucho tres recomendaciones, con reglas estrictas: nada de precios inventados, nada de URLs inventadas ni acortadas y ninguna combinación imposible.',
+      },
+      input: { en: '“a computer for 3D design, around €2,000”', es: '«un equipo para diseño 3D, unos 2.000 €»' },
+      output: { en: '2–3 recommendations with the catalogue’s own links', es: '2–3 recomendaciones con los enlaces del propio catálogo' },
+      code: {
+        file: 'bot.js',
+        real: true,
+        src: `const prompt = \`
+ROLE: expert sales assistant. Analyse the candidate products and recommend the best ones.
+\${clientName ? \`The customer's name is \${clientName}.\` : ''}
+RULES:
+- Do not invent URLs or prices. A URL must be exactly the "url_exacta" field.
+- Never suggest impossible combinations.
+- Recommend AT MOST 3 products.
+CANDIDATES:
+\${JSON.stringify(recommender.candidates(session, userMessage))}\`;
 
-pynvml.nvmlInit()
-for i in range(pynvml.nvmlDeviceGetCount()):
-    h = pynvml.nvmlDeviceGetHandleByIndex(i)
-    mem = pynvml.nvmlDeviceGetMemoryInfo(h)
-    print(i, pynvml.nvmlDeviceGetName(h), f"{mem.total / 2**30:.0f} GiB")`,
+const answer = await gemini.generateWithValidation(prompt);   // temperature 0.15`,
       },
     },
     {
-      title: { en: 'Split it into machines', es: 'Repartirlo en máquinas' },
+      title: { en: '“asistente”: a person, please', es: '«asistente»: una persona, por favor' },
       text: {
-        en: 'Proxmox runs the virtual machines and passes GPUs through to them, so each workload gets real hardware and can be moved, snapshotted or rebuilt without touching the rest.',
-        es: 'Proxmox ejecuta las máquinas virtuales y les pasa las GPUs directamente, así cada carga tiene hardware real y se puede mover, clonar o reconstruir sin tocar lo demás.',
+        en: 'When the customer writes “asistente”, the bridge opens: the channel is activated and the whole team is alerted with an @everyone and the customer’s first message. From then on, the AI steps aside.',
+        es: 'Cuando el cliente escribe «asistente», el puente se abre: el canal se activa y se avisa a todo el equipo con un @everyone y el primer mensaje del cliente. A partir de ahí, la IA se aparta.',
       },
-      input: { en: 'host + GPU 0 and 1', es: 'host + GPU 0 y 1' },
-      output: { en: 'VM “inference” with 2 GPUs passed through', es: 'VM «inferencia» con 2 GPUs asignadas' },
+      input: same('asistente'),
+      output: { en: '@everyone · New WhatsApp enquiry · Marta', es: '@everyone · Nueva consulta desde WhatsApp · Marta' },
       code: {
-        file: 'proxmox.sh',
-        real: false,
-        src: `# pass two GPUs straight through to the inference VM
-qm set 120 --hostpci0 0000:41:00,pcie=1
-qm set 120 --hostpci1 0000:42:00,pcie=1
-qm start 120`,
+        file: 'bot.js',
+        real: true,
+        src: `if (userMessage.toLowerCase() === 'asistente') {
+  await message.reply('🧑‍💻 Passing you to a person. One moment…');
+  await discordBridge.startHandoff(userId, userMessage);
+}
+
+async startHandoff(jid, initialText = '') {
+  const ch = await this.ensureChannelFor(jid);
+  await this.map.setActive(jid, true);
+  await ch.send({ content: '@everyone', allowedMentions: { parse: ['everyone'] } });
+  await ch.send(\`📥 New WhatsApp enquiry\\nCustomer: \${phone}\\n\` +
+    'Reply here and they get it on WhatsApp. Write !cerrar to hand back to the AI.');
+}`,
       },
     },
     {
-      title: { en: 'Reproducible GPU services', es: 'Servicios GPU reproducibles' },
+      title: { en: 'Many people, one WhatsApp', es: 'Muchas personas, un WhatsApp' },
       text: {
-        en: 'Models are served from Docker containers with the NVIDIA runtime. The same compose file brings the service back identical on any machine, with the GPUs it needs and nothing else.',
-        es: 'Los modelos se sirven desde contenedores Docker con el runtime de NVIDIA. El mismo compose levanta el servicio idéntico en cualquier máquina, con las GPUs que necesita y nada más.',
+        en: 'Anything a teammate writes in the channel is sent from the company’s WhatsApp, signed with their name; attachments are downloaded from Discord and re-sent as WhatsApp media. Several people can answer the same customer, and everyone sees the whole conversation.',
+        es: 'Todo lo que un compañero escribe en el canal sale por el WhatsApp de la empresa, firmado con su nombre; los adjuntos se descargan de Discord y se reenvían como archivos de WhatsApp. Varias personas pueden atender al mismo cliente y todos ven la conversación completa.',
       },
-      input: same('docker-compose.yml'),
-      output: { en: 'ollama up · 2 GPUs visible', es: 'ollama arriba · 2 GPUs visibles' },
+      input: { en: 'Discord: ana → “Will you use it for rendering?”', es: 'Discord: ana → «¿Lo usarás para render?»' },
+      output: { en: 'WhatsApp: 👨‍💻 Agent (ana): Will you use it…', es: 'WhatsApp: 👨‍💻 Agente (ana): ¿Lo usarás…' },
       code: {
-        file: 'docker-compose.yml',
-        real: false,
-        src: `services:
-  ollama:
-    image: ollama/ollama
-    volumes: ["models:/root/.ollama"]
-    deploy:
-      resources:
-        reservations:
-          devices: [{ driver: nvidia, count: 2, capabilities: [gpu] }]`,
+        file: 'bot.js',
+        real: true,
+        src: `discord.on('messageCreate', async (msg) => {
+  if (msg.author.bot) return;
+  const link = await map.getByChannel(msg.channelId);
+  if (!link?.active) return;
+  if (msg.content.trim()) {
+    await wa.sendMessage(link.jid, \`👨‍💻 *Agent (\${msg.author.username}):*\\n\${msg.content}\`);
+  }
+  for (const att of msg.attachments.values()) {              // files too
+    const data = Buffer.from(await (await fetch(att.url)).arrayBuffer()).toString('base64');
+    await wa.sendMessage(link.jid, new MessageMedia(att.contentType, data, att.name));
+  }
+});`,
       },
     },
     {
-      title: { en: 'Serve the models', es: 'Servir los modelos' },
+      title: { en: 'What the customer sends lands in Discord', es: 'Lo que envía el cliente llega a Discord' },
       text: {
-        en: 'LLMs, embeddings and vision models run locally and are reached over HTTP by every other system on this page. No per-token bill and no data leaving the building.',
-        es: 'Los LLMs, los embeddings y los modelos de visión corren en local y el resto de sistemas de esta página los usan por HTTP. Sin factura por token y sin que los datos salgan del edificio.',
+        en: 'While the bridge is open, every customer message is posted in their channel — text as it is, and photos, documents or audio downloaded from WhatsApp and attached to Discord with the right file type.',
+        es: 'Mientras el puente está abierto, cada mensaje del cliente se publica en su canal: el texto tal cual y las fotos, documentos o audios descargados de WhatsApp y adjuntados en Discord con su tipo de archivo correcto.',
       },
-      input: same('POST /api/chat {model, messages}'),
-      output: { en: 'answer from a local model', es: 'respuesta de un modelo local' },
+      input: { en: 'WhatsApp: photo + “this is my setup”', es: 'WhatsApp: foto + «este es mi puesto»' },
+      output: { en: 'Discord: 📲 Customer Marta + 📎 foto_puesto.jpg', es: 'Discord: 📲 Cliente Marta + 📎 foto_puesto.jpg' },
       code: {
-        file: 'client.py',
-        real: false,
-        src: `r = requests.post("http://gpu-server:11434/api/chat", json={
-    "model": "qwen2.5vl:7b",
-    "messages": [{"role": "user", "content": "…"}],
-    "stream": False,
-})
-print(r.json()["message"]["content"])`,
+        file: 'bot.js',
+        real: true,
+        src: `async forwardFromWhatsApp(jid, text, message) {
+  const link = await this.map.getByJid(jid);
+  if (!link?.active) return;
+  const ch = await this.guild.channels.fetch(link.channelId);
+  if (text?.trim()) await ch.send(\`📲 **Customer \${phone}:**\\n\${text}\`);
+  if (message.hasMedia) {
+    const media = await message.downloadMedia();          // base64 + mimetype
+    const name = media.filename || \`wa-\${Date.now()}.\${mime.extension(media.mimetype)}\`;
+    await ch.send({ content: '📎 File from the customer',
+                    files: [new AttachmentBuilder(Buffer.from(media.data, 'base64'), { name })] });
+  }
+}`,
       },
     },
     {
-      title: { en: 'Watch everything', es: 'Vigilarlo todo' },
+      title: { en: '“!cerrar”: back to the AI', es: '«!cerrar»: de vuelta a la IA' },
       text: {
-        en: 'Hosts, GPUs, containers and the network are watched continuously: temperatures, VRAM, services that should be up, and traffic that should not be there (Suricata, tshark).',
-        es: 'Los hosts, las GPUs, los contenedores y la red se vigilan sin parar: temperaturas, VRAM, servicios que deberían estar arriba y tráfico que no debería estar ahí (Suricata, tshark).',
+        en: 'Any teammate closes the bridge with “!cerrar”: both sides are told and the AI takes over again. If someone writes in a closed channel later, the bridge reopens by itself — so nobody has to remember a command to help a customer.',
+        es: 'Cualquier compañero cierra el puente con «!cerrar»: se avisa a los dos lados y la IA vuelve a encargarse. Si alguien escribe más tarde en un canal cerrado, el puente se reabre solo, así nadie tiene que acordarse de un comando para atender a un cliente.',
       },
-      input: { en: 'every 30 s: GPU temp, VRAM, services', es: 'cada 30 s: temperatura GPU, VRAM, servicios' },
-      output: { en: 'GPU1 · 86 °C · above threshold', es: 'GPU1 · 86 °C · por encima del umbral' },
+      input: same('!cerrar'),
+      output: { en: '✅ Chat closed by luis · AI active again', es: '✅ Chat cerrado por luis · IA activa de nuevo' },
       code: {
-        file: 'watch.py',
-        real: false,
-        src: `for gpu in read_gpus():
-    if gpu.temp_c >= TEMP_LIMIT or gpu.vram_used / gpu.vram_total > 0.95:
-        alert(f"{host} · GPU{gpu.index} · {gpu.temp_c} °C · VRAM {gpu.vram_pct}%")
-for service in EXPECTED_SERVICES:
-    if not is_up(service):
-        alert(f"{service.name} is down")`,
-      },
-    },
-    {
-      title: { en: 'Tell a human', es: 'Avisar a una persona' },
-      text: {
-        en: 'When something needs attention, a message lands on Telegram and Discord with what, where and since when — and a second message when it recovers, so nobody is left wondering.',
-        es: 'Cuando algo necesita atención, llega un mensaje a Telegram y Discord con qué, dónde y desde cuándo, y un segundo mensaje cuando se recupera, para que nadie se quede con la duda.',
-      },
-      input: { en: 'alert: GPU1 86 °C', es: 'alerta: GPU1 86 °C' },
-      output: { en: '🔥 gpu-server · GPU1 86 °C since 14:02', es: '🔥 gpu-server · GPU1 86 °C desde las 14:02' },
-      code: {
-        file: 'notify.py',
-        real: false,
-        src: `def alert(text):
-    requests.post(f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-                  json={"chat_id": CHAT_ID, "text": text})
-    requests.post(DISCORD_WEBHOOK, json={"content": text})`,
+        file: 'bot.js',
+        real: true,
+        src: `async endHandoffByChannel(channelId, { closedBy }) {
+  const link = await this.map.getByChannel(channelId);
+  await this.map.setActive(link.jid, false);
+  this.activeChannelIds.delete(channelId);
+  await channel.send(\`✅ Chat closed by *\${closedBy}*. The AI is active again for this customer.\`);
+  await wa.sendMessage(link.jid, '✅ The chat with an agent is closed. I am back — ask me anything.');
+}
+
+// writing in a closed channel reopens the bridge automatically
+if (!activeChannelIds.has(msg.channelId) && link && content !== '!cerrar') {
+  await map.setActive(link.jid, true);
+  await msg.channel.send('🔄 Bridge reopened. Messages go to the customer until !cerrar.');
+}`,
       },
     },
   ],

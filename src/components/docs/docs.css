@@ -1,0 +1,384 @@
+/* ── AI document library (replica) ─────────────────────────────── */
+.dcs {
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-m);
+  background: #070a0f;
+  overflow: hidden;
+}
+
+.dcs__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: 8px 10px 8px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  font-size: var(--step--2);
+}
+
+.dcs__title {
+  color: var(--text);
+}
+
+.dcs__tabs {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+}
+
+.dcs__tabs button {
+  min-height: 28px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-dim);
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dcs__tabs button.is-on {
+  background: var(--signal);
+  color: var(--void);
+}
+
+@media (pointer: coarse) {
+  .dcs__tabs button {
+    min-height: 34px;
+  }
+}
+
+.dcs__live {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+@media (min-width: 1000px) {
+  .dcs__live {
+    grid-template-columns: 150px minmax(0, 1fr) minmax(0, 0.9fr);
+    align-items: start;
+  }
+
+  .dcs__sample {
+    grid-column: 1 / -1;
+  }
+}
+
+.dcs__folders {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+
+.dcs__folders p {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  color: var(--text-dim);
+}
+
+.dcs__folders p.is-on {
+  background: var(--signal-soft);
+  color: var(--text);
+}
+
+.dcs__folders b {
+  font-weight: 400;
+  font-size: var(--step--2);
+  color: var(--text-faint);
+}
+
+@media (max-width: 999px) {
+  .dcs__folders {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.dcs__job {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  min-width: 0;
+}
+
+.dcs__file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 0.8rem;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.dcs__kind {
+  flex: none;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.dcs__kind--pdf {
+  background: #b8433a;
+}
+
+.dcs__kind--xlsx {
+  background: #1f7a4a;
+}
+
+.dcs__kind--docx {
+  background: #2f5fa8;
+}
+
+.dcs__kind--pptx {
+  background: #b0602a;
+}
+
+.dcs__steps {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.dcs__step {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr);
+  column-gap: 10px;
+  row-gap: 2px;
+  align-items: center;
+  font-size: 0.86rem;
+  color: var(--text-faint);
+}
+
+.dcs__dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+}
+
+.dcs__step.is-done {
+  color: var(--text-dim);
+}
+
+.dcs__step.is-done .dcs__dot {
+  border-color: var(--ok);
+  background: var(--ok);
+}
+
+.dcs__step.is-run {
+  color: var(--text);
+}
+
+.dcs__step.is-run .dcs__dot {
+  border-color: var(--signal);
+  background: var(--signal);
+  box-shadow: 0 0 0 4px rgb(242 169 59 / 0.18);
+  animation: led-pulse 0.9s ease-in-out infinite;
+}
+
+.dcs__step-detail {
+  grid-column: 2;
+  font-size: var(--step--2);
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+  animation: dcs-in 280ms var(--ease-out);
+}
+
+.dcs__step.is-warn .dcs__step-detail {
+  color: var(--signal);
+}
+
+@keyframes dcs-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.dcs__meta {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line-2);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text);
+  animation: dcs-in 320ms var(--ease-out);
+}
+
+.dcs__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dcs__tags span {
+  padding: 2px 7px;
+  border: 1px solid rgb(92 200 214 / 0.4);
+  border-radius: 999px;
+  font-size: 10px;
+  color: var(--flow);
+}
+
+.dcs__recent {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  min-width: 0;
+}
+
+.dcs__recent li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 8px;
+  row-gap: 2px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.dcs__recent li.is-new {
+  border-color: var(--ok);
+  box-shadow: 0 0 0 3px rgb(82 209 142 / 0.1);
+  animation: dcs-in 360ms var(--ease-out);
+}
+
+.dcs__recent-name {
+  font-size: 0.76rem;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.dcs__recent-tags {
+  grid-column: 2;
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+.dcs__sample {
+  font-size: 10px;
+  color: var(--text-faint);
+}
+
+/* Ask */
+.dcs__ask {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  min-height: 20rem;
+  align-content: start;
+}
+
+.dcs__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dcs__chip {
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.dcs__chip:hover,
+.dcs__chip.is-on {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.dcs__chat {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-height: 11rem;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  background: var(--surface);
+}
+
+.dcs__hint {
+  font-size: var(--step--1);
+  color: var(--text-faint);
+}
+
+.dcs__q {
+  justify-self: end;
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px 12px 2px 12px;
+  background: rgb(92 200 214 / 0.12);
+  font-size: 0.92rem;
+}
+
+.dcs__thinking {
+  font-size: var(--step--1);
+  color: var(--signal);
+}
+
+.dcs__thinking::after {
+  content: '▍';
+  margin-left: 4px;
+  animation: blink 1s steps(1) infinite;
+}
+
+.dcs__a {
+  max-width: 92%;
+  padding: 10px 12px;
+  border-radius: 12px 12px 12px 2px;
+  background: var(--surface-2);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  animation: dcs-in 300ms var(--ease-out);
+}
+
+.dcs__sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--step--2);
+  color: var(--text-faint);
+}
+
+.dcs__source {
+  padding: 3px 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  color: var(--text-dim);
+}
+
+.dcs__source b {
+  color: var(--ok);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dcs__step.is-run .dcs__dot {
+    animation: none;
+  }
+}

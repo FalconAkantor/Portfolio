@@ -25,7 +25,7 @@ La elección se guarda en el navegador (`automariza:mode`). Si alguien eligió l
 | Módulo | Qué hace |
 | --- | --- |
 | `boot` | Arranque tipo terminal (solo en la primera visita; se salta con cualquier tecla), titular, comprobación de capacidades y terminal interactiva |
-| `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, consola interactiva del CCTV autónomo —escena nocturna en vivo, sesión de evento, análisis de la IA, topics de Telegram, línea de tiempo de 24 h e investigación en lenguaje natural—, render de estantería, recorrido RAG, rack), ficha, pipeline, qué se construyó y traza |
+| `projects/` | Los 5 MVP. En escritorio, tabla + inspector; en móvil y tablet, tarjetas desplegables que se abren en su sitio y se desplazan solas. Cada uno con su visual propio (réplica interactiva del Agent Workspace, consola interactiva del CCTV autónomo —escena nocturna en vivo, sesión de evento, análisis de la IA, topics de Telegram, línea de tiempo de 24 h e investigación en lenguaje natural—, render de estantería, biblioteca documental con IA —un PDF escaneado recorriendo todo el proceso y preguntas a la biblioteca—, mostrador de WhatsApp con el equipo en Discord), ficha, pipeline, qué se construyó y traza |
 | *guía en vivo* | Dentro de cada proyecto, un reproductor «Cómo funciona, paso a paso y en vivo»: avanza solo (o paso a paso), explica qué está pasando, qué entra y qué sale, y enseña el fragmento de código que lo hace, marcado como *extracto simplificado del código real* o *boceto ilustrativo*. Contenido en `src/data/guides.ts`, que se carga aparte para no pesar en la primera carga |
 | `network` | Mapa de integración animado (email, WhatsApp, cámaras, ERP, BD…) con nodos seleccionables |
 | `automation/` | El mismo proceso manual vs. automatizado y los procesos que convierto en sistemas |
@@ -75,8 +75,6 @@ Los datos están separados de los componentes:
 | `src/data/projects.ts` | Proyectos: ficha, visual, problema, solución, suite de agentes, pipeline, qué se construyó, stack, traza |
 | `src/data/stack.ts` | Catálogo de tecnologías (IDs tipados) y categorías |
 | `src/data/automation.ts` | Flujos de automatización |
-| `src/data/infrastructure.ts` | Hardware del rack y señales de monitorización |
-| `src/data/ai.ts` | Preguntas y etapas del recorrido RAG |
 | `src/data/network.ts` | Nodos y conexiones del mapa de integración (layout de escritorio y de móvil) |
 | `src/data/manifesto.ts` | Ciclo de vida y proceso manual vs. automatizado |
 | `src/data/guides.ts` | Guías en vivo: pasos, explicación, entrada/salida y código de cada proyecto |
@@ -187,4 +185,4 @@ node scripts/generate-assets.mjs
 
 ## Regla de contenido
 
-La web no inventa clientes, cifras, porcentajes, años de experiencia, certificaciones ni resultados. Las trazas de log, la simulación RAG, los renders de visión y las señales de monitorización están **marcados en la propia web** como ilustrativos. Las coordenadas del HUD son decorativas. Los datos que faltan se dejan como *placeholders* en `src/config/site.ts`.
+La web no inventa clientes, cifras, porcentajes, años de experiencia, certificaciones ni resultados. Las trazas de log, las réplicas interactivas (con datos, conversaciones y archivos de ejemplo) y los renders de visión están **marcados en la propia web** como ilustrativos. Las coordenadas del HUD son decorativas. Los datos que faltan se dejan como *placeholders* en `src/config/site.ts`.

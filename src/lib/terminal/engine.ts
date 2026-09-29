@@ -129,7 +129,7 @@ const commands: Command[] = [
       ]);
     },
   },
-  { name: 'ai', aliases: ['llm', 'rag'], run: (_a, ctx) => result([...listOf(ctx.t.terminal.ai), inspect('rag', ctx), inspect('workspace', ctx)]) },
+  { name: 'ai', aliases: ['llm', 'rag', 'docs'], run: (_a, ctx) => result([...listOf(ctx.t.terminal.ai), inspect('docs', ctx), inspect('whatsapp-desk', ctx)]) },
   {
     name: 'automation',
     aliases: ['auto'],
@@ -138,7 +138,7 @@ const commands: Command[] = [
   {
     name: 'infrastructure',
     aliases: ['infra', 'gpu', 'nvidia-smi'],
-    run: (_a, ctx) => result([...listOf(ctx.t.terminal.infrastructure), inspect('gpu-lab', ctx)]),
+    run: (_a, ctx) => result([...listOf(ctx.t.terminal.infrastructure), section('stack', ctx)]),
   },
   {
     name: 'vision',

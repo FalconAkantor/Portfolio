@@ -36,8 +36,8 @@ describe('terminal engine', () => {
 
   it('opens projects by number, id and prefix', () => {
     expect(runCommand('open 2', ctx()).effects).toEqual([{ type: 'open-project', id: 'cctv' }]);
-    expect(runCommand('open rag', ctx()).effects).toEqual([{ type: 'open-project', id: 'rag' }]);
-    expect(runCommand('open gpu', ctx()).effects).toEqual([{ type: 'open-project', id: 'gpu-lab' }]);
+    expect(runCommand('open docs', ctx()).effects).toEqual([{ type: 'open-project', id: 'docs' }]);
+    expect(runCommand('open whats', ctx()).effects).toEqual([{ type: 'open-project', id: 'whatsapp-desk' }]);
     expect(runCommand('open nope', ctx()).lines[0]!.tone).toBe('error');
     expect(runCommand('open', ctx()).lines[0]!.tone).toBe('error');
   });

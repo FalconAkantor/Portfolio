@@ -7,7 +7,7 @@ const paths: Record<ServiceIcon, string> = {
   chat: 'M5 19l1.3-3.9A7.5 7.5 0 1 1 9 18zM9.5 10.5c.5 1.7 2 3.2 4 4',
   camera: 'M3 8h4l2-3h6l2 3h4v11H3zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
   report: 'M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6',
-  server: 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01M12 7h5M12 17h5',
+  library: 'M4 4h5v16H4zM10 4h4v16h-4zM15.5 5.5l3.8-1 3.2 14.8-3.8 1z',
 };
 
 export function Icon({ name }: { name: ServiceIcon }) {

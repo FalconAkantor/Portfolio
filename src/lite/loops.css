@@ -1,0 +1,190 @@
+/* ── Looping mini-animations of the simple version's examples ─────
+   One 8 s cycle. Stages appear in order and everything resets together. */
+.ll {
+  --cycle: 8s;
+  margin: calc(-1 * clamp(1.25rem, 1rem + 1vw, 1.75rem)) calc(-1 * clamp(1.25rem, 1rem + 1vw, 1.75rem)) 6px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 16px 16px 0 0;
+  background:
+    radial-gradient(90% 120% at 50% 0%, rgb(242 169 59 / 0.07), transparent 70%),
+    #070a0f;
+  overflow: hidden;
+}
+
+.ll__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--font-display);
+}
+
+.ll svg * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ll.is-paused svg * {
+  animation-play-state: paused !important;
+}
+
+/* Stages */
+.ll-s1 { animation: ll-s1 var(--cycle) var(--ease-out) infinite both; }
+.ll-s2 { animation: ll-s2 var(--cycle) var(--ease-out) infinite both; }
+.ll-s3 { animation: ll-s3 var(--cycle) var(--ease-out) infinite both; }
+.ll-s4 { animation: ll-s4 var(--cycle) var(--ease-out) infinite both; }
+
+@keyframes ll-s1 {
+  0%, 10% { opacity: 0; transform: translateY(5px); }
+  15%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; }
+}
+@keyframes ll-s2 {
+  0%, 30% { opacity: 0; transform: translateY(5px); }
+  35%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; }
+}
+@keyframes ll-s3 {
+  0%, 50% { opacity: 0; transform: translateY(5px); }
+  55%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; }
+}
+@keyframes ll-s4 {
+  0%, 68% { opacity: 0; transform: translateY(5px); }
+  73%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; }
+}
+
+/* Shared shapes */
+.ll-t { font-size: 10px; font-weight: 600; fill: #d9dfe5; }
+.ll-t--s { font-size: 8.5px; font-weight: 500; }
+.ll-t--b { font-size: 12px; font-weight: 800; }
+.ll-t--dark { fill: #05070a; }
+.ll-t--dim { fill: #8d99a6; font-family: var(--font-mono); font-weight: 400; font-size: 8.5px; }
+.ll-t--sig { fill: #f2a93b; }
+.ll-t--ok { fill: #52d18e; font-weight: 500; }
+.ll-t--flow { fill: #5cc8d6; font-family: var(--font-mono); font-weight: 400; }
+.ll-t--pdf { fill: #ef5b4c; font-family: var(--font-mono); font-size: 9px; }
+.ll-card { fill: #0f151d; stroke: #243142; }
+.ll-card--hl { stroke: #f2a93b; }
+.ll-card--ok { stroke: #52d18e; }
+.ll-card--warn { fill: rgb(239 91 76 / 0.14); stroke: #ef5b4c; }
+.ll-line { fill: #2b3848; }
+.ll-pill--ok { fill: #52d18e; }
+.ll-pill--bad { fill: #ef8a7f; }
+.ll-dev { fill: #0c1117; stroke: #2b3642; }
+.ll-screen { fill: #111a24; }
+
+/* Inventory */
+.ll-lens { fill: none; stroke: #5cc8d6; stroke-width: 1.5; }
+.ll-flash { fill: #fff; opacity: 0; animation: ll-flash var(--cycle) ease-out infinite; }
+@keyframes ll-flash {
+  0%, 6% { opacity: 0; transform: scale(0.4); }
+  8% { opacity: 0.55; transform: scale(1); }
+  14%, 100% { opacity: 0; transform: scale(1.3); }
+}
+.ll-arrow { stroke: #5cc8d6; stroke-width: 2; stroke-dasharray: 3 3; }
+.ll-plank { fill: #2f4250; }
+.ll-box { fill: #6aa7b3; opacity: 0.85; }
+.ll-box--b { fill: #c9a15a; }
+.ll-gap { fill: none; stroke: #ef5b4c; stroke-dasharray: 3 2; }
+.ll-tick { fill: none; stroke: #05070a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ll-scan {
+  fill: #5cc8d6;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px #5cc8d6);
+  animation: ll-scan var(--cycle) linear infinite;
+}
+@keyframes ll-scan {
+  0%, 14% { opacity: 0; transform: translateX(0); }
+  16% { opacity: 0.9; }
+  32% { opacity: 0.9; transform: translateX(118px); }
+  34%, 100% { opacity: 0; transform: translateX(118px); }
+}
+
+/* CCTV */
+.ll-night { fill: #070b12; }
+.ll-ground { stroke: #1c2733; stroke-width: 2; }
+.ll-post { stroke: #1f2a37; stroke-width: 3; }
+.ll-cone { fill: rgb(242 169 59 / 0.12); }
+.ll-car { fill: #16202b; }
+.ll-learned { fill: none; stroke: #5cc8d6; stroke-dasharray: 4 3; opacity: 0.7; }
+.ll-person { fill: #2c3947; }
+.ll-det { fill: none; stroke: #f2a93b; stroke-width: 1.4; }
+.ll-rec { fill: #ef5b4c; animation: led-pulse 1.6s ease-in-out infinite; }
+.ll-walker { animation: ll-walk var(--cycle) linear infinite; }
+@keyframes ll-walk {
+  0% { transform: translateX(-20px); }
+  45%, 88% { transform: translateX(132px); }
+  100% { transform: translateX(132px); opacity: 0; }
+}
+
+/* Docs */
+.ll-page { fill: #e9edf1; }
+.ll-ink { fill: #9aa6b2; }
+.ll-drop { animation: ll-drop var(--cycle) var(--ease-out) infinite; }
+@keyframes ll-drop {
+  0% { opacity: 0; transform: translateY(-30px); }
+  8%, 90% { opacity: 1; transform: none; }
+  97%, 100% { opacity: 0; }
+}
+.ll-scan-y {
+  fill: #5cc8d6;
+  opacity: 0;
+  filter: drop-shadow(0 0 6px #5cc8d6);
+  animation: ll-scan-y var(--cycle) linear infinite;
+}
+@keyframes ll-scan-y {
+  0%, 10% { opacity: 0; transform: translateY(0); }
+  12% { opacity: 0.9; }
+  28% { opacity: 0.9; transform: translateY(96px); }
+  30%, 100% { opacity: 0; transform: translateY(96px); }
+}
+.ll-tag { fill: rgb(92 200 214 / 0.1); stroke: rgb(92 200 214 / 0.5); }
+.ll-search { fill: #0f151d; stroke: #5cc8d6; }
+
+/* WhatsApp desk */
+.ll-wa { fill: #0b141a; }
+.ll-bub { fill: #202c33; }
+.ll-bub--me { fill: #005c4b; }
+.ll-bub--agent { fill: #202c33; stroke: #f2a93b; }
+.ll-bridge { stroke: #f2a93b; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 0 5px #f2a93b); }
+.ll-dc { fill: #1e1f22; stroke: #2b2d31; }
+.ll-av { stroke: #1e1f22; stroke-width: 3; }
+.ll-av--a { fill: #f2a93b; }
+.ll-av--b { fill: #5cc8d6; }
+.ll-av--c { fill: #52d18e; }
+
+/* Workspace */
+.ll-desk { fill: #0b1017; stroke: #243142; }
+.ll-taskbar { fill: #111822; }
+.ll-win { fill: #0f151d; stroke: #2b3848; }
+.ll-winbar { fill: #17202a; }
+.ll-bar { fill: #5cc8d6; opacity: 0.75; }
+.ll-zoom { transform-origin: center; }
+.ll-cursor {
+  fill: #fff;
+  stroke: #05070a;
+  stroke-width: 0.8;
+  animation: ll-cursor var(--cycle) ease-in-out infinite;
+}
+@keyframes ll-cursor {
+  0% { transform: translate(250px, 130px); }
+  12% { transform: translate(80px, 26px); }
+  30% { transform: translate(220px, 26px); }
+  52% { transform: translate(90px, 102px); }
+  72% { transform: translate(230px, 104px); }
+  100% { transform: translate(250px, 130px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ll svg * {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
+  .ll-flash,
+  .ll-scan,
+  .ll-scan-y {
+    opacity: 0 !important;
+  }
+}

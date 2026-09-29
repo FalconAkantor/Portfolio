@@ -13,6 +13,8 @@ import { Footer } from '../components/navigation/Footer';
 import { ContactChannels } from '../components/contact/ContactChannels';
 import { Icon } from './icons';
 import { PhoneDemo } from './PhoneDemo';
+import { LiteLoop } from './LiteLoop';
+import './loops.css';
 import { ProjectGlyph } from '../components/projects/ProjectGlyph';
 import './lite.css';
 
@@ -147,6 +149,7 @@ export function LiteSite() {
               const hash = `#project-${project.id}`;
               return (
                 <li key={e.project} className="lcard lexample">
+                  <LiteLoop project={project.id} />
                   <p className="lexample__name">
                     <span className="lexample__glyph" aria-hidden="true">
                       <ProjectGlyph kind={project.visual} />

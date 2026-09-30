@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #pb-scene {
+          position: absolute;
+          inset: 0;
+        }
+
+        #pb-wipe {
+          position: absolute;
+          inset: 0;
+        }
+
+        #pb-kicker {
+          position: absolute;
+          left: 200px;
+          top: 150px;
+          font-size: 30px;
+        }
+
+        #pb-cards {
+          position: absolute;
+          left: 200px;
+          right: 200px;
+          top: 250px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 28px;
+        }
+
+        .pb-card {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 24px 34px 24px 24px;
+          border-radius: 16px;
+          background: #0f151d;
+          border: 1px solid #243142;
+          font-size: 34px;
+          font-weight: 600;
+          color: #d9dfe5;
+          box-shadow: 0 24px 60px rgb(0 0 0 / 0.4);
+        }
+
+        .pb-card svg {
+          flex: none;
+          width: 60px;
+          height: 60px;
+        }
+
+        .pb-card small {
+          display: block;
+          margin-top: 4px;
+          font-family: var(--mono);
+          font-size: 20px;
+          font-weight: 500;
+          color: #8d99a6;
+        }
+
+        #pb-line {
+          position: absolute;
+          left: 200px;
+          bottom: 170px;
+          font-size: 132px;
+          color: #eef2f5;
+        }
+
+        #pb-line span {
+          color: #ef5b4c;
+        }
+
+        #pb-dust {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        #pb-after {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding-left: 200px;
+          gap: 34px;
+        }
+
+        #pb-after h2 {
+          font-size: 118px;
+          color: #eef2f5;
+          width: max-content;
+        }
+
+        #pb-after h2 span {
+          display: block;
+          font-size: 250px;
+          line-height: 0.95;
+          color: #f2a93b;
+          text-shadow: 0 0 50px rgb(242 169 59 / 0.4);
+        }
+
+        #pb-after p {
+          font-family: var(--mono);
+          font-size: 32px;
+          color: #8d99a6;
+        }
+
+        #pb-after p b {
+          color: #5cc8d6;
+          font-weight: 500;
+        }
+
+        .tall #pb-kicker {
+          left: 64px;
+          top: 300px;
+          font-size: 26px;
+        }
+
+        .tall #pb-cards {
+          left: 64px;
+          right: 64px;
+          top: 380px;
+          flex-direction: column;
+          gap: 26px;
+        }
+
+        .tall .pb-card {
+          width: max-content;
+          font-size: 32px;
+        }
+
+        .tall #pb-line {
+          left: 64px;
+          bottom: 330px;
+          font-size: 96px;
+          width: 900px;
+        }
+
+        .tall #pb-after {
+          padding-left: 64px;
+          padding-right: 64px;
+        }
+
+        .tall #pb-after h2 {
+          font-size: 74px;
+          width: auto;
+        }
+
+        .tall #pb-after h2 span {
+          font-size: 200px;
+        }
+
+        .tall #pb-after p {
+          font-size: 28px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="problem" data-width="1920" data-height="1080">
+        <div id="pb-scene">
+          <div id="pb-wipe">
+            <p id="pb-kicker" class="kicker">// cada día, en tu empresa</p>
+            <div id="pb-cards">
+              <div class="pb-card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#5cc8d6" stroke-width="2.4" stroke-linejoin="round"><rect x="5" y="11" width="38" height="27" rx="4" /><path d="M6 13 L24 27 L42 13" /></svg>
+                <div>Pedidos que llegan por email<small>se copian a mano, uno a uno</small></div>
+              </div>
+              <div class="pb-card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#ef5b4c" stroke-width="2.4" stroke-linejoin="round"><path d="M12 5 H30 L38 13 V43 H12 Z" /><path d="M30 5 V13 H38" /><path d="M17 24 H33 M17 30 H33 M17 36 H27" /></svg>
+                <div>PDFs y albaranes<small>perdidos en carpetas</small></div>
+              </div>
+              <div class="pb-card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#52d18e" stroke-width="2.4" stroke-linejoin="round"><rect x="6" y="8" width="36" height="32" rx="3" /><path d="M6 18 H42 M6 28 H42 M18 8 V40 M30 8 V40" /></svg>
+                <div>El Excel de cada semana<small>rehecho desde cero</small></div>
+              </div>
+              <div class="pb-card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#25d366" stroke-width="2.4" stroke-linejoin="round"><path d="M24 6 A18 18 0 1 1 10 35 L6 42 L13 38.5 A18 18 0 0 0 24 6 Z" /></svg>
+                <div>WhatsApps sin contestar<small>fuera de horario</small></div>
+              </div>
+              <div class="pb-card">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#f2a93b" stroke-width="2.4" stroke-linejoin="round"><rect x="5" y="14" width="28" height="20" rx="3" /><path d="M33 20 L43 14 V34 L33 28 Z" /><circle cx="12" cy="20" r="2" fill="#ef5b4c" stroke="none" /></svg>
+                <div>Horas de cámara sin revisar<small>nadie las mira</small></div>
+              </div>
+            </div>
+            <p id="pb-line" class="title">Trabajo <span>repetitivo.</span></p>
+          </div>
+          <canvas id="pb-dust" width="1920" height="1080"></canvas>
+          <div id="pb-after">
+            <h2 class="title">Eso puede funcionar<span>solo.</span></h2>
+            <p>— y avisar a una persona <b>cuando algo no cuadra</b>.</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const scene = document.getElementById('pb-scene');
+          const wipe = document.getElementById('pb-wipe');
+          const canvas = document.getElementById('pb-dust');
+          const ctx = canvas.getContext('2d');
+          const tl = gsap.timeline({ paused: true });
+
+          // Untransformed layout box relative to the scene (offset chain, so GSAP
+          // entrance transforms never leak into the particle table).
+          const box = (el) => {
+            let x = 0;
+            let y = 0;
+            let n = el;
+            while (n && n !== scene) {
+              x += n.offsetLeft;
+              y += n.offsetTop;
+              n = n.offsetParent;
+            }
+            return { x, y, w: el.offsetWidth, h: el.offsetHeight };
+          };
+          const stretchKw = (s) => {
+            const v = parseFloat(s) || 100;
+            return v >= 124 ? 'expanded' : v >= 111 ? 'semi-expanded' : 'normal';
+          };
+
+          // The raster and the particle table are built once, the first time the scene is
+          // laid out (the scene is hidden until its slot starts). Pure function of the layout.
+          let table = null;
+          const ensure = () => {
+            if (table) return table;
+            const W = scene.offsetWidth;
+            const H = scene.offsetHeight;
+            if (!W || !H || document.fonts.status !== 'loaded') return null;
+            canvas.width = W;
+            canvas.height = H;
+            const off = document.createElement('canvas');
+            off.width = W;
+            off.height = H;
+            const o = off.getContext('2d', { willReadFrequently: true });
+            const drawText = (el, text, color, x, y) => {
+              const cs = getComputedStyle(el);
+              const fs = parseFloat(cs.fontSize);
+              const lh = parseFloat(cs.lineHeight) || fs * 1.2;
+              o.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
+              o.fontStretch = stretchKw(cs.fontStretch);
+              o.letterSpacing = cs.letterSpacing === 'normal' ? '0px' : cs.letterSpacing;
+              o.fillStyle = color;
+              o.textBaseline = 'middle';
+              o.fillText(text, x, y + lh / 2);
+            };
+            const kicker = document.getElementById('pb-kicker');
+            const k = box(kicker);
+            drawText(kicker, kicker.textContent, '#f2a93b', k.x, k.y);
+            Array.from(scene.querySelectorAll('.pb-card')).forEach((card) => {
+              const c = box(card);
+              o.fillStyle = '#0f151d';
+              o.strokeStyle = '#2b3a4d';
+              o.lineWidth = 2;
+              o.beginPath();
+              o.roundRect(c.x, c.y, c.w, c.h, 16);
+              o.fill();
+              o.stroke();
+              const svg = card.querySelector('svg');
+              const label = card.querySelector('div');
+              const small = label.querySelector('small');
+              const pad = parseFloat(getComputedStyle(card).paddingLeft);
+              o.strokeStyle = svg.getAttribute('stroke');
+              o.lineWidth = 3;
+              o.strokeRect(c.x + pad + 8, c.y + c.h / 2 - 18, 44, 36);
+              const lx = c.x + pad + 60 + 22;
+              const sl = box(small);
+              drawText(label, label.firstChild.textContent, '#d9dfe5', lx, sl.y - parseFloat(getComputedStyle(label).lineHeight || 40) - 2);
+              drawText(small, small.textContent, '#8d99a6', lx, sl.y);
+            });
+            const line = document.getElementById('pb-line');
+            const l = box(line);
+            const red = line.querySelector('span');
+            drawText(line, 'Trabajo', '#eef2f5', l.x, l.y);
+            drawText(line, red.textContent, '#ef5b4c', l.x + red.offsetLeft, l.y);
+
+            let seed = 0x5eed1234;
+            const rnd = () => {
+              seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
+              return seed / 4294967296;
+            };
+            const data = o.getImageData(0, 0, W, H).data;
+            const step = 4;
+            const cells = [];
+            let minX = Infinity;
+            let maxX = -Infinity;
+            for (let y = 0; y < H; y += step) {
+              for (let x = 0; x < W; x += step) {
+                const i = (y * W + x) * 4;
+                if (data[i + 3] > 120) {
+                  cells.push([x, y, data[i], data[i + 1], data[i + 2]]);
+                  if (x < minX) minX = x;
+                  if (x > maxX) maxX = x;
+                }
+              }
+            }
+            const cap = 16000;
+            const keep = cells.length > cap ? cap / cells.length : 1;
+            const span = Math.max(1, maxX - minX);
+            const parts = [];
+            for (const [x, y, r, g, b] of cells) {
+              if (rnd() > keep) continue;
+              parts.push({
+                x,
+                y,
+                c: `rgb(${r},${g},${b})`,
+                at: ((x - minX) / span) * 0.74 + rnd() * 0.12 + (y / H) * 0.06,
+                life: 0.3 + rnd() * 0.36,
+                dx: 180 + rnd() * 460,
+                dy: -(80 + rnd() * 300),
+                wob: (rnd() - 0.5) * 140,
+                s: 1.6 + rnd() * 2.4,
+              });
+            }
+            table = { W, H, parts, minX, span };
+            return table;
+          };
+
+          // Dissolve window (scene-local seconds).
+          const D0 = 3.7;
+          const D1 = 5.9;
+          const paint = (t) => {
+            const T = ensure();
+            if (!T) return;
+            const cp = Math.min(1, Math.max(0, (t - D0 - 0.05) / ((D1 - D0) * 0.8)));
+            wipe.style.clipPath = cp <= 0 ? 'none' : `inset(-10px -10px -10px ${T.minX + T.span * cp - 4}px)`;
+            ctx.clearRect(0, 0, T.W, T.H);
+            const p = (t - D0) / (D1 - D0);
+            if (p <= 0 || p >= 1.5) return;
+            for (const q of T.parts) {
+              const v = (p - q.at) / q.life;
+              if (v <= 0 || v >= 1) continue;
+              const e = v * v;
+              ctx.globalAlpha = (1 - v) * Math.min(1, v * 6);
+              ctx.fillStyle = q.c;
+              ctx.fillRect(q.x + q.dx * e + Math.sin(v * 6 + q.wob) * 10, q.y + q.dy * e + q.wob * e, q.s, q.s);
+            }
+            ctx.globalAlpha = 1;
+          };
+          // Driven by a tweened accessor so every seek repaints, evented or not.
+          const driver = {
+            _t: 0,
+            get t() {
+              return this._t;
+            },
+            set t(v) {
+              this._t = v;
+              paint(v);
+            },
+          };
+          tl.fromTo(driver, { t: 0 }, { t: 8, duration: 8, ease: 'none', immediateRender: false }, 0);
+
+          // ── Entrances ──
+          tl.fromTo('#pb-kicker', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 0.1);
+          Array.from(scene.querySelectorAll('.pb-card')).forEach((card, i) => {
+            tl.fromTo(card, { opacity: 0, y: 60, rotation: i % 2 ? 2 : -2, scale: 0.92 }, { opacity: 1, y: 0, rotation: 0, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, 0.35 + i * 0.3);
+          });
+          tl.fromTo('#pb-line', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, 2.2);
+          // Restless jitter: the repetitive work piles up.
+          tl.fromTo('#pb-cards', { x: 0 }, { x: -6, duration: 0.08, repeat: 7, yoyo: true, ease: 'none' }, 3.0);
+          tl.set(wipe, { opacity: 1 }, 0);
+          tl.set(wipe, { opacity: 0 }, D1 - 0.1);
+
+          // ── The turn ──
+          tl.fromTo('#pb-after h2', { opacity: 0, y: 50, filter: 'blur(14px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'expo.out' }, 5.5);
+          tl.fromTo('#pb-after p', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, 6.1);
+          tl.to('#pb-after', { y: -50, opacity: 0, filter: 'blur(10px)', duration: 0.4, ease: 'power2.in' }, 7.6);
+
+          window.__timelines['problem'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

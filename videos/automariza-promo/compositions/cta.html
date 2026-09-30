@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #ct {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          grid-template-columns: 1fr 420px;
+          align-items: center;
+          gap: 60px;
+          padding: 0 150px;
+        }
+
+        #ct-copy {
+          display: flex;
+          flex-direction: column;
+          gap: 34px;
+        }
+
+        #ct-copy h2 {
+          font-size: 118px;
+          color: #eef2f5;
+        }
+
+        #ct-copy h2 span {
+          color: var(--signal);
+        }
+
+        #ct-lead {
+          max-width: 980px;
+          font-size: 36px;
+          line-height: 1.35;
+          color: #b9c3cd;
+        }
+
+        #ct-actions {
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          flex-wrap: wrap;
+        }
+
+        #ct-wa {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 22px 38px 22px 26px;
+          border-radius: 999px;
+          background: #25d366;
+          color: #04130a;
+          font-family: var(--display);
+          font-weight: 800;
+          font-size: 36px;
+          box-shadow: 0 20px 60px rgb(37 211 102 / 0.35);
+        }
+
+        #ct-wa svg {
+          width: 46px;
+          height: 46px;
+        }
+
+        #ct-num {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-family: var(--mono);
+          font-size: 30px;
+          font-weight: 600;
+          color: #eef2f5;
+        }
+
+        #ct-num small {
+          font-size: 20px;
+          font-weight: 500;
+          color: #8d99a6;
+        }
+
+        #ct-mail {
+          font-family: var(--mono);
+          font-size: 26px;
+          color: #8d99a6;
+        }
+
+        #ct-mail b {
+          color: #5cc8d6;
+          font-weight: 500;
+        }
+
+        #ct-brand {
+          display: flex;
+          align-items: baseline;
+          gap: 18px;
+          margin-top: 14px;
+          font-family: var(--mono);
+          font-size: 24px;
+          color: #8d99a6;
+        }
+
+        #ct-brand b {
+          font-family: var(--display);
+          font-stretch: 125%;
+          font-weight: 800;
+          font-size: 38px;
+          letter-spacing: 0.04em;
+          color: #eef2f5;
+        }
+
+        #ct-brand b span {
+          color: var(--signal);
+        }
+
+        #ct-sign {
+          width: 420px;
+          height: 520px;
+        }
+
+        #ct-sign path {
+          fill: none;
+          stroke: #f2a93b;
+          stroke-width: 22;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          filter: drop-shadow(0 0 22px rgb(242 169 59 / 0.55));
+        }
+
+        #ct-ring {
+          fill: none;
+          stroke: #243142;
+          stroke-width: 3;
+        }
+
+        .tall #ct {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          align-content: center;
+          padding: 0 64px;
+          gap: 40px;
+        }
+
+        .tall #ct-sign {
+          order: -1;
+          width: 300px;
+          height: 360px;
+        }
+
+        .tall #ct-copy h2 {
+          font-size: 92px;
+        }
+
+        .tall #ct-lead {
+          font-size: 32px;
+        }
+
+        .tall #ct-wa {
+          font-size: 32px;
+        }
+
+        .tall #ct-brand {
+          flex-direction: column;
+          gap: 6px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="cta" data-width="1920" data-height="1080">
+        <div id="ct">
+          <div id="ct-copy">
+            <p id="ct-kicker" class="kicker">// tu turno</p>
+            <h2 id="ct-title" class="title">¿Algo así en <span>tu empresa?</span></h2>
+            <p id="ct-lead">Cuéntame qué tarea os come el tiempo. Si se repite, seguramente puede funcionar sola.</p>
+            <div id="ct-actions">
+              <div id="ct-wa">
+                <svg viewBox="0 0 48 48" fill="none" stroke="#04130a" stroke-width="3.4" stroke-linejoin="round"><path d="M24 5 A19 19 0 1 1 9.5 36.5 L5 43 L12.5 39.5 A19 19 0 0 0 24 5 Z" /><path d="M17 16 C17 26 22 31 32 32 L34 28 L29 26 L27 28 C24 27 21 24 20 21 L22 19 L20 14 Z" fill="#04130a" stroke="none" /></svg>
+                Escríbeme por WhatsApp
+              </div>
+              <div id="ct-num">+34 624 42 15 03<small>solo atiendo mensajes</small></div>
+            </div>
+            <p id="ct-mail">o por email: <b>nacho.automariza@gmail.com</b></p>
+            <p id="ct-brand"><b>AUTOMA<span>R</span>IZA</b>La R es de Razonamiento.</p>
+          </div>
+          <svg id="ct-sign" viewBox="0 0 420 520">
+            <circle id="ct-ring" cx="210" cy="260" r="196" />
+            <path id="ct-r" pathLength="1" d="M138 402 V118 H232 C318 118 318 262 232 262 H138 M222 262 L300 402" />
+          </svg>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo('#ct-kicker', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 0.05);
+          tl.fromTo('#ct-title', { opacity: 0, y: 50, filter: 'blur(12px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'expo.out' }, 0.15);
+          tl.fromTo('#ct-lead', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, 0.7);
+          tl.fromTo('#ct-wa', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.8)' }, 1.2);
+          tl.to('#ct-wa', { scale: 1.04, duration: 0.5, repeat: 5, yoyo: true, ease: 'sine.inOut' }, 2.0);
+          tl.fromTo('#ct-num', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 1.45);
+          tl.fromTo('#ct-mail', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, 1.8);
+          tl.fromTo('#ct-brand', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' }, 2.2);
+
+          // The R signs itself.
+          const r = document.getElementById('ct-r');
+          tl.fromTo('#ct-ring', { opacity: 0, scale: 0.7, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' }, 0.4);
+          tl.fromTo(r, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.6);
+          tl.to('#ct-ring', { rotation: 20, duration: 5, ease: 'none' }, 0.4);
+          window.__timelines['cta'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

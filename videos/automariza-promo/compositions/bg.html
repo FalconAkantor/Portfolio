@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        /* Ground shared by every scene */
+        #bg {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #bg .grid {
+          position: absolute;
+          inset: -64px;
+          background-image:
+            linear-gradient(rgb(255 255 255 / 0.028) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(255 255 255 / 0.028) 1px, transparent 1px);
+          background-size: 64px 64px;
+        }
+
+        #bg .glow {
+          position: absolute;
+          width: 1400px;
+          height: 1400px;
+          border-radius: 50%;
+          filter: blur(40px);
+        }
+
+        #bg .glow--a {
+          left: 900px;
+          top: -760px;
+          background: radial-gradient(closest-side, rgb(242 169 59 / 0.16), transparent 70%);
+        }
+
+        #bg .glow--b {
+          left: -700px;
+          top: 380px;
+          background: radial-gradient(closest-side, rgb(92 200 214 / 0.12), transparent 70%);
+        }
+        .tall #bg .glow--a {
+          left: 100px;
+          top: -700px;
+        }
+
+        .tall #bg .glow--b {
+          left: -800px;
+          top: 1100px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div id="bg">
+          <div class="grid"></div>
+          <div class="glow glow--a"></div>
+          <div class="glow glow--b"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo('#bg .grid', { x: 0, y: 0 }, { x: -64, y: -64, duration: 60, ease: 'none' }, 0);
+          tl.fromTo('#bg .glow--a', { x: 0, y: 0, scale: 1 }, { x: -320, y: 140, scale: 1.15, duration: 60, ease: 'sine.inOut' }, 0);
+          tl.fromTo('#bg .glow--b', { x: 0, y: 0, scale: 1 }, { x: 420, y: -120, scale: 1.1, duration: 60, ease: 'sine.inOut' }, 0);
+          window.__timelines['bg'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

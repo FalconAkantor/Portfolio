@@ -164,6 +164,26 @@ scripts/
 **SEO:** title/description por idioma y versión, canonical, `hreflang`, Open Graph, Twitter/X card, JSON-LD `Person`, `sitemap.xml`, `robots.txt`, favicon SVG/PNG, manifest y página 404 propia.
 > En una *project page* (`usuario.github.io/Portfolio`), los buscadores solo leen el `robots.txt` de la raíz del dominio. Para que cuente, envía el sitemap desde Google Search Console o usa un dominio propio.
 
+## Vídeo promocional (HyperFrames)
+
+El vídeo de 60 s que se abre desde «Ver el vídeo» está hecho con código en `videos/automariza-promo/`,
+un proyecto de [HyperFrames](https://github.com/heygen-com/hyperframes): cada escena es un HTML animado
+con GSAP (`compositions/`), la música se sintetiza desde cero (`scripts/music.py`, sin licencias) y las
+capturas reales de la web salen de `scripts/capture.mjs`. `BRIEF.md` y `STORYBOARD.md` cuentan el guion.
+
+```bash
+cd videos/automariza-promo
+python3 scripts/music.py                    # banda sonora → assets/audio/soundtrack.wav
+npx hyperframes preview                     # editar en el navegador (Studio)
+npx hyperframes check                       # lint + layout + contraste
+npx hyperframes render --quality high -o renders/automariza-promo-16x9.mp4
+node scripts/vertical.mjs                   # genera el corte 9:16 reutilizando las escenas
+cd ../automariza-promo-vertical && npx hyperframes render --quality high -o ../automariza-promo/renders/automariza-promo-9x16.mp4
+```
+
+Las versiones para la web (H.264 comprimido + póster) viven en `public/video/`, junto a los subtítulos
+`automariza.es.vtt`. Los datos que aparecen en las escenas son de ejemplo, como en la web.
+
 ## Regenerar logos de tecnologías
 
 Los logos del Stack salen de [Simple Icons](https://simpleicons.org) (CC0) y se incrustan solo los que se usan en `src/data/techLogos.ts`, así que no hay dependencia en tiempo de ejecución:

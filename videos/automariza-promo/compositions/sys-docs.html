@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #dc .dc-t {
+          font-family: var(--display);
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        #dc .dc-t:not([fill]) {
+          fill: #d9dfe5;
+        }
+
+        #dc .dc-m {
+          font-family: var(--mono);
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        #dc .dc-m:not([fill]) {
+          fill: #8d99a6;
+        }
+
+        #dc .dc-x {
+          font-family: var(--mono);
+          font-size: 15px;
+          font-weight: 600;
+        }
+
+        #dc .dc-x:not([fill]) {
+          fill: #05070a;
+        }
+      </style>
+
+      <div id="root" data-composition-id="sys-docs" data-width="1920" data-height="1080">
+        <div id="dc" class="sys">
+          <div class="sys-copy">
+            <div id="dc-head" class="sys-head">
+              <span class="sys-count"><b>03</b> / 05</span>
+              <span class="sys-name"><i></i>Biblioteca documental con IA</span>
+            </div>
+            <h2 id="dc-title" class="sys-title">Documentos que responden preguntas</h2>
+            <ol id="dc-steps" class="sys-steps">
+              <li><span class="n">1</span><span>Sube un PDF, un Excel o una hoja escaneada</span></li>
+              <li><span class="n">2</span><span>Se lee, se describe y se etiqueta solo</span></li>
+              <li><span class="n">3</span><span>Pregunta y obtén la respuesta con su fuente</span></li>
+            </ol>
+          </div>
+
+          <div id="dc-stage" class="sys-stage stage panel">
+            <svg viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid slice">
+              <rect width="1000" height="660" fill="#0a0f15" />
+              <text x="36" y="52" class="dc-m">biblioteca / compras</text>
+              <rect x="36" y="68" width="928" height="1.5" fill="#1c2733" />
+              <!-- incoming files -->
+              <g id="dc-f1">
+                <rect x="36" y="100" width="250" height="74" rx="10" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <rect x="52" y="118" width="54" height="38" rx="5" fill="#ef5b4c" />
+                <text x="79" y="143" text-anchor="middle" class="dc-x">PDF</text>
+                <text x="120" y="134" class="dc-t" font-size="17">tarifa_2026.pdf</text>
+                <text x="120" y="156" class="dc-m" font-size="13">2,4 MB · 8 págs.</text>
+              </g>
+              <g id="dc-f2">
+                <rect x="36" y="186" width="250" height="74" rx="10" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <rect x="52" y="204" width="54" height="38" rx="5" fill="#52d18e" />
+                <text x="79" y="229" text-anchor="middle" class="dc-x">XLSX</text>
+                <text x="120" y="220" class="dc-t" font-size="17">margenes_T2.xlsx</text>
+                <text x="120" y="242" class="dc-m" font-size="13">3 hojas</text>
+              </g>
+              <g id="dc-f3">
+                <rect x="36" y="272" width="250" height="74" rx="10" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <rect x="52" y="290" width="54" height="38" rx="5" fill="#5b8def" />
+                <text x="79" y="315" text-anchor="middle" class="dc-x">DOCX</text>
+                <text x="120" y="306" class="dc-t" font-size="17">alta_proveedor.docx</text>
+                <text x="120" y="328" class="dc-m" font-size="13">procedimiento</text>
+              </g>
+              <g id="dc-f4">
+                <rect x="36" y="358" width="250" height="74" rx="10" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <rect x="52" y="376" width="54" height="38" rx="5" fill="#8d99a6" />
+                <text x="79" y="401" text-anchor="middle" class="dc-x">SCAN</text>
+                <text x="120" y="392" class="dc-t" font-size="17">albaran_0412.jpg</text>
+                <text x="120" y="414" class="dc-m" font-size="13">papel escaneado</text>
+              </g>
+              <!-- the page being read -->
+              <g id="dc-page">
+                <rect x="320" y="100" width="250" height="332" rx="8" fill="#e9edf1" />
+                <g fill="#9aa6b2">
+                  <rect x="344" y="128" width="150" height="10" rx="3" fill="#5b6b7b" />
+                  <rect x="344" y="156" width="200" height="7" rx="3" />
+                  <rect x="344" y="174" width="186" height="7" rx="3" />
+                  <rect x="344" y="192" width="202" height="7" rx="3" />
+                  <rect x="344" y="210" width="120" height="7" rx="3" />
+                  <rect x="344" y="240" width="196" height="7" rx="3" />
+                  <rect id="dc-hit" x="340" y="254" width="210" height="44" rx="4" fill="#f2a93b" opacity="0" />
+                  <rect x="344" y="258" width="190" height="7" rx="3" />
+                  <rect x="344" y="276" width="200" height="7" rx="3" />
+                  <rect x="344" y="306" width="170" height="7" rx="3" />
+                  <rect x="344" y="324" width="194" height="7" rx="3" />
+                  <rect x="344" y="342" width="140" height="7" rx="3" />
+                  <rect x="344" y="372" width="188" height="7" rx="3" />
+                  <rect x="344" y="390" width="104" height="7" rx="3" />
+                </g>
+                <rect id="dc-beam" x="320" y="100" width="250" height="6" fill="#5cc8d6" />
+              </g>
+              <text id="dc-ocr" x="320" y="462" class="dc-m" fill="#5cc8d6">OCR · 1.812 caracteres leídos</text>
+              <!-- AI description + tags -->
+              <g id="dc-desc">
+                <rect x="604" y="100" width="360" height="130" rx="10" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <text x="624" y="132" class="dc-m" font-size="14" fill="#5cc8d6">descrito por la IA local</text>
+                <text x="624" y="162" class="dc-t" font-size="17">Procedimiento para dar de alta</text>
+                <text x="624" y="186" class="dc-t" font-size="17">un proveedor nuevo en compras.</text>
+                <g id="dc-tags">
+                  <rect x="624" y="198" width="92" height="24" rx="12" fill="#5cc8d6" opacity="0.15" stroke="#5cc8d6" stroke-opacity="0.5" />
+                  <text x="670" y="215" text-anchor="middle" class="dc-m" font-size="13" fill="#8fdde8">#compras</text>
+                  <rect x="724" y="198" width="112" height="24" rx="12" fill="#5cc8d6" opacity="0.15" stroke="#5cc8d6" stroke-opacity="0.5" />
+                  <text x="780" y="215" text-anchor="middle" class="dc-m" font-size="13" fill="#8fdde8">#proveedores</text>
+                  <rect x="844" y="198" width="100" height="24" rx="12" fill="#52d18e" opacity="0.15" stroke="#52d18e" stroke-opacity="0.5" />
+                  <text x="894" y="215" text-anchor="middle" class="dc-m" font-size="13" fill="#8be8b5">aprobado</text>
+                </g>
+              </g>
+              <!-- ask -->
+              <g id="dc-search">
+                <rect x="604" y="262" width="360" height="56" rx="28" fill="#0f151d" stroke="#5cc8d6" stroke-width="2" />
+                <circle cx="636" cy="290" r="9" fill="none" stroke="#5cc8d6" stroke-width="2.4" />
+                <path d="M643 297 L651 305" stroke="#5cc8d6" stroke-width="2.4" stroke-linecap="round" />
+                <text id="dc-q" x="660" y="296" class="dc-t" style="font-size: 16.5px"></text>
+              </g>
+              <g id="dc-res">
+                <rect x="604" y="336" width="360" height="200" rx="10" fill="#0e1712" stroke="#52d18e" stroke-width="1.5" />
+                <text x="624" y="370" class="dc-m" font-size="14" fill="#52d18e">respuesta · 91 % coincidencia</text>
+                <text x="624" y="402" class="dc-t" font-size="17">1. Pide CIF, IBAN y certificado</text>
+                <text x="624" y="428" class="dc-t" font-size="17">2. Rellena la ficha de alta</text>
+                <text x="624" y="454" class="dc-t" font-size="17">3. Compras lo aprueba</text>
+                <rect x="624" y="478" width="210" height="34" rx="6" fill="#5b8def" opacity="0.16" />
+                <text x="636" y="500" class="dc-m" font-size="14" fill="#9dbaf5">fuente: alta_proveedor.docx</text>
+              </g>
+              <text x="36" y="630" class="dc-m" font-size="14" fill="#8793a1">datos de ejemplo</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          AMZ.sysFrame(tl, 'dc', { steps: [0.8, 2.0, 3.3] });
+
+          // Files drop in.
+          ['#dc-f1', '#dc-f2', '#dc-f3', '#dc-f4'].forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.6)' }, 0.7 + i * 0.16);
+          });
+          // One is read: the page appears and the OCR beam sweeps it.
+          tl.fromTo('#dc-page', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 1.3);
+          tl.set('#dc-beam', { y: 0, opacity: 0 }, 0);
+          tl.to('#dc-beam', { opacity: 0.9, duration: 0.1 }, 1.6);
+          tl.to('#dc-beam', { y: 326, duration: 0.9, ease: 'none' }, 1.6);
+          tl.to('#dc-beam', { opacity: 0, duration: 0.15 }, 2.5);
+          tl.fromTo('#dc-ocr', { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.3);
+          tl.fromTo('#dc-desc', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 2.1);
+          tl.fromTo('#dc-tags', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35, ease: 'back.out(2)' }, 2.55);
+
+          // A question, typed.
+          tl.fromTo('#dc-search', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, 3.1);
+          AMZ.drive(tl, 6, AMZ.typer(document.getElementById('dc-q'), '¿Cómo se da de alta un proveedor?', 3.3, 0.028));
+          // The answer, with the line it came from lit on the page.
+          tl.fromTo('#dc-res', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: 'expo.out' }, 4.35);
+          tl.fromTo('#dc-hit', { opacity: 0 }, { opacity: 0.55, duration: 0.35 }, 4.45);
+
+          window.__timelines['sys-docs'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

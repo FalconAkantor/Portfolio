@@ -16,6 +16,7 @@ import { PhoneDemo } from './PhoneDemo';
 import { LiteLoop } from './LiteLoop';
 import './loops.css';
 import { ProjectGlyph } from '../components/projects/ProjectGlyph';
+import { PromoVideoButton, PromoVideoCard } from '../components/promo/PromoVideo';
 import './lite.css';
 
 /** The simple version: what I offer, how I work, examples and contact — no jargon. */
@@ -79,6 +80,7 @@ export function LiteSite() {
             <a className="btn lbtn" href={mailto}>
               {x.ctaEmail}
             </a>
+            <PromoVideoButton className="btn lbtn" />
           </div>
           <p className="lhero__meta">
             <span>{formatPhone(site.contact.whatsapp)}</span>
@@ -100,6 +102,10 @@ export function LiteSite() {
           </div>
           </div>
           <PhoneDemo />
+        </section>
+
+        <section id="video" className="lsec" aria-label={t.video.dialog}>
+          <PromoVideoCard />
         </section>
 
         <section id="services" className="lsec" aria-labelledby="lite-services">

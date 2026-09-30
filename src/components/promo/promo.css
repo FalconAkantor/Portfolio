@@ -1,0 +1,202 @@
+/* ── Promo video: trigger, poster card and the <dialog> player ───── */
+.promo-play {
+  flex: none;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.promo-play circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.promo-play path {
+  fill: currentColor;
+}
+
+.promo-btn {
+  cursor: pointer;
+}
+
+.promo-btn__len {
+  opacity: 0.7;
+  font-size: 0.85em;
+}
+
+.promo-dialog {
+  width: min(92vw, 1280px);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.promo-dialog--tall {
+  width: min(92vw, calc(86vh * 9 / 16));
+}
+
+.promo-dialog::backdrop {
+  background: rgb(3 5 8 / 0.86);
+  backdrop-filter: blur(6px);
+}
+
+.promo-dialog__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 40px 120px rgb(0 0 0 / 0.6);
+}
+
+.promo-dialog--tall .promo-dialog__frame {
+  aspect-ratio: 9 / 16;
+}
+
+.promo-dialog__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.promo-dialog__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-2);
+  border-radius: 50%;
+  background: rgb(5 7 10 / 0.8);
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.promo-dialog__close:hover {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+/* Poster card (simple version) */
+.promo-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 1rem + 2vw, 3rem);
+  align-items: center;
+}
+
+.promo-card__poster {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #05070a;
+  cursor: pointer;
+  box-shadow: 0 30px 80px rgb(0 0 0 / 0.4);
+}
+
+.promo-card__poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 600ms var(--ease-out), filter 600ms var(--ease-out);
+}
+
+.promo-card__play {
+  position: absolute;
+  left: clamp(12px, 3%, 24px);
+  bottom: clamp(12px, 4%, 24px);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px 14px 16px;
+  border-radius: 999px;
+  background: var(--signal);
+  color: var(--void);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 16px 50px rgb(242 169 59 / 0.35);
+  transform-origin: 0 100%;
+  transition: transform 300ms var(--ease-out);
+}
+
+.promo-card__play .promo-play {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+@media (hover: hover) {
+  .promo-card__poster:hover img {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+
+  .promo-card__poster:hover .promo-card__play {
+    transform: scale(1.05);
+  }
+}
+
+.promo-card__kicker {
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--signal);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.promo-card__title {
+  margin-bottom: 0.9rem;
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.promo-card__text {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+.promo-card__made {
+  margin-top: 0.9rem;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .promo-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 559px) {
+  .promo-card__play {
+    gap: 8px;
+    padding: 8px 14px 8px 9px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-card__poster img,
+  .promo-card__play {
+    transition: none;
+  }
+}

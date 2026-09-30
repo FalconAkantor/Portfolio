@@ -6,6 +6,7 @@ import { ParticleField } from '../components/hero/ParticleField';
 import { TypedHeadline } from '../components/hero/TypedHeadline';
 import { Terminal } from '../components/terminal/Terminal';
 import { Wordmark } from '../components/ui/Wordmark';
+import { PromoVideoButton } from '../components/promo/PromoVideo';
 import './hero.css';
 
 export function Hero() {
@@ -69,6 +70,7 @@ export function Hero() {
             <a className="btn" href="#contact" onClick={(e) => go(e, 'contact')}>
               {t.hero.ctaContact}
             </a>
+            <PromoVideoButton />
           </div>
         </div>
 

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #pf {
+          position: absolute;
+          inset: 0;
+        }
+
+        #pf-copy {
+          position: absolute;
+          left: 150px;
+          top: 110px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        #pf-copy h2 {
+          font-size: 84px;
+          color: #eef2f5;
+        }
+
+        #pf-copy h2 span {
+          color: var(--signal);
+        }
+
+        #pf-deck {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 270px;
+          bottom: 110px;
+          perspective: 2400px;
+          perspective-origin: 50% 40%;
+        }
+
+        .pf-shot {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 1200px;
+          margin-left: -520px;
+          margin-top: -356px;
+          border-radius: 14px;
+          overflow: hidden;
+          border: 1px solid #2b3848;
+          background: #0b1017;
+          box-shadow: 0 50px 120px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(242 169 59 / 0.06);
+        }
+
+        .pf-bar {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: 36px;
+          padding: 0 14px;
+          background: #111822;
+          border-bottom: 1px solid #1c2733;
+          font-family: var(--mono);
+          font-size: 15px;
+          color: #8d99a6;
+        }
+
+        .pf-bar i {
+          display: block;
+          width: 11px;
+          height: 11px;
+          border-radius: 50%;
+          background: #2b3848;
+        }
+
+        .pf-bar b {
+          margin-left: 12px;
+          font-weight: 500;
+          color: #d9dfe5;
+        }
+
+        .pf-bar em {
+          margin-left: auto;
+          font-style: normal;
+          color: var(--signal);
+        }
+
+        .pf-shot img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+
+        #pf-phone {
+          position: absolute;
+          right: 250px;
+          top: 50%;
+          width: 300px;
+          margin-top: -300px;
+          border-radius: 42px;
+          border: 10px solid #1a222c;
+          overflow: hidden;
+          box-shadow: 0 50px 120px rgb(0 0 0 / 0.7);
+        }
+
+        #pf-phone img {
+          display: block;
+          width: 100%;
+        }
+
+        #pf-chips {
+          position: absolute;
+          left: 150px;
+          bottom: 70px;
+          display: flex;
+          gap: 16px;
+        }
+
+        .pf-chip {
+          padding: 12px 22px;
+          border-radius: 999px;
+          border: 1px solid #2b3848;
+          background: rgb(12 17 23 / 0.92);
+          font-family: var(--mono);
+          font-size: 22px;
+          color: #d9dfe5;
+        }
+
+        .pf-chip b {
+          color: var(--flow);
+          font-weight: 500;
+        }
+
+        .tall #pf-copy {
+          left: 64px;
+          right: 64px;
+          top: 260px;
+        }
+
+        .tall #pf-copy h2 {
+          font-size: 76px;
+        }
+
+        .tall #pf-deck {
+          top: 520px;
+          bottom: 420px;
+        }
+
+        .tall .pf-shot {
+          width: 900px;
+          margin-left: -450px;
+          margin-top: -280px;
+        }
+
+        .tall #pf-phone {
+          right: 90px;
+          width: 260px;
+          margin-top: -200px;
+        }
+
+        .tall #pf-chips {
+          left: 64px;
+          right: 64px;
+          bottom: 250px;
+          flex-wrap: wrap;
+        }
+      </style>
+
+      <div id="root" data-composition-id="proof" data-width="1920" data-height="1080">
+        <div id="pf">
+          <div id="pf-copy">
+            <p id="pf-kicker" class="kicker">// míralo por dentro</p>
+            <h2 id="pf-title" class="title">Todo está en la web, <span>funcionando.</span></h2>
+          </div>
+          <div id="pf-deck">
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>~/system/boot</b><em>versión técnica</em></div><img src="assets/screens/tech-hero.jpg" alt="" /></div>
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>/srv/vision/sentinel</b><em>consola CCTV</em></div><img src="assets/screens/view-cctv.jpg" alt="" /></div>
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>/srv/docs/library</b><em>biblioteca</em></div><img src="assets/screens/view-docs.jpg" alt="" /></div>
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>/srv/sales/whatsapp-desk</b><em>mostrador</em></div><img src="assets/screens/view-whatsapp-desk.jpg" alt="" /></div>
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>~/system/stack</b><em>mapa del stack</em></div><img src="assets/screens/tech-stack.jpg" alt="" /></div>
+            <div class="pf-shot"><div class="pf-bar"><i></i><i></i><i></i><b>/lite</b><em>versión sencilla</em></div><img src="assets/screens/lite-examples.jpg" alt="" /></div>
+          </div>
+          <div id="pf-phone"><img src="assets/screens/lite-mobile.jpg" alt="" /></div>
+          <div id="pf-chips">
+            <span class="pf-chip"><b>●</b> réplicas interactivas</span>
+            <span class="pf-chip"><b>●</b> guías en vivo con el código</span>
+            <span class="pf-chip"><b>●</b> versión técnica y sencilla</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const tall = AMZ.tall();
+          tl.fromTo('#pf-kicker', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 0.05);
+          tl.fromTo('#pf-title', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: 'expo.out' }, 0.15);
+
+          // A deck of real captures: each one slides in and pushes the others back.
+          const shots = Array.from(document.querySelectorAll('#pf-deck .pf-shot'));
+          const step = 0.72;
+          const t0 = 0.3;
+          const place = (depth) => ({
+            x: (tall ? -70 : -150) * depth,
+            y: 0,
+            z: -220 * depth,
+            rotationY: -14,
+            rotationX: 4,
+            opacity: depth > 3 ? 0 : 1 - depth * 0.22,
+          });
+          shots.forEach((shot, i) => {
+            gsap.set(shot, { zIndex: i + 1 });
+            tl.fromTo(shot, { x: tall ? 900 : 1500, y: 40, z: 0, rotationY: -34, rotationX: 4, opacity: 0 }, { ...place(0), duration: 0.6, ease: 'expo.out' }, t0 + i * step);
+            for (let k = i + 1; k < shots.length; k++) {
+              tl.to(shot, { ...place(k - i), duration: 0.6, ease: 'expo.out' }, t0 + k * step);
+            }
+            if (i < shots.length - 1) tl.to(shot.querySelectorAll('.pf-bar b, .pf-bar em'), { opacity: 0, duration: 0.2 }, t0 + (i + 1) * step);
+          });
+          // Slow push-in on the whole deck.
+          tl.fromTo('#pf-deck', { scale: 0.93 }, { scale: 0.99, duration: 5.4, ease: 'none' }, 0.3);
+
+          // The simple version also on the phone.
+          tl.fromTo('#pf-phone', { opacity: 0, y: 120, rotation: 6 }, { opacity: 1, y: 0, rotation: -3, duration: 0.8, ease: 'expo.out' }, t0 + 5 * step + 0.2);
+
+          tl.fromTo('.pf-chip', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.18, ease: 'back.out(1.6)' }, 2.4);
+
+          tl.to('#pf', { y: -50, opacity: 0, filter: 'blur(10px)', duration: 0.4, ease: 'power2.in' }, 5.6);
+          window.__timelines['proof'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

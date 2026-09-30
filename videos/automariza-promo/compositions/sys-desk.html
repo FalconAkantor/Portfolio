@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #dk .dk-t {
+          font-family: var(--display);
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        #dk .dk-t:not([fill]) {
+          fill: #e9edef;
+        }
+
+        #dk .dk-m {
+          font-family: var(--mono);
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        #dk .dk-m:not([fill]) {
+          fill: #8d99a6;
+        }
+
+        #dk .dk-n {
+          font-family: var(--display);
+          font-size: 16px;
+          font-weight: 700;
+        }
+      </style>
+
+      <div id="root" data-composition-id="sys-desk" data-width="1920" data-height="1080">
+        <div id="dk" class="sys">
+          <div class="sys-copy">
+            <div id="dk-head" class="sys-head">
+              <span class="sys-count"><b>04</b> / 05</span>
+              <span class="sys-name"><i></i>Mostrador de WhatsApp</span>
+            </div>
+            <h2 id="dk-title" class="sys-title">Un WhatsApp, todo el equipo</h2>
+            <ol id="dk-steps" class="sys-steps">
+              <li><span class="n">1</span><span>Un asistente atiende a cualquier hora</span></li>
+              <li><span class="n">2</span><span>Si piden una persona, entra tu equipo</span></li>
+              <li><span class="n">3</span><span>Varias personas, el mismo número</span></li>
+            </ol>
+          </div>
+
+          <div id="dk-stage" class="sys-stage stage panel">
+            <svg viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid slice">
+              <rect width="1000" height="660" fill="#0a0f15" />
+              <!-- WhatsApp phone -->
+              <rect x="36" y="40" width="330" height="580" rx="38" fill="#0c1117" stroke="#2b3642" stroke-width="3" />
+              <rect x="50" y="54" width="302" height="552" rx="26" fill="#0b141a" />
+              <rect x="50" y="54" width="302" height="64" rx="26" fill="#1f2c34" />
+              <circle cx="84" cy="86" r="17" fill="#25d366" />
+              <text x="84" y="92" text-anchor="middle" class="dk-n" fill="#05070a">T</text>
+              <text x="112" y="82" class="dk-n" fill="#e9edef">Tu tienda</text>
+              <text id="dk-status" x="112" y="104" class="dk-m" font-size="12" fill="#52d18e">IA respondiendo</text>
+              <text id="dk-status2" x="112" y="104" class="dk-m" font-size="12" fill="#f2a93b" opacity="0">Ana está escribiendo…</text>
+              <g id="dk-w1">
+                <rect x="140" y="140" width="196" height="54" rx="12" fill="#005c4b" />
+                <text x="154" y="164" class="dk-t">¡Hola! Busco un equipo</text>
+                <text x="154" y="184" class="dk-t">para diseño 3D</text>
+              </g>
+              <g id="dk-w2">
+                <rect x="66" y="208" width="230" height="78" rx="12" fill="#202c33" />
+                <text x="80" y="232" class="dk-m" font-size="12" fill="#5cc8d6">asistente IA</text>
+                <text x="80" y="254" class="dk-t">Te recomiendo dos del</text>
+                <text x="80" y="274" class="dk-t">catálogo, con precio:</text>
+              </g>
+              <g id="dk-w3">
+                <rect x="234" y="300" width="102" height="40" rx="12" fill="#005c4b" />
+                <text x="250" y="326" class="dk-t">asistente</text>
+              </g>
+              <g id="dk-w4">
+                <rect x="66" y="354" width="250" height="74" rx="12" fill="#202c33" stroke="#f2a93b" stroke-width="1.5" />
+                <text x="80" y="378" class="dk-m" font-size="12" fill="#f2a93b">Ana</text>
+                <text x="80" y="400" class="dk-t">¡Hola, Marta! Te preparo</text>
+                <text x="80" y="418" class="dk-t">el presupuesto ahora.</text>
+              </g>
+              <g id="dk-w5">
+                <rect x="66" y="440" width="210" height="58" rx="12" fill="#202c33" stroke="#5cc8d6" stroke-width="1.5" />
+                <rect x="78" y="452" width="34" height="34" rx="5" fill="#ef5b4c" />
+                <text x="95" y="474" text-anchor="middle" class="dk-m" font-size="10" fill="#05070a">PDF</text>
+                <text x="122" y="474" class="dk-t" font-size="14">presupuesto.pdf</text>
+              </g>
+              <!-- bridge -->
+              <path id="dk-bridge" d="M372 330 C 420 330, 420 250, 470 250" fill="none" stroke="#f2a93b" stroke-width="3" stroke-dasharray="8 8" />
+              <circle id="dk-pkt" cx="0" cy="0" r="7" fill="#f2a93b" />
+              <!-- team channel -->
+              <rect x="470" y="40" width="494" height="580" rx="16" fill="#1e1f22" stroke="#2b2d31" stroke-width="2" />
+              <rect x="470" y="40" width="150" height="580" rx="16" fill="#17181b" />
+              <text x="490" y="84" class="dk-m" font-size="12" fill="#6f7b89">CANALES</text>
+              <text x="490" y="118" class="dk-m" fill="#8d99a6"># general</text>
+              <g id="dk-chan">
+                <rect x="480" y="136" width="130" height="32" rx="6" fill="#2b2d31" />
+                <text x="490" y="158" class="dk-m" fill="#f2f3f5"># wa-marta</text>
+                <circle cx="598" cy="152" r="5" fill="#ef5b4c" />
+              </g>
+              <text x="642" y="84" class="dk-n" fill="#f2f3f5"># wa-marta</text>
+              <text x="642" y="106" class="dk-m" font-size="12">conversación privada · WhatsApp</text>
+              <g id="dk-d1">
+                <circle cx="664" cy="154" r="18" fill="#25d366" />
+                <text x="664" y="160" text-anchor="middle" class="dk-n" fill="#05070a">M</text>
+                <text x="694" y="148" class="dk-n" fill="#f2f3f5">Marta <tspan class="dk-m" font-size="12">vía WhatsApp</tspan></text>
+                <text x="694" y="172" class="dk-t">asistente</text>
+              </g>
+              <g id="dk-d2">
+                <circle cx="664" cy="222" r="18" fill="#f2a93b" />
+                <text x="664" y="228" text-anchor="middle" class="dk-n" fill="#05070a">A</text>
+                <text x="694" y="216" class="dk-n" fill="#f2a93b">Ana</text>
+                <text x="694" y="240" class="dk-t">¡Hola, Marta! Te preparo el</text>
+                <text x="694" y="260" class="dk-t">presupuesto ahora.</text>
+              </g>
+              <g id="dk-d3">
+                <circle cx="664" cy="306" r="18" fill="#5cc8d6" />
+                <text x="664" y="312" text-anchor="middle" class="dk-n" fill="#05070a">L</text>
+                <text x="694" y="300" class="dk-n" fill="#5cc8d6">Luis</text>
+                <rect x="694" y="312" width="200" height="44" rx="8" fill="#2b2d31" />
+                <rect x="704" y="320" width="28" height="28" rx="4" fill="#ef5b4c" />
+                <text x="744" y="339" class="dk-t" font-size="14">presupuesto.pdf</text>
+              </g>
+              <g id="dk-team">
+                <circle cx="690" cy="470" r="30" fill="#f2a93b" stroke="#1e1f22" stroke-width="5" />
+                <text x="690" y="479" text-anchor="middle" class="dk-n" font-size="24" fill="#05070a">A</text>
+                <circle cx="740" cy="470" r="30" fill="#5cc8d6" stroke="#1e1f22" stroke-width="5" />
+                <text x="740" y="479" text-anchor="middle" class="dk-n" font-size="24" fill="#05070a">L</text>
+                <circle cx="790" cy="470" r="30" fill="#52d18e" stroke="#1e1f22" stroke-width="5" />
+                <text x="790" y="479" text-anchor="middle" class="dk-n" font-size="24" fill="#05070a">S</text>
+                <text x="846" y="466" class="dk-n" fill="#f2a93b">3 personas</text>
+                <text x="846" y="490" class="dk-m" fill="#d9dfe5">1 solo número</text>
+              </g>
+              <text x="470" y="650" class="dk-m" font-size="13" fill="#8793a1">conversación de ejemplo</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          AMZ.sysFrame(tl, 'dk', { steps: [0.8, 2.2, 3.7] });
+          const pop = (id, at, origin = '0% 100%') =>
+            tl.fromTo(id, { opacity: 0, y: 18, scale: 0.94, transformOrigin: origin }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: 'back.out(1.8)' }, at);
+
+          pop('#dk-w1', 0.7, '100% 100%');
+          pop('#dk-w2', 1.35);
+          pop('#dk-w3', 2.1, '100% 100%');
+
+          // The chat crosses to the team.
+          tl.fromTo('#dk-bridge', { opacity: 0, strokeDashoffset: 64 }, { opacity: 1, strokeDashoffset: 0, duration: 0.5 }, 2.35);
+          tl.to('#dk-bridge', { strokeDashoffset: -96, duration: 3, ease: 'none' }, 2.85);
+          const path = document.getElementById('dk-bridge');
+          const pkt = document.getElementById('dk-pkt');
+          AMZ.drive(tl, 6, (t) => {
+            const len = path.getTotalLength();
+            const u = Math.min(1, Math.max(0, (t - 2.4) / 0.5));
+            const pt = path.getPointAtLength(len * u);
+            pkt.setAttribute('cx', pt.x);
+            pkt.setAttribute('cy', pt.y);
+            pkt.setAttribute('opacity', t < 2.4 || t > 3.0 ? 0 : 1);
+          });
+          tl.fromTo('#dk-chan', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: 'expo.out' }, 2.8);
+          pop('#dk-d1', 2.9);
+
+          // Ana answers from the team channel; it lands on the customer's WhatsApp.
+          tl.set('#dk-status', { opacity: 0 }, 3.3);
+          tl.set('#dk-status2', { opacity: 1 }, 3.3);
+          pop('#dk-d2', 3.5);
+          pop('#dk-w4', 3.85);
+          pop('#dk-d3', 4.3);
+          pop('#dk-w5', 4.55);
+          tl.fromTo('#dk-team', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, 4.7);
+
+          window.__timelines['sys-desk'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #hw {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding: 0 150px;
+          gap: 70px;
+        }
+
+        #hw-copy h2 {
+          margin-top: 14px;
+          font-size: 92px;
+          color: #eef2f5;
+        }
+
+        #hw-steps {
+          position: relative;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 36px;
+          list-style: none;
+        }
+
+        #hw-line {
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          top: 39px;
+          height: 3px;
+          background: linear-gradient(90deg, #f2a93b, #5cc8d6);
+          transform-origin: 0 50%;
+        }
+
+        .hw-step {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+
+        .hw-n {
+          display: grid;
+          place-items: center;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background: #0c1117;
+          border: 3px solid #f2a93b;
+          color: #f2a93b;
+          font-family: var(--display);
+          font-weight: 800;
+          font-size: 36px;
+          box-shadow: 0 0 40px rgb(242 169 59 / 0.25);
+        }
+
+        .hw-step h3 {
+          font-family: var(--display);
+          font-stretch: 112%;
+          font-weight: 800;
+          font-size: 40px;
+          line-height: 1.05;
+          letter-spacing: -0.02em;
+          color: #eef2f5;
+        }
+
+        .hw-step p {
+          font-size: 26px;
+          line-height: 1.35;
+          color: #8d99a6;
+        }
+
+        .tall #hw {
+          padding: 0 64px;
+          gap: 60px;
+        }
+
+        .tall #hw-copy h2 {
+          font-size: 80px;
+        }
+
+        .tall #hw-steps {
+          grid-template-columns: 1fr;
+          gap: 44px;
+        }
+
+        .tall #hw-line {
+          left: 39px;
+          right: auto;
+          top: 40px;
+          bottom: 40px;
+          width: 3px;
+          height: auto;
+          background: linear-gradient(180deg, #f2a93b, #5cc8d6);
+          transform-origin: 50% 0;
+        }
+
+        .tall .hw-step {
+          display: grid;
+          grid-template-columns: 80px 1fr;
+          column-gap: 32px;
+          row-gap: 8px;
+        }
+
+        .tall .hw-n {
+          grid-row: span 2;
+        }
+      </style>
+
+      <div id="root" data-composition-id="how" data-width="1920" data-height="1080">
+        <div id="hw">
+          <div id="hw-copy">
+            <p class="kicker">// cómo trabajo</p>
+            <h2 class="title">Sin jerga, de principio a fin.</h2>
+          </div>
+          <div id="hw-steps">
+            <div id="hw-line"></div>
+            <div class="hw-step"><span class="hw-n">1</span><h3>Me cuentas el problema</h3><p>Qué tarea os come más tiempo.</p></div>
+            <div class="hw-step"><span class="hw-n">2</span><h3>Te propongo cómo</h3><p>Qué funcionaría solo y qué no.</p></div>
+            <div class="hw-step"><span class="hw-n">3</span><h3>Lo construyo y lo conecto</h3><p>Con lo que ya usáis.</p></div>
+            <div class="hw-step"><span class="hw-n">4</span><h3>Lo dejo funcionando</h3><p>Y vigilado, con avisos.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          const tall = AMZ.tall();
+          tl.fromTo('#hw-copy', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'expo.out' }, 0.05);
+          tl.fromTo('#hw-line', tall ? { scaleY: 0 } : { scaleX: 0 }, { ...(tall ? { scaleY: 1 } : { scaleX: 1 }), duration: 2.0, ease: 'power2.inOut' }, 0.35);
+          document.querySelectorAll('#hw-steps .hw-step').forEach((li, i) => {
+            const at = 0.4 + i * 0.55;
+            tl.fromTo(li.querySelector('.hw-n'), { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(2.4)' }, at);
+            tl.fromTo(li.querySelectorAll('h3, p'), { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'expo.out' }, at + 0.1);
+            tl.fromTo(li.querySelector('.hw-n'), { backgroundColor: '#0c1117', color: '#f2a93b' }, { backgroundColor: '#f2a93b', color: '#05070a', duration: 0.25 }, at + 0.4);
+          });
+          tl.to('#hw', { y: -50, opacity: 0, filter: 'blur(10px)', duration: 0.4, ease: 'power2.in' }, 3.6);
+          window.__timelines['how'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

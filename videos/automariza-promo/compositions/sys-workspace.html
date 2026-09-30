@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #ws .ws-t {
+          font-family: var(--display);
+          font-size: 17px;
+          font-weight: 600;
+        }
+
+        #ws .ws-t:not([fill]) {
+          fill: #d9dfe5;
+        }
+
+        #ws .ws-m {
+          font-family: var(--mono);
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        #ws .ws-m:not([fill]) {
+          fill: #8d99a6;
+        }
+      </style>
+
+      <div id="root" data-composition-id="sys-workspace" data-width="1920" data-height="1080">
+        <div id="ws" class="sys">
+          <div class="sys-copy">
+            <div id="ws-head" class="sys-head">
+              <span class="sys-count"><b>05</b> / 05</span>
+              <span class="sys-name"><i></i>Agent Workspace</span>
+            </div>
+            <h2 id="ws-title" class="sys-title">Todas las herramientas en un solo sitio</h2>
+            <ol id="ws-steps" class="sys-steps">
+              <li><span class="n">1</span><span>Un escritorio online para todo el equipo</span></li>
+              <li><span class="n">2</span><span>Un asistente te dice qué herramienta usar</span></li>
+              <li><span class="n">3</span><span>Un solo inicio de sesión para todo</span></li>
+            </ol>
+          </div>
+
+          <div id="ws-stage" class="sys-stage stage panel">
+            <svg viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="ws-wall" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0d1622" />
+                  <stop offset="1" stop-color="#070b10" />
+                </linearGradient>
+              </defs>
+              <rect width="1000" height="660" fill="url(#ws-wall)" />
+              <!-- top bar -->
+              <rect width="1000" height="40" fill="#0b1017" />
+              <text x="24" y="26" class="ws-m" fill="#f2a93b">workspace</text>
+              <text x="976" y="26" text-anchor="end" class="ws-m">09:14</text>
+              <g id="ws-sso">
+                <rect x="690" y="9" width="178" height="23" rx="11.5" fill="#52d18e" opacity="0.18" stroke="#52d18e" stroke-opacity="0.6" />
+                <circle cx="706" cy="20.5" r="4" fill="#52d18e" />
+                <text x="718" y="25" class="ws-m" font-size="12" fill="#8be8b5">sesión única activa</text>
+              </g>
+              <!-- window 1: mail/orders -->
+              <g id="ws-w1">
+                <rect x="40" y="70" width="440" height="270" rx="10" fill="#0f151d" stroke="#2b3848" stroke-width="1.5" />
+                <rect x="40" y="70" width="440" height="34" rx="10" fill="#17202a" />
+                <circle cx="60" cy="87" r="5" fill="#ef5b4c" />
+                <circle cx="76" cy="87" r="5" fill="#f2a93b" />
+                <circle cx="92" cy="87" r="5" fill="#52d18e" />
+                <text x="112" y="92" class="ws-m">Pedidos · bandeja</text>
+                <g fill="#2b3848">
+                  <rect x="60" y="124" width="400" height="44" rx="6" fill="#131c26" />
+                  <rect x="60" y="176" width="400" height="44" rx="6" fill="#131c26" />
+                  <rect x="60" y="228" width="400" height="44" rx="6" fill="#131c26" />
+                  <rect x="60" y="280" width="400" height="44" rx="6" fill="#131c26" />
+                </g>
+                <g fill="#3a4a5c">
+                  <rect x="76" y="140" width="180" height="10" rx="4" />
+                  <rect x="76" y="192" width="220" height="10" rx="4" />
+                  <rect x="76" y="244" width="160" height="10" rx="4" />
+                  <rect x="76" y="296" width="200" height="10" rx="4" />
+                </g>
+                <g>
+                  <rect x="370" y="136" width="74" height="20" rx="10" fill="#52d18e" opacity="0.2" />
+                  <text x="407" y="151" text-anchor="middle" class="ws-m" font-size="12" fill="#9eefc2">leído</text>
+                  <rect x="370" y="188" width="74" height="20" rx="10" fill="#5cc8d6" opacity="0.2" />
+                  <text x="407" y="203" text-anchor="middle" class="ws-m" font-size="12" fill="#a6e6ee">al ERP</text>
+                </g>
+              </g>
+              <!-- window 2: report -->
+              <g id="ws-w2">
+                <rect x="510" y="70" width="450" height="330" rx="10" fill="#0f151d" stroke="#2b3848" stroke-width="1.5" />
+                <rect x="510" y="70" width="450" height="34" rx="10" fill="#17202a" />
+                <circle cx="530" cy="87" r="5" fill="#ef5b4c" />
+                <circle cx="546" cy="87" r="5" fill="#f2a93b" />
+                <circle cx="562" cy="87" r="5" fill="#52d18e" />
+                <text x="582" y="92" class="ws-m">Informe semanal</text>
+                <path d="M540 360 H930" stroke="#243142" stroke-width="1.5" />
+                <g id="ws-bars" fill="#5cc8d6">
+                  <rect x="560" y="250" width="44" height="110" rx="3" />
+                  <rect x="626" y="200" width="44" height="160" rx="3" />
+                  <rect x="692" y="280" width="44" height="80" rx="3" />
+                  <rect x="758" y="170" width="44" height="190" rx="3" fill="#f2a93b" />
+                  <rect x="824" y="220" width="44" height="140" rx="3" />
+                </g>
+                <text x="540" y="140" class="ws-t">Ventas por semana</text>
+                <text x="540" y="162" class="ws-m" font-size="12">generado solo · lunes 08:00</text>
+              </g>
+              <!-- assistant -->
+              <g id="ws-ai">
+                <rect x="40" y="372" width="440" height="128" rx="14" fill="#1a1410" stroke="#f2a93b" stroke-width="1.5" />
+                <text x="62" y="404" class="ws-m" fill="#f2a93b">asistente del escritorio</text>
+                <text x="62" y="436" class="ws-t">¿Comparar tarifas de proveedores?</text>
+                <text x="62" y="466" class="ws-t">Usa: <tspan fill="#f2a93b">Buscador de proveedores</tspan></text>
+                <text x="62" y="488" class="ws-m" font-size="12">abierto con tu misma sesión</text>
+              </g>
+              <!-- dock -->
+              <rect x="250" y="560" width="500" height="72" rx="20" fill="#0b1017" stroke="#243142" stroke-width="1.5" />
+              <g id="ws-dock">
+                <rect x="276" y="574" width="44" height="44" rx="11" fill="#5cc8d6" opacity="0.85" />
+                <rect x="336" y="574" width="44" height="44" rx="11" fill="#52d18e" opacity="0.85" />
+                <rect x="396" y="574" width="44" height="44" rx="11" fill="#ef5b4c" opacity="0.85" />
+                <rect id="ws-pick" x="456" y="574" width="44" height="44" rx="11" fill="#f2a93b" />
+                <rect x="516" y="574" width="44" height="44" rx="11" fill="#5b8def" opacity="0.85" />
+                <rect x="576" y="574" width="44" height="44" rx="11" fill="#8d99a6" opacity="0.85" />
+                <rect x="636" y="574" width="44" height="44" rx="11" fill="#c9a15a" opacity="0.85" />
+                <rect x="696" y="574" width="44" height="44" rx="11" fill="#6aa7b3" opacity="0.85" />
+              </g>
+              <rect id="ws-ring" x="450" y="568" width="56" height="56" rx="14" fill="none" stroke="#f2a93b" stroke-width="3" />
+              <path id="ws-cursor" d="M0 0 L0 22 L6 16 L11 27 L15 25 L10 14 L18 14 Z" fill="#ffffff" stroke="#05070a" stroke-width="1.2" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          AMZ.sysFrame(tl, 'ws', { steps: [0.8, 2.4, 3.7] });
+          const open = (id, at) =>
+            tl.fromTo(id, { opacity: 0, scale: 0.88, transformOrigin: '50% 60%' }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.5)' }, at);
+
+          open('#ws-w1', 0.7);
+          open('#ws-w2', 1.3);
+          tl.fromTo('#ws-bars rect', { scaleY: 0, transformOrigin: '50% 100%' }, { scaleY: 1, duration: 0.5, stagger: 0.07, ease: 'expo.out' }, 1.55);
+          open('#ws-ai', 2.35);
+          tl.fromTo('#ws-ring', { opacity: 0, scale: 1.4, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(2)' }, 2.8);
+          tl.to('#ws-ring', { opacity: 0.35, duration: 0.25, repeat: 5, yoyo: true }, 3.15);
+          tl.fromTo('#ws-pick', { y: 0 }, { y: -10, duration: 0.18, repeat: 3, yoyo: true, ease: 'sine.inOut' }, 3.3);
+          tl.fromTo('#ws-sso', { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.6)' }, 3.7);
+
+          // Cursor path: into the inbox, to the report, then to the suggested tool.
+          tl.fromTo('#ws-cursor', { x: 900, y: 600 }, { x: 330, y: 190, duration: 0.8, ease: 'power2.inOut' }, 0.4);
+          tl.to('#ws-cursor', { x: 790, y: 200, duration: 0.7, ease: 'power2.inOut' }, 1.4);
+          tl.to('#ws-cursor', { x: 480, y: 596, duration: 0.8, ease: 'power2.inOut' }, 2.8);
+          tl.to('#ws-cursor', { scale: 0.85, duration: 0.08, repeat: 1, yoyo: true, transformOrigin: '0% 0%' }, 3.62);
+
+          window.__timelines['sys-workspace'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

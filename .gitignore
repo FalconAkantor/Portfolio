@@ -6,3 +6,13 @@ dist-ssr
 *.log
 coverage
 .vite
+
+# HyperFrames video projects: keep sources, not renders or caches
+videos/*/renders/
+videos/*/snapshots/
+videos/*/.hyperframes/
+videos/*/capture/
+videos/automariza-promo-vertical/
+videos/*/.thumbnails/
+videos/*/.waveform-cache/
+videos/*/assets/audio/*.wav

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #cc .cc-hud {
+          font-family: var(--mono);
+          font-size: 19px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+        }
+
+        #cc .cc-hud:not([fill]) {
+          fill: #8d99a6;
+        }
+
+        #cc .cc-lbl {
+          font-family: var(--mono);
+          font-size: 17px;
+          font-weight: 600;
+        }
+
+        #cc .cc-card-t {
+          font-family: var(--display);
+          font-size: 21px;
+          font-weight: 600;
+        }
+
+        #cc .cc-card-t:not([fill]) {
+          fill: #d9dfe5;
+        }
+
+        #cc .cc-card-m {
+          font-family: var(--mono);
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        #cc .cc-card-m:not([fill]) {
+          fill: #8d99a6;
+        }
+      </style>
+
+      <div id="root" data-composition-id="sys-cctv" data-width="1920" data-height="1080">
+        <div id="cc" class="sys">
+          <div class="sys-copy">
+            <div id="cc-head" class="sys-head">
+              <span class="sys-count"><b>01</b> / 05</span>
+              <span class="sys-name"><i></i>CCTV autónomo con IA</span>
+            </div>
+            <h2 id="cc-title" class="sys-title">Una cámara que se vigila sola</h2>
+            <ol id="cc-steps" class="sys-steps">
+              <li><span class="n">1</span><span>Graba 24/7 y detecta personas y vehículos</span></li>
+              <li><span class="n">2</span><span>Una IA local revisa cada evento</span></li>
+              <li><span class="n">3</span><span>Solo avisa cuando algo es sospechoso de verdad</span></li>
+            </ol>
+          </div>
+
+          <div id="cc-stage" class="sys-stage stage panel">
+            <svg viewBox="0 0 1000 660" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <linearGradient id="cc-night" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0b121b" />
+                  <stop offset="1" stop-color="#04070a" />
+                </linearGradient>
+                <linearGradient id="cc-cone" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#f2a93b" stop-opacity="0.28" />
+                  <stop offset="1" stop-color="#f2a93b" stop-opacity="0" />
+                </linearGradient>
+                <pattern id="cc-scan" width="4" height="4" patternUnits="userSpaceOnUse">
+                  <rect width="4" height="1" fill="#ffffff" opacity="0.035" />
+                </pattern>
+              </defs>
+              <rect width="1000" height="660" fill="url(#cc-night)" />
+              <!-- building + fence -->
+              <path d="M700 500 V250 H1000 V500 Z" fill="#0a0f16" />
+              <rect x="760" y="300" width="60" height="70" fill="#101a24" />
+              <rect x="860" y="300" width="60" height="70" fill="#f2a93b" opacity="0.1" />
+              <g stroke="#152030" stroke-width="4">
+                <path d="M0 360 H700 M0 420 H700" />
+                <path d="M30 330 V500 M110 330 V500 M190 330 V500 M270 330 V500 M350 330 V500 M430 330 V500 M510 330 V500 M590 330 V500 M670 330 V500" />
+              </g>
+              <path d="M0 500 H1000" stroke="#1c2733" stroke-width="3" />
+              <!-- lamp -->
+              <path d="M250 150 V500" stroke="#1f2a37" stroke-width="6" />
+              <path d="M250 152 H290" stroke="#1f2a37" stroke-width="6" />
+              <path d="M290 160 L180 500 H420 Z" fill="url(#cc-cone)" />
+              <circle cx="290" cy="160" r="7" fill="#f2a93b" opacity="0.9" />
+              <!-- the known car -->
+              <g>
+                <path d="M520 500 V462 Q522 444 540 440 L580 404 Q588 398 600 398 H700 Q716 398 726 410 L752 440 Q776 444 780 462 V500 Z" fill="#141e29" />
+                <path d="M590 412 H640 V440 H566 Z M650 412 H708 L732 440 H650 Z" fill="#0c141d" />
+                <circle cx="578" cy="500" r="20" fill="#0a0f15" stroke="#1d2833" stroke-width="5" />
+                <circle cx="724" cy="500" r="20" fill="#0a0f15" stroke="#1d2833" stroke-width="5" />
+                <rect id="cc-known" x="506" y="384" width="290" height="140" rx="4" fill="none" stroke="#5cc8d6" stroke-width="2" stroke-dasharray="9 7" />
+                <g id="cc-known-l">
+                  <rect x="506" y="352" width="252" height="28" rx="4" fill="#5cc8d6" opacity="0.14" />
+                  <text x="516" y="372" class="cc-lbl" fill="#5cc8d6">coche conocido · se ignora</text>
+                </g>
+              </g>
+              <!-- walker + detection -->
+              <g id="cc-walker">
+                <g id="cc-body">
+                  <circle cx="0" cy="378" r="15" fill="#2c3947" />
+                  <rect x="-15" y="396" width="30" height="62" rx="10" fill="#2c3947" />
+                  <rect id="cc-leg-a" x="-13" y="452" width="11" height="48" rx="5" fill="#243140" />
+                  <rect id="cc-leg-b" x="2" y="452" width="11" height="48" rx="5" fill="#243140" />
+                </g>
+                <g id="cc-det">
+                  <rect x="-36" y="350" width="72" height="160" fill="none" stroke="#f2a93b" stroke-width="2.5" />
+                  <path d="M-36 362 V350 H-24 M24 350 H36 V362 M36 498 V510 H24 M-24 510 H-36 V498" stroke="#f2a93b" stroke-width="5" fill="none" />
+                  <rect x="-36" y="318" width="150" height="28" rx="3" fill="#f2a93b" />
+                  <text x="-28" y="338" class="cc-lbl" fill="#05070a">persona · 0,91</text>
+                </g>
+              </g>
+              <!-- AI verdict -->
+              <g id="cc-ai">
+                <rect x="560" y="70" width="410" height="176" rx="12" fill="#0f151d" stroke="#243142" stroke-width="1.5" />
+                <circle cx="590" cy="104" r="7" fill="#5cc8d6" />
+                <text x="608" y="110" class="cc-card-m">IA local · Qwen2.5-VL</text>
+                <text id="cc-ai-busy" x="588" y="152" class="cc-card-m" fill="#5cc8d6">analizando la foto…</text>
+                <g id="cc-ai-res">
+                  <text x="588" y="150" class="cc-card-t">Persona junto al coche aparcado</text>
+                  <text x="588" y="180" class="cc-card-m">03:12 · de noche · fuera de horario</text>
+                  <rect x="588" y="198" width="160" height="32" rx="16" fill="#ef5b4c" />
+                  <text x="668" y="220" text-anchor="middle" class="cc-lbl" fill="#05070a">SOSPECHOSO</text>
+                </g>
+              </g>
+              <!-- alert -->
+              <g id="cc-alert">
+                <rect x="560" y="262" width="410" height="74" rx="12" fill="#1a1410" stroke="#f2a93b" stroke-width="1.5" />
+                <path d="M596 312 H622 L618 306 V292 A9 9 0 0 0 600 292 V306 Z M605 316 A4 4 0 0 0 613 316" fill="none" stroke="#f2a93b" stroke-width="2.4" stroke-linejoin="round" />
+                <text x="642" y="294" class="cc-card-t">Aviso enviado al móvil</text>
+                <text x="642" y="320" class="cc-card-m">con foto y resumen · 2 s</text>
+              </g>
+              <!-- ask it -->
+              <g id="cc-q">
+                <rect x="560" y="552" width="300" height="44" rx="14" fill="#005c4b" />
+                <text x="578" y="581" class="cc-card-t" font-size="19">¿Pasó algo raro anoche?</text>
+              </g>
+              <g id="cc-a">
+                <rect x="560" y="604" width="410" height="44" rx="14" fill="#1b242e" />
+                <text x="578" y="633" class="cc-card-t" font-size="19">1 evento: 03:12, persona junto al coche</text>
+              </g>
+              <!-- HUD -->
+              <rect width="1000" height="660" fill="url(#cc-scan)" />
+              <text x="28" y="46" class="cc-hud">CAM 01 · ACCESO</text>
+              <circle id="cc-rec" cx="826" cy="39" r="8" fill="#ef5b4c" />
+              <text id="cc-tc" x="844" y="46" class="cc-hud" fill="#d9dfe5">03:12:04</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          AMZ.sysFrame(tl, 'cc', { steps: [1.0, 2.3, 3.6] });
+
+          // Walker crosses the frame; legs swing; detection box locks on.
+          tl.fromTo('#cc-walker', { x: -90 }, { x: 430, duration: 2.6, ease: 'none' }, 0.5);
+          tl.fromTo('#cc-leg-a', { rotation: -14, svgOrigin: '-8 452' }, { rotation: 14, duration: 0.3, repeat: 8, yoyo: true, ease: 'sine.inOut' }, 0.5);
+          tl.fromTo('#cc-leg-b', { rotation: 14, svgOrigin: '7 452' }, { rotation: -14, duration: 0.3, repeat: 8, yoyo: true, ease: 'sine.inOut' }, 0.5);
+          tl.fromTo('#cc-body', { y: 0 }, { y: -4, duration: 0.15, repeat: 16, yoyo: true, ease: 'sine.inOut' }, 0.5);
+          tl.fromTo('#cc-det', { opacity: 0, scale: 1.3, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(2)' }, 1.0);
+          tl.fromTo(['#cc-known', '#cc-known-l'], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.2);
+
+          // The AI looks at the snapshot, then judges.
+          tl.fromTo('#cc-ai', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: 'expo.out' }, 2.3);
+          tl.fromTo('#cc-ai-busy', { opacity: 1 }, { opacity: 0.35, duration: 0.2, repeat: 3, yoyo: true }, 2.5);
+          tl.set('#cc-ai-busy', { opacity: 0 }, 3.2);
+          tl.fromTo('#cc-ai-res', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, 3.2);
+          tl.fromTo('#cc-alert', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, 3.6);
+          tl.to('#cc-alert', { scale: 1.03, transformOrigin: '50% 50%', duration: 0.15, repeat: 1, yoyo: true }, 4.1);
+
+          // And you can ask it.
+          tl.fromTo('#cc-q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, 4.3);
+          tl.fromTo('#cc-a', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'expo.out' }, 4.85);
+
+          // REC blink + running timecode.
+          tl.fromTo('#cc-rec', { opacity: 1 }, { opacity: 0.2, duration: 0.5, repeat: 10, yoyo: true, ease: 'steps(1)' }, 0);
+          const tc = document.getElementById('cc-tc');
+          AMZ.drive(tl, 6, (t) => {
+            tc.textContent = `03:12:${String(4 + Math.floor(t)).padStart(2, '0')}`;
+          });
+
+          window.__timelines['sys-cctv'] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

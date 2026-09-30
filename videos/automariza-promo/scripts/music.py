@@ -5,7 +5,9 @@ AUTOMARIZA promo — soundtrack composed in code (no samples, no licences).
 Every hit is placed on the storyboard's clock, so cuts, typing, the dissolve and the
 UI beats of each scene land exactly on picture.
 
-    python3 scripts/music.py   ->  assets/audio/soundtrack.wav
+    python3 scripts/music.py   ->  assets/audio/music.wav (+ soundtrack.wav, the music-only mix)
+
+Add the voice-over on top with scripts/voice.py.
 """
 
 import shutil
@@ -375,7 +377,7 @@ master = hp(master, 28)
 master = np.tanh(master * 1.25) / np.tanh(1.25)
 master *= 0.89 / np.max(np.abs(master))
 
-out = Path(__file__).resolve().parent.parent / 'assets' / 'audio' / 'soundtrack.wav'
+out = Path(__file__).resolve().parent.parent / 'assets' / 'audio' / 'music.wav'
 out.parent.mkdir(parents=True, exist_ok=True)
 wavfile.write(out, SR, (master.T * 32767).astype(np.int16))
 # Loudness for the web: -14 LUFS integrated, -1.2 dBTP (EBU R128 via FFmpeg, when available)
@@ -383,4 +385,5 @@ if shutil.which('ffmpeg'):
     tmp = out.with_suffix('.norm.wav')
     subprocess.run(['ffmpeg', '-loglevel', 'error', '-y', '-i', str(out), '-af', 'loudnorm=I=-14:TP=-1.2:LRA=9', '-ar', str(SR), str(tmp)], check=True)
     tmp.replace(out)
+shutil.copyfile(out, out.with_name('soundtrack.wav'))  # music-only mix until voice.py runs
 print(f'{out}  ·  {DUR:.0f}s  ·  -14 LUFS')

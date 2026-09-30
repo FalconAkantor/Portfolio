@@ -173,7 +173,9 @@ capturas reales de la web salen de `scripts/capture.mjs`. `BRIEF.md` y `STORYBOA
 
 ```bash
 cd videos/automariza-promo
-python3 scripts/music.py                    # banda sonora → assets/audio/soundtrack.wav
+python3 scripts/music.py                    # banda sonora → assets/audio/music.wav
+python3 scripts/voice.py --gemini           # voz en off (GEMINI_API_KEY, nivel gratuito) y mezcla
+#   o: python3 scripts/voice.py --recording mi-voz.m4a   (tu propia grabación, guion en SCRIPT.md)
 npx hyperframes preview                     # editar en el navegador (Studio)
 npx hyperframes check                       # lint + layout + contraste
 npx hyperframes render --quality high -o renders/automariza-promo-16x9.mp4

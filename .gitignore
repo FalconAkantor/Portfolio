@@ -16,3 +16,4 @@ videos/automariza-promo-vertical/
 videos/*/.thumbnails/
 videos/*/.waveform-cache/
 videos/*/assets/audio/*.wav
+videos/*/assets/audio/vo/

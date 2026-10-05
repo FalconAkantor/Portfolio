@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:11.490 --> 00:00:18.200
+El ERP guarda el stock por serie y el stock general en tablas distintas y a veces no cuadran.
+
+00:00:20.032 --> 00:00:26.816
+Una vista por fechas de los registros por serie con el usuario que los hizo y un contador comparativo con la tabla general.
+
+00:00:30.186 --> 00:00:33.439
+Por defecto, del día 1 del mes a hoy.
+
+00:00:36.986 --> 00:00:40.250
+Tabla de series con su usuario de registro.
+
+00:00:43.787 --> 00:00:49.999
+Recuento de registros por serie frente a la tabla general en el mismo periodo, y ranking por artículo.
+
+00:00:51.184 --> 00:00:57.306
+Detectar a tiempo descuadres de inventario y saber quién registró cada movimiento.

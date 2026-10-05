@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.994 --> 00:00:20.592
+Componentes que nadie usa ocupan almacén y dinero, y montar con ellos algo vendible requería tiempo y conocimientos de hardware.
+
+00:00:21.780 --> 00:00:30.748
+Detección del stock parado, reglas de compatibilidad en el código y una IA con reglas estrictas para no inventar componentes.
+
+00:00:34.235 --> 00:00:42.984
+Días sin venta (90 por defecto), almacenes, familias, subfamilias, proveedores y si debe tener número de serie.
+
+00:00:46.398 --> 00:00:49.307
+Se marcan los componentes a liquidar.
+
+00:00:52.819 --> 00:01:01.838
+El código clasifica cada pieza (CPU, placa, RAM, GPU…) y detecta el zócalo para avisar de incompatibilidades.
+
+00:01:05.468 --> 00:01:14.015
+Modo PC completo, pack parcial, individual o automático; la IA solo puede usar artículos con su código del inventario.
+
+00:01:15.216 --> 00:01:23.380
+Convierte stock muerto en liquidez: identifica qué sobra cada semana y entrega los anuncios listos para publicar.

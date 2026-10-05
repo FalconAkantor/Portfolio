@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.562 --> 00:00:22.992
+Al reorganizar la producción (urgencias, cambios de cliente), pasar piezas ya asignadas de una orden a otra en el ERP era manual y podía dejar series duplicadas o perdidas.
+
+00:00:24.180 --> 00:00:32.562
+Una operación guiada con selección por serie, modo simulación y transacción manual con validaciones de origen y destino.
+
+00:00:36.009 --> 00:00:39.861
+Se buscan y cargan la orden de origen y la de destino.
+
+00:00:43.254 --> 00:00:46.456
+Se marcan las líneas y las series a mover.
+
+00:00:49.632 --> 00:00:53.330
+Se ve exactamente qué se insertaría en el destino.
+
+00:00:56.735 --> 00:01:00.701
+Transacción con commit al final; registro y correo.
+
+00:01:01.872 --> 00:01:08.313
+Reorganizar la producción en minutos sin romper la trazabilidad de los números de serie.

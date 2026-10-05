@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:10.554 --> 00:00:26.589
+Cada equipo pasa decenas de pruebas (render, CAD, CPU, GPU, memoria, discos, temperatura) y sus resultados quedaban en capturas y ficheros sueltos, sin forma de saber si un equipo rendía como sus iguales.
+
+00:00:27.780 --> 00:00:39.134
+Un registro estructurado con listas desplegables, PDF por orden, un lector automático de resultados y un validador estadístico con IA y umbrales de desviación claros.
+
+00:00:42.789 --> 00:00:55.697
+El técnico elige operario, modelo, GPU, placa, CPU, RAM, sistema y discos de listas, e introduce cada resultado; se guarda en el Excel y se genera el PDF de la orden.
+
+00:00:59.106 --> 00:01:10.904
+Se suben varios ficheros de resultados de la batería de Linux; el comparador extrae sistema, render GPU, memoria, estrés de CPU, GPU y discos y los muestra en columnas.
+
+00:01:14.357 --> 00:01:22.967
+Se elige modelo y sistema; se calculan media, mediana, desviación y cuartiles de cada benchmark y la IA clasifica cada equipo.
+
+00:01:24.160 --> 00:01:33.154
+Cada equipo sale con sus pruebas documentadas y comparadas con su modelo; las unidades flojas se detectan antes de llegar al cliente.

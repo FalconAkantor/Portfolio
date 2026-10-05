@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:12.930 --> 00:00:20.852
+Editar a mano el mismo componente en 40 órdenes del ERP era lento, propenso a errores y no dejaba rastro.
+
+00:00:22.020 --> 00:00:32.238
+Una operación masiva guiada con selección de órdenes, copia de seguridad previa, comentario automático por línea, registro por usuario y correo.
+
+00:00:35.649 --> 00:00:40.904
+Órdenes abiertas que contienen el componente, con sus comentarios y líneas.
+
+00:00:44.604 --> 00:00:53.634
+Poner cantidad a 0, reemplazar por otro artículo (precio, cantidad), añadir otro componente o cambiar el almacén de origen.
+
+00:00:57.039 --> 00:01:07.523
+Se genera primero un Excel con el estado de todas las órdenes; después se aplica el cambio orden por orden con un comentario «[fecha - usuario] acción | comentario».
+
+00:01:08.728 --> 00:01:16.740
+Reacciona en minutos a roturas de stock o descatalogaciones, sin errores de tecleo y con todo documentado.

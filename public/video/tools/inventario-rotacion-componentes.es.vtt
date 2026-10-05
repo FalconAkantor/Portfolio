@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.066 --> 00:00:22.310
+Los equipos internos (demo, laboratorio, cálculo) usan componentes que hay que rotar o devolver al stock, y esas fechas se olvidaban.
+
+00:00:23.508 --> 00:00:34.568
+Inventario con bloqueo de edición, alertas con fecha límite y destinatarios, avisos diarios en la última semana, ampliación automática y desglose por correo.
+
+00:00:38.216 --> 00:00:43.777
+Se busca la orden de fabricación del equipo y se registra con notas de estado y ubicación.
+
+00:00:47.384 --> 00:00:55.750
+Se eligen los componentes de la orden a rotar, la fecha límite, un comentario con las instrucciones y quién debe recibir los avisos.
+
+00:00:58.870 --> 00:01:06.370
+Desde 7 días antes y hasta 3 días después del vencimiento, un correo diario con los componentes y sus series.
+
+00:01:10.455 --> 00:01:17.636
+Con series nuevas, la alerta se amplía 6 meses; si se desmonta el equipo, se envía el desglose completo.
+
+00:01:18.792 --> 00:01:26.408
+El material caro de los equipos internos vuelve a circular a tiempo y se sabe en todo momento qué equipo tiene qué.

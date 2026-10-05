@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.858 --> 00:00:23.676
+Un número de serie que aparece en dos sitios rompe la trazabilidad: garantías, devoluciones y costes dejan de ser fiables, y suele descubrirse meses después.
+
+00:00:24.852 --> 00:00:34.547
+Vigilancia continua con reglas de negocio, persistencia de lo ya avisado, aviso de resolución automática y registro de revisiones.
+
+00:00:38.179 --> 00:00:46.496
+Tres tipos: serie en varias órdenes de fabricación, serie con stock en varios almacenes y serie con stock en varios artículos.
+
+00:00:49.877 --> 00:00:56.203
+Se ignoran series de relleno y las que tienen stock neto cero (reentrada legítima por devolución).
+
+00:00:59.301 --> 00:01:07.336
+Correo HTML con Excel, o mensaje enriquecido en Discord con mención al rol responsable, solo para los nuevos.
+
+00:01:10.790 --> 00:01:15.127
+Cuando un duplicado desaparece, se avisa de su resolución.
+
+00:01:16.296 --> 00:01:26.463
+Trazabilidad fiable de cada unidad vendida: garantías, devoluciones y costes correctos, y errores de almacén corregidos el mismo día.

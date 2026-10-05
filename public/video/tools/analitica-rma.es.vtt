@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.858 --> 00:00:23.331
+Las incidencias estaban registradas, pero nadie sabía la tasa de fallo real, qué modelos o componentes fallaban más ni si la calidad mejoraba o empeoraba.
+
+00:00:24.516 --> 00:00:34.402
+Un panel analítico que relaciona cada incidencia con el equipo y la orden que lo fabricó, con métricas de fiabilidad estándar e informes escritos por IA.
+
+00:00:38.113 --> 00:00:46.774
+Cada incidencia se relaciona con el número de serie del equipo, su orden de fabricación, su modelo, su cliente y el técnico que lo montó.
+
+00:00:50.154 --> 00:01:01.544
+Tasa global 1:N, causas, MTTR por año y causa, MTBF por modelo, cosecha por año de fabricación, envejecimiento, Pareto y tendencias.
+
+00:01:04.791 --> 00:01:11.360
+Rankings y fichas de detalle de máquina, cliente, técnico e incidencia; búsqueda global.
+
+00:01:14.542 --> 00:01:21.110
+Detección de casos reabiertos leyendo el seguimiento, chat sobre los datos e informe por secciones en Word.
+
+00:01:22.272 --> 00:01:33.268
+La calidad pasa de ser una impresión a un número: se sabe qué modelos y componentes dan más guerra, se negocia con proveedores con datos y se mide el efecto de cada mejora.

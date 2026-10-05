@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:18.850 --> 00:00:22.103
+Para rastrear un problema (¿dónde está esta serie?, ¿qué pasó con este pedido?) hacía falta saber en qué tabla del ERP mirar.
+
+00:00:23.292 --> 00:00:31.992
+Búsquedas de negocio predefinidas y, como último recurso, una búsqueda de texto completo sobre el esquema entero del ERP.
+
+00:00:35.830 --> 00:00:42.641
+Serie, componente, pedido, operario o cliente: cada una cruza las tablas relevantes.
+
+00:00:46.433 --> 00:00:50.756
+Cabecera, líneas y series de una orden de fabricación.
+
+00:00:54.490 --> 00:01:03.177
+Lista todas las tablas del esquema, construye una consulta por tabla con todas sus columnas y muestra las coincidencias con la consulta usada.
+
+00:01:04.360 --> 00:01:11.644
+Resolver incidencias de datos en minutos en lugar de horas, sin conocer el modelo de datos del ERP.

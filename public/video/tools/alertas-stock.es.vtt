@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:11.466 --> 00:00:18.546
+Comerciales, compras y producción preguntaban constantemente a almacén si había llegado algo.
+
+00:00:19.692 --> 00:00:27.168
+Alertas de autoservicio con memoria del último estado, para avisar solo cuando de verdad cambia algo.
+
+00:00:31.044 --> 00:00:34.245
+Buscador con stock actual por almacén.
+
+00:00:37.932 --> 00:00:43.939
+Uno de los 8 tipos, con umbral y almacén si aplica, y si se quiere aviso de recuperación.
+
+00:00:47.406 --> 00:00:52.878
+Correo con el mensaje y el desglose por almacén; copia oculta opcional a otros.
+
+00:00:54.064 --> 00:01:02.268
+Menos interrupciones al almacén, reacción inmediata cuando llega material crítico y aviso antes de quedarse sin stock.

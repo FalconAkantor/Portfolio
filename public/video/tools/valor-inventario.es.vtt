@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.306 --> 00:00:19.947
+El ERP sabe el stock de hoy, pero no cuánto valía el inventario el martes pasado ni qué cambió entre dos fechas.
+
+00:00:21.108 --> 00:00:29.184
+Fotos diarias completas en JSON, comparador de fotos y una exportación valorada con dos criterios de coste.
+
+00:00:33.186 --> 00:00:37.472
+Valor por artículo y almacén, series y movimientos de hoy.
+
+00:00:41.183 --> 00:00:47.662
+A las 00:00 se guarda todo: inventario general, con series, por almacén y movimientos del día.
+
+00:00:50.795 --> 00:00:57.096
+Entre dos fechas: artículos que salen, que entran y que cambian de cantidad o valor, por almacén.
+
+00:01:01.101 --> 00:01:08.243
+Excel con coste de última compra y media ponderada del periodo, filtrable por texto, artículo y almacén.
+
+00:01:09.408 --> 00:01:16.501
+Conocer el valor del inventario en cualquier fecha y tener la exportación que pide contabilidad en un clic.

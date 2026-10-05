@@ -1,0 +1,6 @@
+flowchart LR
+  ERP[(Órdenes de fabricación)] -->|1 consulta agrupada| CAT[(Catálogo: por código + por nombre normalizado)]
+  U[Usuario escribe] --> SUG[Autocompletado por relevancia] --> CAT
+  SUG --> Q[Consulta de órdenes con filtros] --> ERP
+  Q --> AGG[Año · mes · clientes · tiempo de fabricación] --> UI[Gráficos + tabla] --> CSV[(CSV)]
+  ERP -->|1 consulta grande| HTML[Informe HTML autónomo con comparador]

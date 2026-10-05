@@ -1,0 +1,8 @@
+flowchart LR
+  TG[Cliente en Telegram] --> BOT[Bot de atención] -->|canal por cliente/departamento| EQ[(Espacio del equipo)]
+  EQ -->|respuestas + archivos| BOT --> TG
+  DCU[Cliente en la comunidad] --> TK[Tickets con formulario] --> EQ
+  EQ --> FS[Filtro de nº de serie] -->|consulta| ERP[(ERP solo lectura)]
+  AN[Canal de anuncios] --> DIF[Difusión] --> TG
+  NEW[Nuevo miembro] --> ROL[Rol + bienvenida]
+  PW[Contraseña cada 48 h] --> DESC[Bot de descargas]

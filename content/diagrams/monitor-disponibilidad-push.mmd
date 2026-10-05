@@ -1,0 +1,5 @@
+flowchart LR
+  P[Bot de ping cada 10 min] -->|ping| E[(Equipos críticos)]
+  P -->|renombra| CH[Canales: «Equipo 🔴 1h05m DOWNTIME»]
+  CH -->|lee cada 5 min| X[Bot de escalada]
+  X -->|DOWNTIME ≥ 1 h y no avisado| PUSH[Notificación push al móvil]

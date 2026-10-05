@@ -1,0 +1,6 @@
+flowchart LR
+  T[Texto] --> IS[(INFORMATION_SCHEMA: tablas y columnas)]
+  IS --> Q[Consulta por tabla: col1 LIKE ? OR col2 LIKE ? …]
+  Q --> ERP[(ERP)]
+  ERP --> R[Tablas con coincidencias + SQL usada]
+  G[Búsquedas guiadas: serie · componente · pedido · operario · cliente] --> ERP

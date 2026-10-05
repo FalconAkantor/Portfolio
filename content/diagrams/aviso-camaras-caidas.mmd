@@ -1,0 +1,9 @@
+flowchart LR
+  EV[Evento: canal renombrado/creado/borrado] --> P[procesar_canal]
+  TL[Revisión cada 2 min] --> P
+  P --> RX[Regex: emoji · DOWN · uptime]
+  RX --> CMP{¿Cambio real vs JSON?}
+  CMP -->|no| FIN[Nada]
+  CMP -->|a DOWN| M1[Correo: cámara caída]
+  CMP -->|DOWN → activa| M2[Correo: cámara recuperada]
+  CMP --> ST[(estado_camaras.json atómico)]

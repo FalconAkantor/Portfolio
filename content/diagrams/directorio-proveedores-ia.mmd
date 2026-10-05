@@ -1,0 +1,5 @@
+flowchart LR
+  XLS[(Excel: una hoja por proveedor)] -->|migración sin duplicar| DIR[(Directorio)]
+  DIR --> DEP[Departamentos] --> PROV[Proveedores] --> CON[Contactos] & DOC[Documentos]
+  Q[Necesidad en lenguaje natural] --> CTX[Contexto: proveedores elegidos, sin datos de acceso] --> IA[IA local] --> R[Contacto + correo + motivo]
+  DIR --> TR[Papelera] & AU[Auditoría]

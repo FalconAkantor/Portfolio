@@ -1,0 +1,7 @@
+flowchart LR
+  U[Empleado] --> F[Formulario + adjuntos]
+  F --> V{Validación}
+  V -->|ok| DB[(JSON: contador + reportes)]
+  DB --> M["Correo «Ticket #N»"]
+  M -->|MX descubiertos, TLS| R[Responsable]
+  M -->|CC + Reply-To| U

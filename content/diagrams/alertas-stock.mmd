@@ -1,0 +1,7 @@
+flowchart LR
+  U[Usuario] --> A[(Alertas por usuario con último estado)]
+  C[Cada 5 min] --> R[Leer stock global · por almacén · series]
+  A --> R
+  R --> T{¿Cruza la condición?}
+  T -->|sí| M[Correo con desglose por almacén] --> H[(Historial)]
+  T -->|no| N[Guardar estado]

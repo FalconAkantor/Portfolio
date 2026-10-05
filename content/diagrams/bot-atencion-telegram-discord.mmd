@@ -1,0 +1,13 @@
+sequenceDiagram
+  participant C as Cliente (Telegram)
+  participant B as Bot de atención
+  participant E as Canal del equipo
+  C->>B: /start
+  B-->>C: ¿Nombre y apellidos?
+  C->>B: nombre
+  B->>E: crea canal «nombre-idchat»
+  C->>B: elige Soporte + escribe / adjunta
+  B->>B: ZIP y partes de 10 MB si hace falta
+  B->>E: «soporte-nombre-idchat»
+  E->>B: respuesta + archivo
+  B-->>C: 💬 Respuesta del equipo + 📎

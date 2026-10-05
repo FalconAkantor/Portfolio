@@ -1,0 +1,8 @@
+flowchart LR
+  GC[Gestor de catálogo] --> P[(BD del portal)]
+  EOL[Sustitución de componentes] --> P
+  MP[Márgenes del portal] --> P
+  CP[Categorías de precio] --> P
+  P --> F[Feed de stock] 
+  ERP[(ERP: stock)] --> F --> CL[Clientes que integran]
+  GC & EOL & MP & CP --> M[(Correos de aviso)]

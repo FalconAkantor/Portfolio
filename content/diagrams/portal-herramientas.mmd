@@ -1,0 +1,15 @@
+sequenceDiagram
+  participant N as Navegador (ventana del escritorio)
+  participant P as Portal / proxy
+  participant H as Herramienta
+  N->>P: GET /proxy/http/host/puerto/
+  P->>H: GET / (sesión del usuario para ese destino)
+  H-->>P: 200 · pantalla de login
+  P->>P: ¿login? → formulario + campos ocultos + CSRF
+  P->>H: POST login (usuario + contraseña en memoria)
+  H-->>P: 302 + cookie de sesión
+  P-->>N: 302 a la página pedida (cookies reescritas)
+  N->>P: GET página
+  P->>H: GET con sesión
+  H-->>P: HTML
+  P-->>N: HTML con URLs reescritas, sin X-Frame-Options

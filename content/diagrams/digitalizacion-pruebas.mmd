@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant T1 as Técnico 1
+  participant APP as Digitalización
+  participant ERP as ERP
+  participant IA as IA local
+  participant T2 as Técnico 2
+  participant M as Correo
+  T1->>APP: nuevo registro (plantilla + nº orden)
+  APP->>ERP: cabecera, líneas, observaciones, estado
+  T1->>APP: componentes importantes + valores + notas
+  APP->>IA: actual vs ≤15 firmados (misma plantilla y modelo)
+  IA-->>APP: JSON {veredicto, componentes_distintos, discrepancias, recomendación}
+  T2->>APP: usuario + contraseña (sin cerrar sesión de T1)
+  APP->>ERP: ¿orden finalizada?
+  T2->>APP: plantilla de control + firma
+  APP->>APP: PDF corporativo
+  APP->>M: envío del informe firmado

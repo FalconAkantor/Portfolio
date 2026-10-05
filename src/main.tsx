@@ -6,7 +6,8 @@ import './styles/base.css';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { App } from './App';
 import { isLang } from './i18n/types';
-import { routeFromPath } from './i18n/routing';
+import { pageFromPath, routeFromPath } from './i18n/routing';
+import type { CatalogData, CatalogIndex } from './catalog/types';
 import { isMode } from './lib/mode';
 import { boot } from './lib/boot';
 import { startCursorLight } from './lib/cursorLight';
@@ -24,11 +25,28 @@ const mode = prerendered && isMode(html.dataset.mode) ? html.dataset.mode : rout
 html.lang = lang;
 html.dataset.mode = mode;
 
-const app = <App lang={lang} mode={mode} />;
+const page = pageFromPath(window.location.pathname);
 
-// Production pages are prerendered → hydrate. The dev server serves an empty shell → render.
-if (prerendered) hydrateRoot(container, app);
-else createRoot(container).render(app);
+// Catalogue pages carry their data inline (prerendered); the dev server loads it on demand.
+async function catalogData(): Promise<CatalogData | undefined> {
+  if (page.kind === 'home') return undefined;
+  const inline = document.getElementById('page-data')?.textContent;
+  if (inline) return JSON.parse(inline) as CatalogData;
+  if (!import.meta.env.DEV) return undefined;
+  const index = (await import('./data/catalog/index.json')).default as unknown as CatalogIndex;
+  if (page.kind === 'catalog') return { kind: 'catalog', index };
+  const { composeProjectPage } = await import('./catalog/compose');
+  const project = (await import(`./data/catalog/projects/${page.slug}.json`)).default;
+  return { kind: 'project', page: composeProjectPage(index, project) };
+}
 
-if (html.classList.contains('booting')) boot.start();
-if (mode === 'tech') startCursorLight();
+void Promise.all([catalogData(), page.kind === 'home' ? null : import('./catalog/CatalogApp')]).then(([data, catalog]) => {
+  const app = <App lang={lang} mode={mode} page={page} data={data} Catalog={catalog?.CatalogApp} />;
+  // Production pages are prerendered → hydrate. The dev server serves an empty shell → render.
+  if (prerendered) hydrateRoot(container, app);
+  else createRoot(container).render(app);
+
+  if (page.kind !== 'home') return;
+  if (html.classList.contains('booting')) boot.start();
+  if (mode === 'tech') startCursorLight();
+});

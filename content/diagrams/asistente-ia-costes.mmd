@@ -1,0 +1,10 @@
+flowchart LR
+  T[Tabla: líneas marcadas] --> E[Expediente desde el ERP]
+  E --> M{¿≤ 5 líneas?}
+  M -->|sí| P0[Turno prioridad 0] --> S[Streaming parable] --> R[Respuesta]
+  M -->|no| Q[(Cola de lotes · JSONL)]
+  Q --> P1[Turno prioridad 1 · cede entre líneas]
+  P1 --> L[Línea i → VEREDICTO / ACCIÓN / RESUMEN]
+  L --> Q
+  Q --> FIN[Resumen final + Excel]
+  BOOT[Arranque] -->|reanudar pendientes| Q

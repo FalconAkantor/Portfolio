@@ -1,0 +1,7 @@
+flowchart LR
+  VID[(Vídeos)] --> FF[FFmpeg: audio] --> W[Whisper large-v3 · GPU]
+  W --> TR[(Transcripciones)]
+  W --> FREE[Liberar GPU: gc + vaciar CUDA]
+  FREE --> LLM[Modelo de lenguaje precargado · GPU]
+  TR --> BLK[Resumen por bloques] --> LLM --> DOC[(Guía por vídeo)]
+  CFG[Configuración del supervisor] --> SRC[Código + plantillas + puerto] --> CAT[Nombre desde el catálogo] --> LLM --> MAN[(Manual de usuario)]

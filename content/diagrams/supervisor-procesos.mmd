@@ -1,0 +1,20 @@
+flowchart LR
+  subgraph Navegador
+    UI[Panel web] -->|EventSource| SSE
+    UI -->|fetch| API[API REST]
+    UI -->|chat + contexto| AIQ
+  end
+  subgraph Supervisor
+    API --> SM[ScriptManager]
+    SM -->|Popen oculto + pipe| P[(Programas hijos)]
+    P -->|stdout línea a línea| LB[Buffer 500 líneas]
+    PM[Hilo vigilancia 30 s] --> SM
+    AR[Hilo reinicio 03:00] --> SM
+    SMON[Hilo muestreo 2 s] --> SNAP[JSON de estado]
+    SNAP --> SSE[/api/stream/]
+    SMON --> HD[(Métricas diarias 35 días)]
+    SM --> CFG[(Config JSON)]
+    AIQ[/api/ollama/chat/] --> OL[Ollama local]
+  end
+  SMON --> GPU[NVML / nvidia-smi]
+  SMON --> PS[psutil]

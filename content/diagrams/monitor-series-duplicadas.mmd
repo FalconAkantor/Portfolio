@@ -1,0 +1,11 @@
+flowchart LR
+  T[Cada 2 min] --> A[Análisis]
+  A --> O[Series en varias órdenes]
+  A --> W[Stock > 0 en varios almacenes]
+  A --> X[Stock > 0 en varios artículos]
+  O & W & X --> F{Stock neto 0? relleno?}
+  F -->|sí| IGN[Ignorar · devolución legítima]
+  F -->|no| CMP{¿Nuevo vs activos?}
+  CMP -->|nuevo| AV[Correo + Excel / Discord con mención]
+  CMP -->|desaparecido| RS[«✅ Resuelto»]
+  AV --> REV[Web de revisiones · solo añadir]

@@ -1,0 +1,18 @@
+flowchart LR
+  subgraph Entrada
+    TAR[Tarifas de fabricante] --> MESA[Mesa de procesado]
+    MAIL[Correos de ofertas] --> AGI[Agente IA de ofertas]
+    MAY[7 mayoristas SFTP/HTTP] --> MULTI[Buscador multimayorista]
+    EU[Mayorista europeo CSV] --> EUB[Buscador mayorista europeo]
+  end
+  MESA -->|Excel normalizado| RAD[Radar de tarifas]
+  RAD -->|aplicar| ERP[(ERP SQL Server)]
+  DIV[Conversor de divisas] --> ERP
+  ERP --> SYNC[Sincronizador de costes] --> WEB[(BD del portal B2B)]
+  ERP --> CARAS[Detector de compras caras]
+  ERP --> CERO[Vigilante de precios a cero]
+  ERP --> EST[Estadísticas de gasto]
+  ERP --> MV[Más vendidos]
+  INC[Excel de incidencias] --> BINC[Buscador de incidencias]
+  CARAS & CERO & MULTI --> CORREO[(Avisos por correo)]
+  RAD & CARAS & AGI & EST & MULTI -.-> IA[IA local]

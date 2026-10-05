@@ -1,0 +1,7 @@
+flowchart LR
+  ERP[(ERP: stock · series · movimientos · albaranes · órdenes)] --> AN[Analizador de stock] & BU[Buscador universal] & WS[Web de stock] & MV[Movimientos] & VI[Valor de inventario]
+  ERP --> DUP[Monitor de duplicados · 2 min] --> AV1[(Correo + Discord)]
+  ERP --> AL[Alertas por usuario · 5 min] --> AV2[(Correo)]
+  ERP --> IN[Stock inmovilizado] --> IA[IA: anuncios] & AV3[(Correo lunes)]
+  ERP --> IP[Informes programados] --> AV4[(Correos diarios/semanales)]
+  VI --> SN[(Fotos diarias)]

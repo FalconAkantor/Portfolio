@@ -1,0 +1,8 @@
+flowchart LR
+  HA[(Domótica: sensores frío/caliente)] -->|cada min| BOT[Bot térmico]
+  BOT --> LOGS[(Canal de logs)]
+  U[Usuario: !maxima / !alertas] --> BOT
+  BOT -->|history/period| HA
+  ALR[(Canal de alertas GPU)] -->|volcado JSON temporal| BOT
+  BOT -->|regex + pandas + matplotlib| PNG[Gráfica por máquina]
+  PNG --> U

@@ -19,3 +19,23 @@ export function routeFromPath(pathname: string, base: string = import.meta.env.B
   const mode: Mode = parts.includes('lite') ? 'lite' : 'tech';
   return { lang, mode };
 }
+
+/**
+ * «All my projects» lives outside the two versions, one page per language:
+ *   <base>[es/]projects/          the catalogue
+ *   <base>[es/]projects/<slug>/   one project
+ */
+export type Page = { kind: 'home' } | { kind: 'catalog' } | { kind: 'project'; slug: string };
+
+export function catalogPath(lang: Lang, slug?: string, base: string = import.meta.env.BASE_URL): string {
+  return `${base}${lang === DEFAULT_LANG ? '' : `${lang}/`}projects/${slug ? `${slug}/` : ''}`;
+}
+
+export function pageFromPath(pathname: string, base: string = import.meta.env.BASE_URL): Page {
+  const rest = pathname.startsWith(base) ? pathname.slice(base.length) : pathname.replace(/^\//, '');
+  const parts = rest.split('/').filter((p) => p && p !== 'index.html');
+  const at = parts.indexOf('projects');
+  if (at < 0) return { kind: 'home' };
+  const slug = parts[at + 1];
+  return slug ? { kind: 'project', slug } : { kind: 'catalog' };
+}

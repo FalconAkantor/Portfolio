@@ -1,0 +1,6 @@
+flowchart LR
+  T[Día 1, 08:00] --> C[Campañas del mes anterior]
+  C --> S[Estadísticas por campaña]
+  C --> M[Mensajes por campaña ≤50] --> E[Engagement por cliente]
+  E --> K{Clasificar} --> A[Activo] & P[Pasivo] & I[Inactivo]
+  S & E --> X[Excel con estilo] & G[Gráfico] --> MAIL[(Correo)]

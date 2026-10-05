@@ -21,7 +21,7 @@ const root = path.resolve(import.meta.dirname, '..');
 const dist = path.join(root, 'dist');
 const ssrDir = path.join(root, 'dist-ssr');
 
-const { render, seo } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
+const { render, seo, composeProjectPage } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
 
 const base = normalizeBase(process.env.BASE_PATH ?? '/Portfolio/');
 const siteUrl = (process.env.SITE_URL?.trim() || seo.site.siteUrl).replace(/\/+$/, '');
@@ -45,19 +45,23 @@ if (!template.includes('<!--app-html-->')) throw new Error('index.html is missin
 const assets = await readdir(path.join(dist, 'assets'));
 const displayFont = assets.find((f) => /^archivo-latin-wdth-normal.*\.woff2$/.test(f));
 const monoFont = assets.find((f) => /^ibm-plex-mono-latin-400-normal.*\.woff2$/.test(f));
+// The catalogue UI is a lazy chunk: its stylesheet goes straight into those pages' <head>.
+const catalogCss = assets.filter((f) => /^CatalogApp-.*\.css$/.test(f)).map((f) => `<link rel="stylesheet" href="${base}assets/${f}" />`).join('\n    ');
+const catalogJs = assets.filter((f) => /^CatalogApp-.*\.js$/.test(f)).map((f) => `<link rel="modulepreload" href="${base}assets/${f}" />`).join('\n    ');
 const preloads = [displayFont, monoFont]
   .filter(Boolean)
   .map((f) => `<link rel="preload" href="${base}assets/${f}" as="font" type="font/woff2" crossorigin />`)
   .join('\n    ');
 
-function head(lang, mode) {
+function head(lang, mode, override) {
   const m = seo.meta[lang];
-  const meta = mode === 'lite' ? { ...m, title: m.liteTitle, description: m.liteDescription } : m;
-  const url = pageUrl(lang, mode);
+  const meta = override ? { ...m, ...override.meta } : mode === 'lite' ? { ...m, title: m.liteTitle, description: m.liteDescription } : m;
+  const urlFor = override ? override.url : (l) => pageUrl(l, mode);
+  const url = urlFor(lang);
   const image = `${siteUrl}/og-image.png`;
   const alternates = seo.langs
-    .map((l) => `<link rel="alternate" hreflang="${l}" href="${pageUrl(l, mode)}" />`)
-    .concat(`<link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang, mode)}" />`)
+    .map((l) => `<link rel="alternate" hreflang="${l}" href="${urlFor(l)}" />`)
+    .concat(`<link rel="alternate" hreflang="x-default" href="${urlFor(seo.defaultLang)}" />`)
     .join('\n    ');
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -94,14 +98,20 @@ function head(lang, mode) {
     <meta name="twitter:image" content="${image}" />
     <meta name="twitter:image:alt" content="${esc(meta.ogAlt)}" />
     ${preloads}
+    ${override ? `${catalogCss}\n    ${catalogJs}` : ''}
     <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`;
 }
 
-function page(lang, mode) {
-  const html = template
-    .replace(/<html lang="[^"]*"/, `<html lang="${lang}" data-mode="${mode}"`)
-    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, head(lang, mode))
-    .replace('<!--app-html-->', render(lang, mode));
+function page(lang, mode, catalog) {
+  const attrs = catalog ? `data-mode="tech" data-page="catalog"` : `data-mode="${mode}"`;
+  let html = template
+    .replace(/<html lang="[^"]*"/, `<html lang="${lang}" ${attrs}`)
+    .replace(/<!--head:start-->[\s\S]*?<!--head:end-->/, head(lang, mode, catalog))
+    .replace('<!--app-html-->', catalog ? render(lang, 'tech', catalog.page, catalog.data) : render(lang, mode));
+  if (catalog) {
+    const json = JSON.stringify(catalog.data).replace(/</g, '\\u003c');
+    html = html.replace('</body>', `  <script type="application/json" id="page-data">${json}</script>\n  </body>`);
+  }
   if (html.includes('<!--head:start-->')) throw new Error('head markers were not replaced');
   return html;
 }
@@ -113,6 +123,39 @@ for (const { lang, mode } of pages) {
   await writeFile(path.join(dir, 'index.html'), page(lang, mode));
   console.log(`  prerendered ${path.relative(root, path.join(dir, 'index.html'))}`);
 }
+
+// «All my projects»: the catalogue and one page per project, in every language.
+const catalogDir = path.join(root, 'src/data/catalog');
+const index = JSON.parse(await readFile(path.join(catalogDir, 'index.json'), 'utf8'));
+const catalogUrl = (l, slug) => `${siteUrl}/${l === seo.defaultLang ? '' : `${l}/`}projects/${slug ? `${slug}/` : ''}`;
+for (const lang of seo.langs) {
+  const dir = path.join(dist, lang === seo.defaultLang ? '' : lang, 'projects');
+  await mkdir(dir, { recursive: true });
+  await writeFile(
+    path.join(dir, 'index.html'),
+    page(lang, 'tech', {
+      page: { kind: 'catalog' },
+      data: { kind: 'catalog', index },
+      meta: { title: `${seo.catalog[lang].title} · ${seo.site.brand.name}`, description: seo.catalog[lang].lead },
+      url: (l) => catalogUrl(l),
+    }),
+  );
+  for (const card of index.projects) {
+    const project = JSON.parse(await readFile(path.join(catalogDir, 'projects', `${card.slug}.json`), 'utf8'));
+    const pdir = path.join(dir, card.slug);
+    await mkdir(pdir, { recursive: true });
+    await writeFile(
+      path.join(pdir, 'index.html'),
+      page(lang, 'tech', {
+        page: { kind: 'project', slug: card.slug },
+        data: { kind: 'project', page: composeProjectPage(index, project) },
+        meta: { title: `${card.name} · ${seo.site.brand.name}`, description: card.summary[lang] },
+        url: (l) => catalogUrl(l, card.slug),
+      }),
+    );
+  }
+}
+console.log(`  prerendered ${index.projects.length + 1} catalogue pages × ${seo.langs.length} languages`);
 
 // 404 — a tiny static page in the same visual language; no JS needed.
 await writeFile(
@@ -155,6 +198,15 @@ ${pages
     <lastmod>${today}</lastmod>
 ${seo.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${pageUrl(l, mode)}" />`).join('\n')}
     <xhtml:link rel="alternate" hreflang="x-default" href="${pageUrl(seo.defaultLang, mode)}" />
+  </url>`,
+  )
+  .join('\n')}
+${[undefined, ...index.projects.map((p) => p.slug)]
+  .map(
+    (slug) => `  <url>
+    <loc>${catalogUrl(seo.defaultLang, slug)}</loc>
+    <lastmod>${today}</lastmod>
+${seo.langs.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${catalogUrl(l, slug)}" />`).join('\n')}
   </url>`,
   )
   .join('\n')}

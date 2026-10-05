@@ -1,0 +1,7 @@
+flowchart LR
+  F[Fechas · familia · subfamilia · top N] --> Q
+  X[Excluir clientes y modelos] --> Q[SQL en dos niveles]
+  Q --> R[(Líneas de órdenes de fabricación)]
+  R --> RK[Ranking por unidades]
+  R --> CM[Mapa componente → clientes]
+  RK & CM --> XL[Excel por familia/subfamilia]

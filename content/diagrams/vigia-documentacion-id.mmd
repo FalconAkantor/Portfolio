@@ -1,0 +1,8 @@
+flowchart LR
+  C[(Carpeta de I+D)] -->|cada 2 h| S[Escaneo recursivo]
+  S --> N[Estado nuevo]
+  DB[(Estado anterior JSON)] --> D{Diferencia de conjuntos}
+  N --> D
+  D -->|cambios| M[(Correo HTML)]
+  N --> DB
+  C --> W[Web: buscar · ver · descargar]

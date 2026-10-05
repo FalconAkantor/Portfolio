@@ -1,0 +1,26 @@
+flowchart LR
+  subgraph ERP
+    C[(Compras por serie)]
+    O[(Órdenes de fabricación)]
+    V[(Ventas / albaranes)]
+  end
+  subgraph Núcleo
+    R[Reglas de coste]
+    S[Simulación · REVISAR 30 %]
+    T[Trazas]
+    K[Clasificación devolución / sin venta]
+  end
+  C --> R
+  O --> R
+  V --> K
+  R --> S
+  S --> UI[Tabla antes → después]
+  UI -->|masivo / manual| AP[Aplicar: bloquear · escribir · releer · verificar]
+  AP --> O
+  AP --> V
+  AP --> BK[(Copia por fila)]
+  BK --> RS[Restaurar si nadie lo cambió · si no, conflicto]
+  RS --> O & V
+  R & K --> MAR[Análisis de márgenes · confianza · calidad del dato]
+  CAL[Calendario cuatrimestral + festivos] --> MAIL[(Recordatorios)]
+  K -->|dudosos| IA[IA local]

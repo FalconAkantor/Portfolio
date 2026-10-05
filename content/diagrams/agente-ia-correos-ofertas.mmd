@@ -1,0 +1,10 @@
+flowchart LR
+  U[Comprador] --> DC[Código de dispositivo Microsoft]
+  DC --> TK[(Token cifrado con clave por usuario)]
+  U --> SEL[Carpetas + fechas]
+  SEL --> G[Microsoft Graph · paginado]
+  TK --> G
+  G --> CL[HTML → texto] --> CACHE[(Caché 7 días)]
+  CACHE --> CTX[Contexto ≤ 28k caracteres]
+  U --> Q[Pregunta] --> P[Prompt con reglas + 6 últimos mensajes]
+  CTX --> P --> IA[IA local] --> A[Respuesta citando remitente/fecha/asunto]

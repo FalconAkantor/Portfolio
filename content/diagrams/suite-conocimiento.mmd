@@ -1,0 +1,9 @@
+flowchart LR
+  U[Persona] -->|1 login| P[Portal]
+  P -->|proxy + login automático| T[(≈90 herramientas)]
+  P --> D[Gestor documental IA]
+  P --> TA[Tareas]
+  TG[Telegram: voz/texto] --> TA
+  G[Guías interactivas] -.inyectadas.-> T
+  V[Vídeos] --> GV[Generador de guías] --> DOC[(Documentación)]
+  D & TA & P --> IA[IA local: texto + vectores]

@@ -1,0 +1,11 @@
+flowchart TB
+  C[Cliente WhatsApp] --> N{¿Nombre guardado?}
+  N -->|no| PN[Pedir y confirmar nombre] --> N
+  N -->|sí| H{¿Traspaso activo?}
+  H -->|sí| DC[(Canal del equipo)] -->|respuestas + archivos| C
+  H -->|no| CMD{¿«asistente»?}
+  CMD -->|sí| DC
+  CMD -->|no| INT[Inferir intención] --> REC[Filtrar + puntuar catálogo]
+  REC --> GEN[Gemini: respuesta] --> VAL[Gemini: validador técnico] --> C
+  WEB[Web pública] -->|24 h, solo cambios| CAT[(Catálogo + textos)] --> REC
+  WD[Vigilante 10 s] -->|3 fallos| RECON[Reabrir sesión]

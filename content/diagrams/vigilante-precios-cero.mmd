@@ -1,0 +1,10 @@
+stateDiagram-v2
+  [*] --> SinLineaBase
+  SinLineaBase --> LineaBase: primer ciclo · foto + informe inicial
+  LineaBase --> Ciclo: cada N s
+  Ciclo --> Alerta: nuevo a cero / cambio a cero
+  Ciclo --> LineaBase: filtros cambiados · foto de la anterior
+  Alerta --> Correo
+  Correo --> Ciclo: enviado
+  Correo --> Cola: falla
+  Cola --> Correo: reintento en el siguiente ciclo

@@ -1,0 +1,7 @@
+flowchart LR
+  U[Término] --> N[Normalizar]
+  N --> A[CSV almacén país 1]
+  N --> B[CSV almacén país 2]
+  A & B --> E{¿Exacta en SKU/EAN/MPN?}
+  E -->|sí| R[Resultados]
+  E -->|no| F[Contiene en producto/marca] --> R

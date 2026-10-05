@@ -1,0 +1,11 @@
+flowchart TB
+  subgraph Núcleo común
+    R[Reglas de coste] --- SIM[Simulación] --- TR[Trazas compra→orden→venta] --- CL[Clasificación de albaranes] --- CO[Correo corporativo]
+  end
+  CORR[Corrector de costes] --> R & SIM & TR & CL & CO
+  MAR[Análisis de márgenes] --> R & SIM & TR & CL & CO
+  IA[Asistente IA común] --> CORR & MAR
+  VIG[Vigilancia de precios en órdenes] --> ERP[(ERP)]
+  AMF[Márgenes por familia] --> ERP
+  CORR -->|simular · aplicar · restaurar| ERP
+  MAR -->|solo lectura| ERP

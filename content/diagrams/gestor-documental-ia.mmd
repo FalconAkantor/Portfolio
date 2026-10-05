@@ -1,0 +1,14 @@
+flowchart TB
+  UP[Subir / nueva versión] --> H[SHA-256 + versión + auditoría]
+  H --> Q[(Pendientes de IA)]
+  SCH[Planificador · ventana nocturna] --> Q
+  Q --> EX{Extraer texto}
+  EX -->|PDF con texto| PY[pypdf]
+  EX -->|PDF escaneado / imagen| OCR[OCR]
+  EX -->|Word/Excel/PPT| OF[Extractores Office]
+  PY & OCR & OF --> DESC[IA: descripción + etiquetas]
+  PY & OCR & OF --> CH[Fragmentos 1.500/200] --> EMB[(Vectores)]
+  U[Pregunta] --> PERM{Filtro de permisos} --> S[0,6·doc + 0,4·fragmento + refuerzo literal]
+  EMB --> S --> RES[Documentos + fragmentos] --> LLM[IA: respuesta con fuentes]
+  EMB --> DUP[Duplicados >0,92 / >0,97] 
+  H --> DUPH[Duplicados idénticos por hash]

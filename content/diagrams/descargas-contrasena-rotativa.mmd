@@ -1,0 +1,7 @@
+flowchart LR
+  G[Grupo privado] -->|archivo| IDX[(Índice: tipo + referencia)]
+  T48[Cada 48 h] --> PW[Nueva contraseña] --> CH[Canal de la comunidad] -->|borra la anterior| CH
+  C[Cliente] -->|copia| CH
+  C -->|/getfiles + contraseña| BOT[Bot] --> V{¿Coincide?}
+  V -->|sí| IDX --> ENV[Envío por referencia] --> C
+  V -->|no| NO[❌]

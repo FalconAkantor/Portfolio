@@ -1,0 +1,9 @@
+flowchart LR
+  T[Cada 60 s] --> G[Correos nuevos del buzón]
+  G --> R{¿Red social?}
+  R -->|sí| NI[No importante]
+  R -->|no| IA[IA local + 3 decisiones previas] --> B{¿Sesgo del remitente ≥ ±1,5?}
+  B -->|sí| AJ[Se impone el usuario]
+  B -->|no| DEC[Decisión del modelo]
+  AJ & DEC --> IMP{¿Importante y nuevo?} -->|sí| MAIL[(Aviso)]
+  U[Usuario corrige] --> SB[(Sesgo ×0,7 ± 1)] --> B

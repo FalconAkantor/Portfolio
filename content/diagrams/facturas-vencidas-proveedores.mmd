@@ -1,0 +1,8 @@
+flowchart LR
+  ERP[(Cartera de pagos)] --> P[Panel de facturas]
+  P --> N[(Notas · estados · favoritos)]
+  P --> AL[(Alertas programadas)]
+  ERP --> RK[Ranking + gráfico]
+  T1[Cada minuto] --> AL --> IA1[IA redacta el aviso] --> M1[(Correo)]
+  T2[08:00] --> M2[(Correo de vencimientos)]
+  T3[Lunes 09:00] --> IA2[IA: análisis por factura + informe] --> INF[(Informes)]

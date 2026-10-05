@@ -1,0 +1,8 @@
+flowchart LR
+  U[Familias + divisa + cambio] --> V[Validar contra el ERP]
+  V --> A[Foto ANTES]
+  A --> T[UPDATE coste € = coste divisa ÷ cambio · transacción]
+  T -->|ok| D[Foto DESPUÉS + histórico]
+  T -->|error| RB[Rollback]
+  D --> R[↶ Restaurar]
+  R --> S[Foto de seguridad] --> W[Escribir valores ANTES]

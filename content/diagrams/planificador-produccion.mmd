@@ -1,0 +1,19 @@
+flowchart TB
+  subgraph Núcleo de stock
+    F[Físico · lotes con stock > 0] --> D[Disponible = físico − comprometido − pedidos]
+    C[Comprometido por órdenes] --> D
+    P[Pedidos de clientes] --> D
+  end
+  OF[(Órdenes pendientes por prioridad)] --> R[Reparto de stock en orden]
+  D --> R
+  R --> OK[Montables]
+  R --> KO[No montables + faltantes]
+  CP[(Compras pendientes con fecha)] --> FR[Cola: deuda previa → órdenes por prioridad]
+  KO --> FR --> FECHA[«Producible el…»]
+  KO --> TG[Traslados globales · bolsa por componente+almacén]
+  TG --> CO[Completas] & PA[Parciales] & SM[Sin mejora]
+  D --> CR[Modo crisis · menos faltantes primero · robar a otras órdenes]
+  MON[Monitor 5 min] --> FOTO[(Foto del plan)]
+  FOTO --> WEB[Web]
+  MON --> DIFF{Comparar con el ciclo anterior}
+  DIFF --> MAIL[(Correos: nuevas · perdidas con motivo · traslados)]

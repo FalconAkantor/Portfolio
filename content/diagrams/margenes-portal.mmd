@@ -1,0 +1,9 @@
+flowchart LR
+  W[Web] --> MX[Matriz categoría × tipo de cliente] --> ED[Editar celdas] --> DB[(Portal)] --> H[(Historial + correo)]
+  E[Modo emergencia] --> R[Leer márgenes · sin archivadas]
+  R --> C{Tipo de cliente}
+  C -->|modificable| S[+ ajuste]
+  C -->|coste| Z[= 0]
+  C -->|otros| N[sin cambio]
+  S & Z & N --> DB
+  S & Z & N --> XL[Excel antes/después + correo]

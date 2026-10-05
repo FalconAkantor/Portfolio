@@ -1,0 +1,5 @@
+flowchart LR
+  M{Modo} -->|código| Q1[articulo LIKE ?]
+  M -->|descripción| Q2[descripcion LIKE ?]
+  M -->|serie| Q3[serie = ? OR LIKE 'serie,%' OR '%,serie,%' OR '%,serie']
+  Q1 & Q2 & Q3 --> ERP[(Líneas de albarán de venta)] --> R[Albarán · cliente · fecha · precio · facturado · orden]

@@ -1,0 +1,11 @@
+flowchart LR
+  X[Excel normalizado + cambio EUR/USD] --> L{¿En lista negra?}
+  L -->|sí| BN[Excluido]
+  L -->|no| C[Cascada en el ERP: código · secundario · proveedor]
+  C -->|no existe| NE[Marcado, no importable]
+  C -->|existe| V[Variación % vs coste actual]
+  V --> S[Semáforo 5 niveles]
+  S --> IA[Resumen IA en streaming]
+  S --> SEL[Selección manual]
+  SEL --> ERP[(ERP: coste EUR + coste USD)]
+  ERP --> H[(Histórico + gráficas)]

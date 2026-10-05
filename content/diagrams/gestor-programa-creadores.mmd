@@ -1,0 +1,8 @@
+flowchart LR
+  ERP[(ERP: órdenes)] -->|material cedido| F[Ficha del creador]
+  TI[(Tienda: códigos y pedidos)] -->|ventas en vivo| F
+  TR[(Eventos de navegación)] --> SES[Sesiones + embudo] --> CON[Conciliación ±6 h] --> F
+  CR[Creador] <-->|archivos, estadísticas| BOT[Bot de Telegram] -->|suma contenido| F
+  F --> AL[Alertas] --> MAIL[(Correo mensual)]
+  BOT -->|fin de mes| REC[Recordatorio]
+  F --> DASH[Dashboard + analítica]

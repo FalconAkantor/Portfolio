@@ -1,0 +1,7 @@
+flowchart LR
+  ERP[(Clientes + tarifa)] --> R[Resumen por tarifa]
+  ERP --> L[Lista filtrable]
+  L --> S[Selección / códigos pegados] --> T[Transacción con bloqueo, bloques de 900]
+  T --> ERP
+  T --> H[(Historial con valor anterior)] --> RV[Revertir si sigue igual]
+  CRON[Cada minuto] --> AV{¿Toca aviso y hay novedades?} --> M[(Correo + Excel)]

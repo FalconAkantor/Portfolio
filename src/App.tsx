@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, type ComponentType } from 'react';
 import { I18nProvider, useI18n } from './i18n/context';
 import type { Lang } from './i18n/types';
 import { ModeProvider, type Mode } from './lib/mode';
@@ -6,6 +6,8 @@ import { useActiveSection } from './hooks/useActiveSection';
 import { BootSequence } from './components/boot/BootSequence';
 import { ModeChooser } from './components/chooser/ModeChooser';
 import { LiteSite } from './lite/LiteSite';
+import type { CatalogData } from './catalog/types';
+import type { Page } from './i18n/routing';
 import { StatusBar } from './components/navigation/StatusBar';
 import { SystemTree } from './components/navigation/SystemTree';
 import { MobileDock } from './components/navigation/MobileDock';
@@ -20,11 +22,23 @@ import { About } from './sections/About';
 import { Contact } from './sections/Contact';
 import './styles/layout.css';
 
-export function App({ lang, mode }: { lang: Lang; mode: Mode }) {
+interface AppProps {
+  lang: Lang;
+  mode: Mode;
+  page?: Page;
+  data?: CatalogData;
+  /** The catalogue UI, passed in so home pages never download it (see main.tsx / entry-server.tsx). */
+  Catalog?: ComponentType<{ page: Page; data: CatalogData }>;
+}
+
+export function App({ lang, mode, page = { kind: 'home' }, data, Catalog }: AppProps) {
+  const catalog = page.kind !== 'home' && data && Catalog;
   return (
     <StrictMode>
       <I18nProvider lang={lang}>
-        <ModeProvider mode={mode}>{mode === 'lite' ? <LiteSite /> : <Shell />}</ModeProvider>
+        <ModeProvider mode={catalog ? 'tech' : mode}>
+          {catalog ? <Catalog page={page} data={data} /> : mode === 'lite' ? <LiteSite /> : <Shell />}
+        </ModeProvider>
       </I18nProvider>
     </StrictMode>
   );

@@ -1,0 +1,7 @@
+flowchart LR
+  OF[(Orden del equipo)] --> INV[Inventario con notas + bloqueo]
+  OF --> AL[Alerta: componentes · fecha · instrucciones · destinatarios]
+  CRON[Cada hora] --> AL
+  AL -->|−7..+3 días y no avisado hoy| MAIL[(Aviso diario)]
+  AL -->|series nuevas| EXT[+183 días]
+  INV -->|desmontaje| DES[Correo de desglose]

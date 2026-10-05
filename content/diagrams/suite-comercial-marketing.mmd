@@ -1,0 +1,8 @@
+flowchart LR
+  WA[WhatsApp clientes] <--> AG[Agente comercial IA] <--> DC[Canal del equipo]
+  WEB[Web pública] -->|cada 24 h| CAT[(Catálogo del agente)] --> AG
+  M365[(Correo comercial)] --> CRM[Notas de CRM con IA local] --> LEAD[(Leads del portal)]
+  ERP[(ERP)] --> AN[Analizador por producto]
+  CLI[(Clientes)] --> SYNC[Sincronización de listas] <--> EM[(Email marketing)] --> INF[Informe mensual]
+  CR[Creadores] <--> BOTC[Bot de creadores] --> PROG[Gestor del programa]
+  BUZ[(Buzón compartido)] --> CLAS[Clasificador que aprende]

@@ -1,0 +1,13 @@
+flowchart LR
+  F[Archivos arrastrados] --> H[Huella: bytes + pestañas + cabeceras + nombre]
+  H -->|problema| X[Tarjeta roja con explicación]
+  H --> R1[Memoria aprendida ≥ 0,45]
+  H --> R2[Reglas por pestañas · 95]
+  H --> R3[Reglas por nombre · 88]
+  H --> R4[Palabras raras del nombre · log 1+N/df]
+  R1 & R2 & R3 & R4 --> TOP{Mejor candidato · confianza}
+  TOP --> RUN[Ejecutar lote en paralelo]
+  RUN --> LOG[Logs en vivo SSE]
+  RUN --> DIAG[Diagnóstico en lenguaje humano]
+  DIAG -->|ok y filas > 0| LEARN[(Aprender huella → script)]
+  DIAG --> OUT[Excel normalizado] --> MERGE[Unir lote]

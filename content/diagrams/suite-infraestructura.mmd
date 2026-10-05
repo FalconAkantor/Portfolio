@@ -1,0 +1,18 @@
+flowchart TB
+  W[Inicio de Windows] --> V[Vigilante diario 24 h]
+  V --> S[Supervisor de procesos]
+  S -->|lanza y vigila cada 30 s| P1[Webs internas]
+  S --> P2[Bots Discord / Telegram]
+  S --> P3[Agentes IA y vigilantes]
+  S --> L[Sub-lanzadores]
+  L --> P4[Monitores GPU / informes de correo / bot WhatsApp]
+  D[Detector de caídas] -->|login + API cada 20 s| S
+  D -->|login + API| S2[Supervisor nodo render]
+  D -->|login + API| S3[Supervisor nodo alarma]
+  D -->|3 fallos seguidos| A[(Correo + Discord)]
+  PS[Panel de supervisores] -.-> S & S2 & S3
+  B[Copias cifradas 04:30] --> T[(Canal privado de mensajería)]
+  HA[Sensores de temperatura] --> TV[Vigilante térmico] --> DC[(Discord)]
+  CAM[Canales de estado de cámaras] --> CA[Aviso de cámaras] --> M[(Correo)]
+  PG[Ping a equipos] --> DC
+  DC --> PU[Aviso push si +1 h caído]

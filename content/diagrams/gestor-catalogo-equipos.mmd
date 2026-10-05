@@ -1,0 +1,7 @@
+flowchart LR
+  T[Máquinas / componentes] --> C[Categoría]
+  C --> L[Lista con posiciones]
+  L --> I[Cambio individual] & M[Cambio masivo]
+  I & M --> V{¿Posición 0?}
+  V -->|sí| CM[Comentario obligatorio]
+  I & M & CM --> DB[(Portal)] --> LOG[(Historial)] --> MAIL[(Correo)]

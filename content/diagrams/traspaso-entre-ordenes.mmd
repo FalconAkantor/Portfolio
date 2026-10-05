@@ -1,0 +1,8 @@
+flowchart LR
+  O[Orden origen] --> SEL[Líneas + series elegidas]
+  D[Orden destino] --> V{Validar origen y destino}
+  SEL --> V
+  V --> SIM[Simulación: qué se insertaría]
+  SIM --> AP[Aplicar · transacción manual]
+  AP -->|ok| CM[Commit + registro + correo]
+  AP -->|error| RB[Rollback]

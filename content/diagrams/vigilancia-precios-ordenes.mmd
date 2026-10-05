@@ -1,0 +1,10 @@
+flowchart LR
+  ERP[(Líneas de órdenes)] -->|bloques, solo lectura| A[Precio aplicado vs referencia]
+  A --> F{> 15 % y > 5 €?}
+  F -->|sí| G[Gravedad + diagnóstico]
+  F -->|sin referencia| SV[SIN VERIFICAR]
+  G & SV --> X[Excel: resumen + hoja por año]
+  G --> W{¿Fila ya conocida?}
+  W -->|no| M[Correo solo con lo nuevo] --> ST[(Estado de vigilancia)]
+  ERP --> D[Grupos duplicados] --> AC[Autocorrección conservadora] --> M
+  P[Panel] --> CH[Cambios en lote] --> SN[(Fotos antes/después)] --> RS[Restaurar]

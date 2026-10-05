@@ -164,6 +164,22 @@ scripts/
 **SEO:** title/description por idioma y versión, canonical, `hreflang`, Open Graph, Twitter/X card, JSON-LD `Person`, `sitemap.xml`, `robots.txt`, favicon SVG/PNG, manifest y página 404 propia.
 > En una *project page* (`usuario.github.io/Portfolio`), los buscadores solo leen el `robots.txt` de la raíz del dominio. Para que cuente, envía el sitemap desde Google Search Console o usa un dominio propio.
 
+## Todos mis proyectos (catálogo)
+
+`content/catalogo.md` es el catálogo documentado de todo el software: fichas en ES/EN, documentación,
+diagramas Mermaid, código real limpio y un *storyboard* de animación por proyecto. De ahí salen las
+páginas `/[es/]projects/` y `/[es/]projects/<slug>/`, prerenderizadas una a una.
+
+```bash
+node scripts/build-catalog.mjs                                   # md → src/data/catalog/*.json
+npx -y -p playwright@1 -p mermaid@11 node scripts/render-diagrams.mjs   # diagramas → SVG con la paleta de la web
+npm run build
+```
+
+Cada página anima su *storyboard* con `src/catalog/StoryPlayer.tsx`: coloca los elementos por posición,
+los dibuja según su tipo y enciende en cada paso lo que menciona su texto. El catálogo carga su propio
+código solo en sus páginas, así que la portada no pesa más.
+
 ## Vídeo promocional (HyperFrames)
 
 El vídeo de 60 s que se abre desde «Ver el vídeo» está hecho con código en `videos/automariza-promo/`,

@@ -1,0 +1,6 @@
+flowchart LR
+  ERP[(ERP: cartera · clientes · albaranes · órdenes)] --> FP[Facturas proveedores] & FC[Facturas clientes] & TC[Tarifas clientes] & TS[Trazabilidad series] & BA[Buscador albaranes]
+  FP & FC --> IA[IA local: resumen por factura]
+  FP & FC & TC --> MAIL[(Correos programados)]
+  TG[Telegram: fotos] --> BOT[Bot de albaranes] --> PDF[(PDF por año/código)] --> WEB[Visor web]
+  BOT --> NUBE[(Copia en canal privado)]

@@ -1,0 +1,13 @@
+flowchart LR
+  ERP[(Albaranes de compra)] --> PU[Precio unitario real]
+  PU --> AVG[Media por artículo]
+  AVG --> TH{"precio > media·(1+umbral)?"}
+  TH -->|sí| AN[Línea anómala]
+  AN --> FAM[Agrupar por familia, peor primero]
+  FAM --> H{¿Huella MD5 cambió?}
+  H -->|no| SK[Saltar]
+  H -->|sí| IA[IA: veredicto · diagnóstico · causa · acción]
+  IA --> REV[Revisión humana: correcto / anomalía / justificado]
+  REV --> CSV[Exportar CSV]
+  N[00:00 diario] --> TH
+  IA --> MAIL[Correo con Excel por familia]

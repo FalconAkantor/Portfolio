@@ -3,7 +3,7 @@ import { site } from '../config/site';
 import { examples, services, steps } from '../data/lite';
 import { projects } from '../data/projects';
 import { useI18n } from '../i18n/context';
-import { pathFor } from '../i18n/routing';
+import { catalogPath, pathFor } from '../i18n/routing';
 import { formatPhone, whatsappHref } from '../lib/contact';
 import { STORAGE_KEYS, writeStorage } from '../lib/storage';
 import { Wordmark } from '../components/ui/Wordmark';
@@ -17,6 +17,7 @@ import { LiteLoop } from './LiteLoop';
 import './loops.css';
 import { ProjectGlyph } from '../components/projects/ProjectGlyph';
 import { PromoVideoButton, PromoVideoCard } from '../components/promo/PromoVideo';
+import { CatalogTeaser } from '../components/catalog/CatalogTeaser';
 import './lite.css';
 
 /** The simple version: what I offer, how I work, examples and contact — no jargon. */
@@ -57,6 +58,7 @@ export function LiteSite() {
               {label}
             </a>
           ))}
+          <a href={catalogPath(lang)}>{t.catalog.nav}</a>
         </nav>
         <div className="lbar__right">
           <ModeSwitch />
@@ -179,6 +181,7 @@ export function LiteSite() {
               </a>
             </li>
           </ul>
+          <CatalogTeaser variant="lite" />
         </section>
 
         <section className="lcurious" aria-label={x.curious}>

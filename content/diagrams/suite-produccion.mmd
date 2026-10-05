@@ -1,0 +1,14 @@
+flowchart LR
+  ERP[(ERP: órdenes, stock, pedidos, compras)] --> PL[Planificador]
+  ERP --> PP[Plan de pedidos]
+  PL --> TR[Traslados entre almacenes]
+  PL --> MAIL[(Avisos)]
+  PRE[Asignador de preparación] --> MAIL
+  PL --> PRE
+  PRE --> MONT[Montaje]
+  MONT --> DIG[Pruebas digitales + doble firma]
+  DIG --> IA[IA: comparar con histórico]
+  DIG --> PDF[PDF + correo]
+  MONT --> BEN[Laboratorio de benchmarks]
+  ERP --> KPI[KPIs producción] & RMA[Analítica de incidencias]
+  CMO[Cambios masivos órdenes / escandallos / traspasos] --> ERP

@@ -1,0 +1,11 @@
+flowchart LR
+  RMA[(BD de incidencias)] --> J[Unión por número de serie]
+  ERP[(Producción: órdenes, modelos, técnicos, clientes)] --> J
+  J --> KPI[Tasa 1:N · cosecha · causas]
+  J --> MTTR[MTTR por año/causa]
+  J --> MTBF[MTBF por modelo]
+  J --> AG[Envejecimiento de abiertos]
+  J --> PA[Pareto de componentes]
+  J --> TE[Tendencias 3 vs 3 + alertas]
+  J --> RK[Rankings cliente / modelo / técnico]
+  J --> IA[IA: reabiertos · chat · informe por secciones] --> DOCX[Word]

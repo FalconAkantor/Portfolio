@@ -1,0 +1,6 @@
+flowchart LR
+  F[Categoría actual + filtros] --> L[Componentes]
+  L --> S[Selección] --> T[Categoría destino]
+  T --> SN[(Foto)] --> DB[(Portal)]
+  DB --> XL[Excel] --> M[(Correo)]
+  SN --> RV{¿Es el autor?} -->|sí| REV[Revertir]

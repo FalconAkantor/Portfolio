@@ -1,0 +1,10 @@
+flowchart LR
+  D[Fechas] --> W[Hilo de carga]
+  W --> ERP[(Compras + familias)]
+  W --> C[(Caché JSON del periodo)]
+  C --> FAM[Familias → subfamilias → artículos]
+  C --> PROV[Top proveedores]
+  C --> MAR[Marcas · lista subida]
+  C --> MES[Evolución mensual]
+  C --> CTX[Resumen jerárquico] --> IA[IA local] --> R[Respuesta]
+  FAM & PROV & MAR --> XL[5 exportaciones Excel]

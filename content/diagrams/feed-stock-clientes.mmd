@@ -1,0 +1,7 @@
+flowchart LR
+  C[Cliente] -->|/| E[Exportador]
+  C -->|/solostock| E
+  E --> P[(Portal: catálogo + precio público)]
+  E --> W[(ERP: stock)]
+  P & W --> F[Filtrar con / sin stock] --> CSV[CSV / ZIP] --> C
+  CSV --> T[Borrar a los 60 s]

@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant D as Detector
+  participant S as Supervisor (×3)
+  participant M as Correo
+  participant C as Discord
+  loop cada 20 s
+    D->>S: login + GET /api/scripts
+    alt login o API fallan
+      D->>D: fallos_panel += 1 (≥3 → panel caído)
+    else responde
+      D->>D: clasificar cada programa (arriba / caído / ignorar)
+      D->>D: contadores y down_since en JSON
+    end
+  end
+  D->>M: correo HTML agrupado (caídas o recuperaciones)
+  D->>C: mensaje troceado por máquina

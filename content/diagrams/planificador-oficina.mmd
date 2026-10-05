@@ -1,0 +1,5 @@
+flowchart LR
+  B[Estado base: muros · pilares · puertas · salas · cotas] --> S[(JSON + copias)]
+  S --> E2[Editor 2D]
+  S --> V3[Vista 3D propia]
+  E2 -->|guardar| S

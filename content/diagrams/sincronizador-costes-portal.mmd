@@ -1,0 +1,5 @@
+flowchart LR
+  B[Botón «Importar»] --> R[(ERP: artículos y costes)]
+  R --> CL[Limpiar nulos y no numéricos]
+  CL --> W[(BD portal: tabla de enlace vaciada y rellenada)]
+  W --> X[Excel justificante] --> M[Correo de confirmación]

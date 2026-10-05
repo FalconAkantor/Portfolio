@@ -1,0 +1,8 @@
+flowchart LR
+  T[08:00] --> B[Leer bajas de cada lista]
+  B --> DB[(Clientes: recibir información = 0)]
+  DB --> TIP[Tipos de cliente] --> L{¿Lista existe?}
+  L -->|no| CREA[Crear lista] --> ADD
+  L -->|sí| ADD[Añadir solo contactos nuevos]
+  ST[(Estado: ya sincronizados)] <--> ADD
+  ADD --> GEN[Lista general] --> MAIL[(Informe)]

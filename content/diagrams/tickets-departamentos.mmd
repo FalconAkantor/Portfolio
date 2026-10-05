@@ -1,0 +1,7 @@
+flowchart LR
+  M[Menú fijo: 4 botones] --> F[Formulario]
+  F -->|Soporte| V{¿Formato y existe en el ERP?}
+  V -->|no| X[Error privado]
+  V -->|sí| C[Canal privado del ticket]
+  F -->|otros| C
+  C --> CL[🔒 Cerrar: departamento o admin] --> T[Transcripción .txt] --> DM[Cliente] & AR[Archivo]

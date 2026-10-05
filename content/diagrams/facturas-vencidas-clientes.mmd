@@ -1,0 +1,5 @@
+flowchart LR
+  ERP[(Cartera de cobros)] --> P[Panel] --> N[(Notas · estados · alertas)]
+  ERP --> RK[Ranking de morosidad]
+  N --> IA[IA local] --> INF[(Informe semanal)]
+  P --> M[(Correo diario)]

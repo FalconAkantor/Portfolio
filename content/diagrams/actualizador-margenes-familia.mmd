@@ -1,0 +1,9 @@
+flowchart LR
+  F[Familia / subfamilia] --> T[Artículos con coste y 6 tarifas]
+  T --> S[Selección + márgenes A-F]
+  S --> V{Validar 0-500 %}
+  V --> SN[(Foto completa)]
+  SN --> U["Precio = coste × (1 + margen)"]
+  U --> ERP[(ERP)]
+  U --> XL[Excel ANTES/DESPUÉS] --> M[Correo]
+  SN --> RB[Restaurar]

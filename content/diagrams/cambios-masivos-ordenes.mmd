@@ -1,0 +1,8 @@
+flowchart LR
+  C[Componente] --> B[Órdenes abiertas que lo contienen]
+  B --> S[Selección + acción]
+  S --> X[Excel multihoja de copia]
+  X --> A{Acción}
+  A --> Z[Poner a 0] & R[Reemplazar en el mismo nº de línea] & AD[Añadir] & AL[Cambiar almacén]
+  Z & R & AD & AL --> ERP[(ERP + comentario firmado por línea)]
+  ERP --> LOG[(Registro)] & M[(Correo)]

@@ -1,0 +1,11 @@
+flowchart LR
+  T[04:30 o botón manual] --> R[Recorrer carpeta]
+  R -->|legibles| Z[7z cifrado AES-256]
+  R -->|bloqueados| LOG[(Log de omitidos)]
+  Z --> SPLIT{> 45 MB?}
+  SPLIT -->|sí| P[Partes .part001..N]
+  SPLIT -->|no| U
+  P --> U[Subir parte i]
+  U -->|ok: guardar message_id| ST[(Estado de reanudación)]
+  U -->|error| W[Esperar 5 s·2^n, máx. 5 min] --> U
+  ST --> CH[(Canal privado · tema por máquina)]

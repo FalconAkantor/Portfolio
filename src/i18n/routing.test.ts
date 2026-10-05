@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { pathFor, routeFromPath } from './routing';
+import { catalogPath, pageFromPath, pathFor, routeFromPath } from './routing';
 
 describe('routing', () => {
   const base = '/Portfolio/';
@@ -21,5 +21,14 @@ describe('routing', () => {
   it('round-trips every page', () => {
     for (const lang of ['en', 'es'] as const)
       for (const mode of ['tech', 'lite'] as const) expect(routeFromPath(pathFor(lang, mode, base), base)).toEqual({ lang, mode });
+  });
+
+  it('builds and reads the catalogue pages', () => {
+    expect(catalogPath('en', undefined, base)).toBe('/Portfolio/projects/');
+    expect(catalogPath('es', 'supervisor-procesos', base)).toBe('/Portfolio/es/projects/supervisor-procesos/');
+    expect(pageFromPath('/Portfolio/es/', base)).toEqual({ kind: 'home' });
+    expect(pageFromPath('/Portfolio/projects/', base)).toEqual({ kind: 'catalog' });
+    expect(pageFromPath('/Portfolio/es/projects/radar/index.html', base)).toEqual({ kind: 'project', slug: 'radar' });
+    expect(routeFromPath(catalogPath('es', 'radar', base), base).lang).toBe('es');
   });
 });

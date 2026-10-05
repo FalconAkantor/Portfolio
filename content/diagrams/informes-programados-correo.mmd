@@ -1,0 +1,12 @@
+flowchart TB
+  L[Lanzador de informes] --> A[Control global · 07:00]
+  L --> B[Entradas del día · L-V 16:00]
+  L --> C[Demo y servicio · lunes]
+  L --> D[Entrega rápida · lunes]
+  L --> E[Préstamos recibidos · lunes]
+  L --> F[Préstamos hechos · lunes]
+  L --> G[Órdenes pendientes · lunes]
+  L --> H[Vigilante de conversaciones · tiempo real]
+  A & B & C & D & E & F & G --> ERP[(ERP)]
+  A --> SNAP[(Fotos de series por almacén)]
+  A & B & C & D & E & F & G & H --> MAIL[(Correos HTML + Excel)]

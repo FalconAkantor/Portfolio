@@ -1,0 +1,6 @@
+flowchart LR
+  ERP[(Stock · compras · movimientos · préstamos)] --> NOW[Inventario actual valorado]
+  T[00:00] --> SN[(Foto del día)]
+  SN --> CMP[Comparar dos fechas: entran · salen · cambian]
+  SN --> CRO[Cronología]
+  ERP --> EXP[Excel valorado: última compra + media ponderada]

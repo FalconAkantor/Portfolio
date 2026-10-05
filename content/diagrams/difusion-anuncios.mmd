@@ -1,0 +1,6 @@
+flowchart LR
+  P[Publicación en canal de anuncios] --> L[Canales «…-idchat» de la categoría]
+  L --> E{Para cada chat}
+  E --> T[Texto] & F[Fotos / documentos] --> TG[(Telegram)]
+  TG -->|429| W[Esperar retry_after] --> E
+  E --> R[Resumen ✅ / ❌]

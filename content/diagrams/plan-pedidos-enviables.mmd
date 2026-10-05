@@ -1,0 +1,9 @@
+flowchart LR
+  ST[(Stock físico)] --> POOL[Bolsa = físico − órdenes en curso]
+  PED[(Pedidos abiertos por fecha)] --> REP[Reparto línea a línea]
+  POOL --> REP
+  OFT[(Órdenes terminadas)] -->|línea lista| REP
+  REP --> L[Listos] --> N[Notificar al comercial]
+  REP --> P[Pendientes] --> F[Fecha por compras previstas] & S[Sugerencias de otros almacenes]
+  MON[Monitor] --> L & P
+  MON --> AV[(Avisos a suscriptores y responsables)]

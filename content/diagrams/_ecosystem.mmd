@@ -1,0 +1,38 @@
+flowchart TB
+  subgraph DATOS[Datos de la empresa]
+    ERP[(ERP · SQL Server)]
+    B2B[(Portal B2B de clientes)]
+    PROV[(Mayoristas y proveedores)]
+  end
+  subgraph BASE[Piezas comunes]
+    SUP[Supervisor de procesos · 3 nodos]
+    LOGIN[Login único + permisos]
+    PORTAL[Portal + escritorio web + SSO]
+    IA[IA local: LLM · vectores · Whisper]
+    MSG[Mensajería: alertas y atención]
+    MAIL[Correo directo]
+    GUIA[Guías interactivas]
+  end
+  subgraph SUITES[Suites]
+    INF[Infraestructura]
+    COM[Compras]
+    CST[Costes y márgenes]
+    PRO[Producción]
+    STK[Stock]
+    PB2B[Portal B2B]
+    ADM[Administración]
+    CMK[Comercial y marketing]
+    ATE[Atención al cliente]
+    CON[Conocimiento]
+  end
+  PROV --> COM --> CST --> PRO --> STK
+  ERP --- COM & CST & PRO & STK & ADM & ATE & CMK
+  B2B --- PB2B & CST & CMK
+  CST --> PB2B
+  PRO --> ATE
+  SUP --> INF
+  SUP -. vigila .-> SUITES
+  LOGIN --> PORTAL --> SUITES
+  IA --> CON & CMK & CST & COM & PRO
+  SUITES --> MSG & MAIL
+  GUIA -. dentro de .-> SUITES

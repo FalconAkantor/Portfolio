@@ -1,0 +1,18 @@
+flowchart TB
+  subgraph Fuentes
+    S1[SFTP · ZIP] & S2[SFTP · CSV] & S3[HTTP · CSV] & S4[SFTP · Excel diario] & S5[Portal con login] & S6[HTTP · CSV] & S7[SFTP · CSV]
+  end
+  Fuentes -->|hilo por proveedor, caché 1 h, reintento 10 min| IDX[Indexadores]
+  IDX --> MEM[(Índices en memoria: records + by_pn + by_sku + by_ean)]
+  BCE[(BCE · tipos del día)] --> EUR[a_euros]
+  U[Usuario] --> Q[Búsqueda / lote]
+  Q -->|7 en paralelo| MEM
+  MEM --> REL[Relevancia 0-4] --> EUR --> RES[Resultados + comparativa]
+  RES --> XLS[Excel / CSV]
+  RES --> IA[IA local: solo estos datos]
+  RES --> HIST[(Historial + evolución de precio)]
+  AL[Alertas · cada hora] --> MEM
+  AL -->|stock y no avisado| MAIL[(Correo)]
+  LP[Listas programadas · cada 20 s] --> Q
+  LP --> MAIL
+  ST[Barra de estado] -.-> IDX

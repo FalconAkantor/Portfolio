@@ -1,0 +1,8 @@
+flowchart LR
+  U[Comercial] -->|código de dispositivo| MS[Microsoft 365]
+  MS -->|refresh token| ENC[(Cifrado por usuario)]
+  CRON[00:00] --> P[Proceso del día anterior]
+  ENC --> P --> F[Carpetas no excluidas] --> H[Hilos completos]
+  H --> EX{¿Excluido?} -->|no| IA[IA local: nota de CRM] --> J[(Resúmenes por día)]
+  J --> UI[Panel: editar] --> AP[Añadir a lead / cliente] --> PORTAL[(Portal B2B)]
+  P --> MAIL[(Correo resumen)]

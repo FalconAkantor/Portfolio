@@ -78,8 +78,8 @@ def login():
         en: 'Every internal tool lives on its own host and port. Instead of linking to it directly, the workspace turns the address into a path of its own proxy, so the tool opens inside a window, on the same origin, with the same session.',
         es: 'Cada herramienta interna vive en su propio host y puerto. En lugar de enlazarla directamente, el workspace convierte la dirección en una ruta de su propio proxy, así la herramienta se abre dentro de una ventana, en el mismo origen y con la misma sesión.',
       },
-      input: same('http://10.0.0.12:5010/report?q=1'),
-      output: same('/proxy/http/10.0.0.12/5010/report?q=1'),
+      input: same('http://app.example:5010/report?q=1'),
+      output: same('/proxy/http/app.example/5010/report?q=1'),
       code: {
         file: 'app.py',
         real: true,
@@ -102,7 +102,7 @@ def login():
         es: 'Las herramientas nunca se escribieron para vivir detrás de un prefijo. Por eso cada respuesta HTML, JS y CSS se reescribe al pasar: enlaces, formularios, llamadas fetch, redirecciones y cookies se redirigen de vuelta por el proxy, y un pequeño shim en el navegador atrapa lo que se construye allí.',
       },
       input: same('<a href="/export">  fetch("/api/data")'),
-      output: same('<a href="/proxy/http/10.0.0.12/5010/export">'),
+      output: same('<a href="/proxy/http/app.example/5010/export">'),
       code: {
         file: 'app.py',
         real: true,

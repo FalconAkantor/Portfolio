@@ -38,6 +38,11 @@
           var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
           var toEs = !isEs && (pref === 'es' || (!pref && /^es\b/i.test(nav)));
           var toLite = !isLite && mode === 'lite';
+          // «All my projects» has no simple variant and no boot: only the language redirect applies.
+          if (/(^|\/)projects(\/|$)/.test(rest)) {
+            if (toEs) location.replace(base + 'es/' + rest + location.hash);
+            return;
+          }
           if (toEs || toLite) {
             location.replace(base + (isEs || toEs ? 'es/' : '') + (isLite || toLite ? 'lite/' : '') + location.hash);
             return;

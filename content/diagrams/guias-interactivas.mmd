@@ -1,0 +1,8 @@
+flowchart LR
+  J[JSON de la guía] --> R[register] --> PV[Vista previa con datos simulados + autotest]
+  PV --> AP[apply]
+  AP --> DEC[Decodificar: codificación · BOM · fin de línea]
+  DEC --> BL[Bloque entre marcadores] --> JV{¿Jinja parsea?}
+  JV -->|sí| LED[(Libro: SHA-256 original y aplicado + copia)] --> W[Escritura atómica]
+  W --> VF[verify] 
+  W --> RV[revert] --> EQ{¿Hash = original?}

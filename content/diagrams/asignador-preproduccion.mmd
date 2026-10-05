@@ -1,0 +1,10 @@
+flowchart LR
+  ESC[Escanear series] --> VAL{Validar en el ERP}
+  VAL -->|artículo no pedido| BLK[Bloqueo]
+  VAL -->|otro almacén| AV[Aviso]
+  VAL -->|ok| PP[Preparación]
+  PP --> ASIG[Asignar a persona] --> MAIL[(Correo)]
+  PP --> BOLSA[Bolsa de disponibles] --> AUTO[Autoasignación segura]
+  PP --> VIN[Vincular orden] --> COL[Líneas: rojo / naranja / verde]
+  PP --> DEL[Delegar con motivo]
+  PP --> HIS[(Historial + auditoría)]

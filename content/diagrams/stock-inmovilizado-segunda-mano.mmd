@@ -1,0 +1,10 @@
+flowchart LR
+  F[Filtros: días sin venta · almacén · familia · proveedor] --> ERP[(Stock + últimos movimientos)]
+  ERP --> T[Tabla de stock parado]
+  T --> SEL[Componentes elegidos]
+  SEL --> CL[Clasificar + detectar zócalo]
+  CL --> CMP{CPU ∩ placa?}
+  CMP --> AV[Avisos de compatibilidad]
+  AV & SEL --> P[Prompt con lista blanca de códigos + modo]
+  P --> G[IA en la nube] --> AD[Anuncios]
+  L[Lunes 08:00] --> XL[Excel por correo]

@@ -1,0 +1,13 @@
+flowchart LR
+  V[Nota de voz] --> TG[Bot personal de Telegram] --> W[Whisper large-v3 local] --> TXT[Transcripción]
+  T[Texto / correo] --> TG
+  TXT & T --> K{Tipo: correo · audio · plan · texto}
+  K --> A[IA local: JSON de tareas + fecha de hoy]
+  A --> E{¿Extracción pobre?}
+  E -->|sí| EN[Segundo pase de enriquecimiento] --> N
+  E -->|no| N[Normalizar]
+  N --> KB[(Kanban del usuario)]
+  KB --> SH[Compartidas: estado por participante] --> BUS[Bus de eventos SSE] --> UI[Campana en vivo]
+  SCH[Planificador] -->|08:00 hitos 7/3/1/0| MAIL[(Correo con enlace firmado)]
+  SCH -->|lunes| WK[Resumen semanal + intro IA]
+  MAIL -->|marcar hecha| KB

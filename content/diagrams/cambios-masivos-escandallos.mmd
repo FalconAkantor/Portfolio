@@ -1,0 +1,6 @@
+flowchart LR
+  C[Componente] --> E1[Escandallos que lo contienen] --> SUS[Sustituir] & ALM[Cambiar almacén]
+  C --> E0[Escandallos que no lo contienen] --> ADD[Añadir línea siguiente]
+  SEL[Escandallos elegidos] --> NOTA[Nota al final de la descripción]
+  C --> CAT[(Catálogo del portal)] --> MAQ[Máquinas que lo usan]
+  SUS & ALM & ADD & NOTA --> XL[Excel copia] --> ERP[(ERP)] --> M[(Correo)]

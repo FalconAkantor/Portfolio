@@ -1,0 +1,10 @@
+flowchart LR
+  U[Móvil] -->|contraseña| AUTH[(Autorizados)]
+  U --> MODO[Tipo de documento + código]
+  U --> FOT[Fotos]
+  FOT --> FIN{Finalizar}
+  FIN -->|PDF| PDF[EXIF → RGB → A4 centrado → PDF]
+  FIN -->|fotos| JPG[código_N.jpg]
+  PDF & JPG --> ARCH[(Carpeta año / tipo)]
+  PDF --> COPIA[(Canal privado)] --> IDX[(Índice de copias)]
+  WEB[Visor web] --> IDX & ARCH

@@ -1,0 +1,11 @@
+flowchart TB
+  M[Mensaje] --> W{¿Canal vigilado y con acceso de soporte?}
+  W -->|no| X[Ignorar]
+  W -->|sí| T{¿Serie validada hace < 12 h?}
+  T -->|sí| OK[Dejar pasar]
+  T -->|no| S{¿Trae serie?}
+  S -->|sí| DB{¿Existe en el ERP?}
+  DB -->|sí| REG[Registrar + avisar a soporte]
+  DB -->|no| NO[«No existe»]
+  S -->|no, ticket| PIDE[Pedir serie por webhook]
+  S -->|no, Telegram| LIM[Borrar + avisar al cliente por Telegram + nota al equipo]

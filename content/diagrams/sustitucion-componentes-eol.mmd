@@ -1,0 +1,10 @@
+flowchart LR
+  C[Códigos EOL] --> B[Máquinas activas que los ofrecen]
+  B --> S[Selección]
+  S --> D[Desactivar]
+  S --> R[Sustituir]
+  R --> X{¿Sustituto en la máquina?}
+  X -->|no| INS[Insertar copiando la config]
+  X -->|desactivado| REA[Reactivar en su posición]
+  X -->|activo| NADA[No tocar]
+  D & R --> SN[(Foto)] --> REV[Revertir]

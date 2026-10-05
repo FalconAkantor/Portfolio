@@ -1,0 +1,6 @@
+flowchart LR
+  T[Técnico] --> RW[Registro Windows] & RL[Registro Linux]
+  RW & RL --> XL[(Excel de pruebas)]
+  RW & RL --> PDF[PDF por orden]
+  BAT[Batería de pruebas Linux] --> TXT[Ficheros de resultados] --> CMP[Comparador lado a lado]
+  XL --> VAL[Validador: estadísticas por modelo] --> IA[IA local: < 5 / 5-10 / 10-20 / > 20 %]

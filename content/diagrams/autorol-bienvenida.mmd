@@ -1,0 +1,4 @@
+flowchart LR
+  J[Nuevo miembro] --> C{¿Solo rol por defecto?}
+  S[Arranque] --> ALL[Todos los miembros] --> C
+  C -->|sí| R[Asignar rol] --> DM[Mensaje privado de bienvenida]

@@ -1,0 +1,5 @@
+flowchart LR
+  P[Pedido / cliente] --> Q[(Órdenes)]
+  R[Retrasos] --> Q
+  Q --> D{días en curso > 5?}
+  D -->|sí| L[Líneas con inicio/fin y comentarios]

@@ -1,0 +1,5 @@
+flowchart LR
+  Q[Búsqueda con filtros] --> ERP[(Artículos · stock · stock por serie)]
+  ERP --> R[Resultados] --> D[Detalle: almacenes · series]
+  ERP --> E[Especiales: obsoletos · series · pendientes · reservados · bajo mínimo]
+  H[Cada hora] --> S[(Estadísticas)]

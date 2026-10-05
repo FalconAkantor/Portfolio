@@ -1,0 +1,8 @@
+flowchart LR
+  AC[Albarán de compra] --> SE[Series normalizadas]
+  SE -->|por bloques| OP[(Líneas de órdenes de fabricación)]
+  OP --> PAR[Pares canal/ejercicio/orden]
+  PAR --> VEN[(Albaranes de venta de esas órdenes)]
+  SE -->|solo las sin orden| VD[Venta directa por serie]
+  VEN & VD --> RES[Resultado agrupado] --> EXP[CSV / Excel]
+  RES --> CACHE[(Caché)]

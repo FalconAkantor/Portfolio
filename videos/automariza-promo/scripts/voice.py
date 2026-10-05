@@ -139,13 +139,20 @@ def edge_clip(text, dst, rate):
     try:
         import asyncio
 
+        import certifi
+
+        # Behind a TLS-inspecting proxy, trust the CA bundle the environment points to.
+        ca = os.environ.get('SSL_CERT_FILE') or os.environ.get('REQUESTS_CA_BUNDLE')
+        if ca and Path(ca).exists():
+            certifi.where = lambda: ca
         import edge_tts
     except ImportError:
         sys.exit('edge-tts is not installed: pip install edge-tts')
+    proxy = os.environ.get('HTTPS_PROXY') or os.environ.get('https_proxy') or None
     mp3 = dst.with_suffix('.mp3')
     for attempt in range(4):
         try:
-            asyncio.run(edge_tts.Communicate(text, EDGE_VOICE, rate=rate).save(str(mp3)))
+            asyncio.run(edge_tts.Communicate(text, EDGE_VOICE, rate=rate, proxy=proxy).save(str(mp3)))
             break
         except Exception as e:  # network hiccups: the service is free and sometimes busy
             if attempt == 3:

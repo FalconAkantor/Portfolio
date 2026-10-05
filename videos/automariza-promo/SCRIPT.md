@@ -14,8 +14,8 @@ y deja la mezcla final en `assets/audio/soundtrack.wav`.
 | # | at | until | Escena | Texto |
 |---|---|---|---|---|
 | 1 | 1.0 | 3.9 | hook | Construyo sistemas que piensan. |
-| 2 | 4.1 | 5.8 | hook | Soy Nacho, de Automariza. |
-| 3 | 6.4 | 11.4 | problem | Cada día se van horas en lo mismo: pedidos, PDFs, Excel, WhatsApps sin contestar. |
+| 2 | 4.1 | 6.3 | hook | Soy Nacho, de Automariza. |
+| 3 | 6.4 | 11.5 | problem | Cada día se pierden horas en pedidos, PDFs, Excel y WhatsApps sin contestar. |
 | 4 | 11.7 | 13.8 | problem | Todo eso puede funcionar solo. |
 | 5 | 14.6 | 19.7 | sys-cctv | Una cámara que se vigila sola: detecta, lo revisa con IA y solo te avisa si importa. |
 | 6 | 20.5 | 25.7 | sys-inventory | Una foto del expositor, y la IA cuenta el stock y te prepara la lista de lo que falta. |

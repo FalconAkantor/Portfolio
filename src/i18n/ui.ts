@@ -162,7 +162,7 @@ const en = {
     cardKicker: 'In one minute',
     cardTitle: 'What I build, in a 60-second video',
     cardText: 'The five systems working: the camera that watches itself, the stock counted from a photo, documents that answer, the WhatsApp desk and the workspace.',
-    madeWith: 'Made in code, like everything else here: HTML animated with HyperFrames and music synthesised from scratch.',
+    madeWith: 'Made in code, like everything else here: HTML animated with HyperFrames, music synthesised from scratch and a Spanish voice-over.',
   },
   catalog: {
     nav: 'All my projects',
@@ -595,7 +595,7 @@ const es: UIStrings = {
     cardKicker: 'En un minuto',
     cardTitle: 'Lo que construyo, en un vídeo de 60 segundos',
     cardText: 'Los cinco sistemas funcionando: la cámara que se vigila sola, el stock contado con una foto, los documentos que responden, el mostrador de WhatsApp y el escritorio de trabajo.',
-    madeWith: 'Hecho con código, como todo lo demás: HTML animado con HyperFrames y música sintetizada desde cero.',
+    madeWith: 'Hecho con código, como todo lo demás: HTML animado con HyperFrames, música sintetizada desde cero y voz en off.',
   },
   catalog: {
     nav: 'Todos mis proyectos',

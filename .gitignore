@@ -17,3 +17,5 @@ videos/*/.thumbnails/
 videos/*/.waveform-cache/
 videos/*/assets/audio/*.wav
 videos/*/assets/audio/vo/
+videos/tool-explainers/build/
+videos/tool-explainers/cache/

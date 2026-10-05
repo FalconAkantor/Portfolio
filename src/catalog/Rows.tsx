@@ -21,6 +21,7 @@ export function ProjectRow({ p }: { p: CatalogCard }) {
         {p.featured ? <span className="ctag ctag--star">★ {t.catalog.featuredTag}</span> : null}
         {p.kind === 'sistema' ? <span className="ctag ctag--system">{label(KIND, p.kind, lang)}</span> : null}
         {ai ? <span className="ctag ctag--ai">✦ {ai}</span> : null}
+        {p.video ? <span className="ctag ctag--video">▶ {t.catalog.videoTag}</span> : null}
         {p.status !== 'produccion' ? <span className="ctag ctag--dim">{label(STATUS, p.status, lang)}</span> : null}
       </span>
       <span className="crow__go" aria-hidden="true">

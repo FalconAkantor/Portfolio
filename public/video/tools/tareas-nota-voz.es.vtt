@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:13.890 --> 00:00:25.881
+Las tareas surgen en el pasillo, en el coche o en una llamada, y apuntarlas bien cuesta; las que se apuntan quedan como frases sueltas sin plan, y las compartidas se pierden entre mensajes.
+
+00:00:27.060 --> 00:00:37.278
+Capturar con la voz donde sea y dejar que la IA convierta lo dicho en un plan accionable, con seguimiento, colaboración y recordatorios automáticos.
+
+00:00:40.625 --> 00:00:45.944
+Audio (hasta 10 min por defecto), texto o correo al bot personal.
+
+00:00:49.426 --> 00:00:53.303
+Whisper large-v3 en local, en español.
+
+00:00:56.586 --> 00:01:03.563
+IA local: tareas con plan, subtareas, fecha y prioridad; segundo pase si falta detalle.
+
+00:01:06.882 --> 00:01:13.362
+Kanban, tareas compartidas, avisos en tiempo real, recordatorios y resumen semanal.
+
+00:01:14.544 --> 00:01:24.877
+Ninguna tarea se queda en el aire: se captura en segundos, llega estructurada como un plan, se reparte entre quien toca y avisa sola antes de vencer.

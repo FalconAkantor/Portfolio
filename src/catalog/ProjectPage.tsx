@@ -14,6 +14,8 @@ import { ProjectRows } from './Rows';
 import type { CatalogCard, ProjectData, ProjectPageData } from './types';
 import { useReveal } from './useReveal';
 
+const VIDEOS = `${import.meta.env.BASE_URL}video/tools/`;
+
 export function ProjectPage({ data }: { data: ProjectPageData }) {
   const { t, lang } = useI18n();
   const { project, suite, siblings, prev, next } = data;
@@ -27,6 +29,7 @@ export function ProjectPage({ data }: { data: ProjectPageData }) {
   const metricsRef = useReveal<HTMLDListElement>();
 
   const sections = [
+    { id: 'video', label: t.catalog.video, show: Boolean(project.video) },
     {
       id: 'summary',
       label: t.catalog.summary,
@@ -149,6 +152,23 @@ export function ProjectPage({ data }: { data: ProjectPageData }) {
       </header>
 
       {sections.length > 2 ? <PageNav sections={sections} /> : null}
+
+      {project.video ? (
+        <section id="video" className="pj-sec pj-anchor" aria-labelledby="pj-video">
+          <div className="pj-sec__head">
+            <h2 id="pj-video" className="pj-sec__title">
+              {t.catalog.videoTitle}
+            </h2>
+            <p className="pj-sec__lead">{t.catalog.videoLead}</p>
+          </div>
+          <figure className="pj-video">
+            <video controls preload="none" playsInline poster={`${VIDEOS}${f.slug}.jpg`} lang="es" aria-label={`${t.catalog.videoTitle}: ${f.name[lang]}`}>
+              <source src={`${VIDEOS}${f.slug}.mp4`} type="video/mp4" />
+              <track kind="captions" src={`${VIDEOS}${f.slug}.es.vtt`} srcLang="es" label="Español" />
+            </video>
+          </figure>
+        </section>
+      ) : null}
 
       {f.problem && f.solution ? (
         <section id="summary" className="pj-sec pj-anchor" aria-label={t.catalog.summary}>

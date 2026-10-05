@@ -667,6 +667,11 @@
   color: var(--void);
 }
 
+.ctag--video {
+  border-color: rgb(92 200 214 / 0.45);
+  color: var(--flow);
+}
+
 .ctag--dim {
   border-style: dashed;
 }
@@ -1537,6 +1542,23 @@
   max-width: 72ch;
   color: var(--text-dim);
   line-height: 1.55;
+}
+
+/* Explainer video */
+.pj-video {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--c, var(--flow)) 40%, var(--line-2));
+  border-radius: 18px;
+  background: #05070a;
+  aspect-ratio: 16 / 9;
+}
+
+.pj-video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #05070a;
 }
 
 /* Problem → solution */

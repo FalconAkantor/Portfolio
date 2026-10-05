@@ -14,6 +14,7 @@
  *
  * The markdown is trusted, own content, but raw HTML inside it is escaped anyway.
  */
+import { existsSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Marked } from 'marked';
@@ -117,6 +118,9 @@ const localize = (f) => ({
   ...(f.ai ? { ai: { ...f.ai, models: (f.ai.models ?? []).map(term) } } : {}),
 });
 
+// Explainer videos (videos/tool-explainers → public/video/tools/<slug>.mp4) that are already rendered.
+const hasVideo = (slug) => existsSync(path.join(root, 'public/video/tools', `${slug}.mp4`));
+
 const pick = (f) => ({
   slug: f.slug,
   name: f.name,
@@ -136,6 +140,7 @@ const pick = (f) => ({
   featured: Boolean(f.featured),
   ai: Boolean(f.ai?.used),
   aiLocal: Boolean(f.ai?.used && f.ai?.local),
+  video: hasVideo(f.slug),
 });
 
 const order = new Map(projects.map((p, i) => [p.slug, i]));
@@ -165,6 +170,7 @@ for (const p of projects) {
     sections: p.sections,
     code: p.code,
     minutes: Math.max(1, Math.round(p.words / 220)),
+    video: hasVideo(p.slug),
   };
   await writeFile(path.join(outDir, 'projects', `${p.slug}.json`), JSON.stringify(page));
   if (p.diagram) await writeFile(path.join(diagramDir, `${p.slug}.mmd`), p.diagram + '\n');

@@ -23,6 +23,8 @@ export interface CatalogCard {
   featured: boolean;
   ai: boolean;
   aiLocal: boolean;
+  /** An explainer video exists at public/video/tools/<slug>.mp4. */
+  video?: boolean;
   minutes: number;
   /** Only on featured projects: the titles of their «how it works» steps. */
   steps?: Localized[];
@@ -84,6 +86,7 @@ export interface ProjectData {
   code: { lang: string; title: string; code: string }[];
   diagramSvg?: string;
   minutes: number;
+  video?: boolean;
 }
 
 export interface ProjectPageData {

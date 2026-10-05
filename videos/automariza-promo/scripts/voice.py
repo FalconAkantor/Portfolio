@@ -9,7 +9,8 @@ each clip inside its window, lowers the music under the voice and writes:
     assets/audio/soundtrack.wav  music + voice, -14 LUFS (what index.html plays)
     ../../public/video/automariza.es.vtt   captions of what is said
 
-Sources (both free):
+Sources (all free):
+    python3 scripts/voice.py --edge                # Microsoft's neural voice «Álvaro» (pip install edge-tts)
     python3 scripts/voice.py --gemini              # Gemini TTS, key in $GEMINI_API_KEY
     python3 scripts/voice.py --recording mi-voz.m4a   # your own reading, 1 s pause between lines
 
@@ -41,6 +42,7 @@ DUR = 60.0
 
 GEMINI_MODEL = 'gemini-2.5-flash-preview-tts'
 GEMINI_VOICE = 'Algieba'  # male, smooth and warm
+EDGE_VOICE = 'es-ES-AlvaroNeural'  # male, Spain; Microsoft Edge's read-aloud voice
 
 
 # ── script ───────────────────────────────────────────────────────────
@@ -132,6 +134,26 @@ def gemini_clip(text, style, dst):
     raw.unlink()
 
 
+def edge_clip(text, dst, rate):
+    try:
+        import asyncio
+
+        import edge_tts
+    except ImportError:
+        sys.exit('edge-tts is not installed: pip install edge-tts')
+    mp3 = dst.with_suffix('.mp3')
+    for attempt in range(4):
+        try:
+            asyncio.run(edge_tts.Communicate(text, EDGE_VOICE, rate=rate).save(str(mp3)))
+            break
+        except Exception as e:  # network hiccups: the service is free and sometimes busy
+            if attempt == 3:
+                sys.exit(f'Edge TTS error: {e}')
+            time.sleep(5 * (attempt + 1))
+    ffmpeg('-i', str(mp3), '-ac', '1', '-ar', str(SR), str(dst))
+    mp3.unlink()
+
+
 def split_recording(path, count):
     """Cut a single reading into `count` clips at its pauses."""
     wav = VO_DIR / 'recording.wav'
@@ -162,9 +184,11 @@ def split_recording(path, count):
 def main():
     ap = argparse.ArgumentParser()
     src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument('--edge', action='store_true', help='generate with the free Microsoft voice «Álvaro» (edge-tts)')
     src.add_argument('--gemini', action='store_true', help='generate with Gemini TTS (free tier)')
     src.add_argument('--recording', type=Path, help='a single reading of all lines, 1 s pause between them')
-    ap.add_argument('--force', action='store_true', help='regenerate cached Gemini clips')
+    ap.add_argument('--force', action='store_true', help='regenerate cached clips')
+    ap.add_argument('--rate', default='-4%', help='speaking rate for --edge, e.g. -4%% (calmer) or +5%%')
     ap.add_argument('--duck', type=float, default=0.55, help='music reduction under the voice (0-1)')
     args = ap.parse_args()
 
@@ -175,11 +199,15 @@ def main():
         sources = split_recording(args.recording, len(lines))
     else:
         sources = []
+        tag = 'edge' if args.edge else 'gemini'
         for ln in lines:
-            dst = VO_DIR / f'{ln["n"]:02d}.src.wav'
+            dst = VO_DIR / f'{ln["n"]:02d}.{tag}.wav'
             if args.force or not dst.exists():
                 print(f'  voice {ln["n"]:02d}: {ln["text"]}')
-                gemini_clip(ln['text'], style, dst)
+                if args.edge:
+                    edge_clip(ln['text'], dst, args.rate)
+                else:
+                    gemini_clip(ln['text'], style, dst)
             sources.append(dst)
 
     voice = np.zeros(int(SR * DUR))

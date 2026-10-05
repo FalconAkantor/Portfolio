@@ -1,7 +1,7 @@
 ---
 voice: masculina, cercana, primera persona (Nacho)
 language: es-ES
-provider: gemini-2.5-flash-preview-tts (voz "Algieba") · o grabación propia
+provider: Microsoft es-ES-AlvaroNeural («Álvaro», edge-tts) · gemini-2.5-flash-preview-tts (voz "Algieba") · o grabación propia
 style: "Habla en español de España, con voz masculina cálida, cercana y segura, como quien cuenta a un cliente lo que hace. Ritmo natural, sin tono de anuncio exagerado."
 ---
 
@@ -25,6 +25,18 @@ y deja la mezcla final en `assets/audio/soundtrack.wav`.
 | 10 | 44.5 | 49.7 | proof | No son maquetas: puedes verlo todo funcionando, por dentro, en mi web. |
 | 11 | 50.3 | 53.8 | how | Me cuentas el problema, y yo lo dejo funcionando. |
 | 12 | 54.6 | 59.0 | cta | ¿Algo así en tu empresa? Escríbeme por WhatsApp y lo vemos. |
+
+## Con la voz gratuita de Microsoft («Álvaro»)
+
+Es la voz masculina de España de la lectura en voz alta de Edge. No pide cuenta ni clave:
+
+```bash
+pip install edge-tts
+python3 scripts/voice.py --edge            # --rate -8% la hace más pausada, +5% más ágil
+```
+
+Ojo: ese servicio está pensado para uso personal. Para un vídeo comercial, la misma voz está en
+Azure AI Speech con licencia comercial (nivel gratuito de 500.000 caracteres al mes).
 
 ## Grabarlo con tu voz
 

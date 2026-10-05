@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.850 --> 00:00:21.354
+El buzón de marketing recibe cientos de notificaciones, boletines y promociones; los pocos correos que piden algo de verdad se perdían.
+
+00:00:22.524 --> 00:00:30.420
+Filtro previo determinista + IA local con ejemplos del propio usuario + sesgo por remitente con decaimiento.
+
+00:00:33.913 --> 00:00:38.453
+Cada 60 s trae los correos llegados desde el último visto.
+
+00:00:41.837 --> 00:00:45.919
+Redes sociales → no importante sin pasar por la IA.
+
+00:00:49.297 --> 00:00:54.297
+IA local con hasta 3 decisiones previas del usuario sobre ese remitente.
+
+00:00:57.681 --> 00:01:02.820
+Cada «sí/no es importante» del usuario mueve el sesgo del remitente.
+
+00:01:03.984 --> 00:01:13.361
+Nadie tiene que vigilar el buzón: los correos que importan llegan como aviso en un minuto y el ruido desaparece, cada vez con más acierto.

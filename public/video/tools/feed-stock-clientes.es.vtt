@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:12.378 --> 00:00:18.552
+Los distribuidores pedían por correo listas de stock que quedaban desfasadas en horas.
+
+00:00:19.692 --> 00:00:26.057
+Un feed siempre actualizado, sin intervención humana y sin dejar ficheros expuestos.
+
+00:00:29.457 --> 00:00:35.337
+El cliente abre la dirección principal (ZIP con los dos CSV) o la de «solo stock».
+
+00:00:38.729 --> 00:00:49.838
+Productos y precios del portal + stock del ERP → CSV con SKU, nombre, part number, precio, imagen, URL, stock, familia, EAN y peso.
+
+00:00:53.437 --> 00:00:57.709
+Los ficheros se borran 60 segundos después de la descarga.
+
+00:00:58.864 --> 00:01:07.029
+Los distribuidores venden con stock real, sin pedir listas, y el equipo comercial deja de enviarlas a mano.

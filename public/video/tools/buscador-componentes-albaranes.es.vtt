@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:12.330 --> 00:00:22.255
+Soporte y administración necesitaban saber a qué cliente se vendió una unidad concreta, y el ERP no permite buscar dentro de campos con varias series.
+
+00:00:23.436 --> 00:00:32.710
+Tres modos de búsqueda y una búsqueda por serie que contempla las cuatro posiciones posibles dentro de una lista separada por comas.
+
+00:00:36.496 --> 00:00:41.126
+Código de artículo, descripción o modelo, o número de serie.
+
+00:00:44.819 --> 00:00:48.517
+Opcionalmente, solo ciertos ejercicios.
+
+00:00:51.773 --> 00:00:58.304
+Tabla con albarán, cliente, fecha, precio, serie, facturado y orden.
+
+00:00:59.464 --> 00:01:07.832
+Garantías y reclamaciones resueltas en segundos: se sabe exactamente a quién, cuándo y cómo se vendió cada unidad.

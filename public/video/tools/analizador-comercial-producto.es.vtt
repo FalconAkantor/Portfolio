@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.802 --> 00:00:20.732
+Para saber cómo se vende un modelo había que adivinar sus códigos (un mismo producto tiene muchos) y montar una tabla dinámica.
+
+00:00:21.924 --> 00:00:30.650
+Un catálogo agrupado por nombre normalizado, un autocompletado ordenado por relevancia y agregaciones listas para gráfico.
+
+00:00:34.089 --> 00:00:39.918
+Se escribe parte del nombre; el desplegable sugiere productos ordenados por facturación.
+
+00:00:43.301 --> 00:00:46.974
+Rango de fechas, estado de la orden y serie.
+
+00:00:50.150 --> 00:00:55.112
+Gráficos por año y por mes, mejores clientes y tiempo de fabricación.
+
+00:00:58.624 --> 00:01:03.726
+CSV de las órdenes o informe HTML autónomo para compartir.
+
+00:01:04.920 --> 00:01:13.990
+Decisiones de producto y de stock basadas en datos: qué modelos crecen, cuáles caen, quién los compra y cuánto tardan en salir.

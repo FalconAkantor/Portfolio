@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.394 --> 00:00:20.311
+Al dar de alta clientes se asignaban tarifas que no correspondían y se les vendía a un precio equivocado sin que nadie lo notara.
+
+00:00:21.492 --> 00:00:28.533
+Detección diaria, corrección masiva transaccional e historial con reversión condicionada.
+
+00:00:31.752 --> 00:00:37.084
+Resumen por tarifa (permitidas en verde) y lista de clientes filtrable.
+
+00:00:40.493 --> 00:00:45.200
+Seleccionar o pegar códigos y asignar una de las tarifas permitidas.
+
+00:00:48.398 --> 00:00:53.819
+Desde el historial, solo si el cliente sigue con la tarifa que puso ese cambio.
+
+00:00:57.226 --> 00:01:03.565
+Aviso diario con Excel de los clientes fuera de política; opcionalmente solo si hay novedades.
+
+00:01:04.752 --> 00:01:12.342
+Cada cliente paga el precio que le corresponde según la política comercial, sin revisiones manuales.

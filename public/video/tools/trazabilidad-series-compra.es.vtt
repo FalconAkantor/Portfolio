@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.346 --> 00:00:21.577
+Para justificar ante un proveedor, una auditoría o un cliente qué se hizo con lo comprado, había que seguir a mano cada serie por la producción y las ventas.
+
+00:00:22.740 --> 00:00:31.874
+Un trazador automático de solo lectura, con búsqueda en dos caminos (directo y vía orden), trabajos en segundo plano y caché.
+
+00:00:35.364 --> 00:00:38.578
+Ejercicio y número del albarán de compra.
+
+00:00:42.045 --> 00:00:46.841
+Se leen la cabecera y las líneas y se extraen y normalizan las series.
+
+00:00:50.207 --> 00:00:54.811
+Se buscan esas series en las líneas de órdenes de fabricación por bloques.
+
+00:00:58.197 --> 00:01:06.169
+Se buscan los albaranes de venta de esas órdenes y, opcionalmente, la venta directa de las series que no pasaron por producción.
+
+00:01:07.344 --> 00:01:15.560
+Justificar compras, resolver reclamaciones y localizar facturas de venta de cualquier pieza comprada en minutos.

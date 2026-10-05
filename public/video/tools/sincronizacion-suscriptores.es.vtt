@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.898 --> 00:00:22.282
+Las listas se exportaban a mano, se quedaban viejas y las bajas hechas en la plataforma no llegaban a la base de clientes, con riesgo legal y de reputación.
+
+00:00:23.484 --> 00:00:32.580
+Sincronización bidireccional diaria: bajas de la plataforma a la base y altas de la base a la plataforma, incremental y con informe.
+
+00:00:36.096 --> 00:00:41.632
+Se recorren las listas propias en la plataforma y se recogen los contactos dados de baja.
+
+00:00:44.890 --> 00:00:49.762
+En la base de clientes se desactiva «recibir información» para esos correos.
+
+00:00:53.010 --> 00:00:57.500
+Una lista por tipo de cliente; si no existe, se crea.
+
+00:01:00.923 --> 00:01:05.502
+Solo los contactos nuevos, más una lista general con todos.
+
+00:01:06.672 --> 00:01:15.424
+Campañas que llegan a todos los clientes correctos y a ninguno que haya pedido no recibirlas: cumplimiento y reputación de envío.

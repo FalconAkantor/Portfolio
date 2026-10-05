@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:10.098 --> 00:00:22.115
+Un coste a cero hace que un equipo parezca más rentable de lo que es, que una venta salga con margen falso y que el inventario se valore mal; suele deberse a un error al registrar un albarán.
+
+00:00:23.316 --> 00:00:31.736
+Un vigilante que compara cada ciclo con el anterior y avisa solo de las transiciones nuevas a cero, configurable desde una web.
+
+00:00:35.461 --> 00:00:41.787
+La primera vez guarda el estado de todos los artículos y envía un informe inicial con los que ya están a cero.
+
+00:00:45.186 --> 00:00:53.387
+Cada N segundos vuelve a leer y compara: lo que antes no era cero y ahora sí, o lo nuevo que nace a cero, es una alerta.
+
+00:00:56.454 --> 00:01:03.189
+Correo con Excel de los cambios; si falla, queda en una bandeja de salida que se reintenta en cada ciclo.
+
+00:01:06.956 --> 00:01:15.068
+Desde la web: fecha de alta mínima, intervalo, destinatarios, familias excluidas y si los nulos cuentan como cero.
+
+00:01:16.248 --> 00:01:25.356
+Corta de raíz uno de los errores más caros e invisibles de un ERP: el coste cero, que falsea márgenes, ventas e inventario.

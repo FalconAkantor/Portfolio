@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:11.010 --> 00:00:22.274
+El portal de clientes calcula sus precios a partir de los costes, pero vive en otra base de datos; mantenerlos sincronizados dependía de un proceso manual de otra persona.
+
+00:00:23.436 --> 00:00:31.920
+Una web con login restringido a compras que hace la copia completa en un clic, con justificante en Excel y aviso por correo.
+
+00:00:35.323 --> 00:00:39.544
+Solo usuarios con la categoría de compras o administradores.
+
+00:00:42.853 --> 00:00:51.348
+Se vacía la tabla de enlace del portal y se rellena con código, descripción, coste medio y coste de última compra de cada artículo.
+
+00:00:55.141 --> 00:01:00.830
+Se genera un Excel con todo lo copiado y se envía por correo junto al usuario y la hora.
+
+00:01:02.008 --> 00:01:10.096
+Los precios que ve el cliente en el portal se calculan siempre sobre costes actuales, sin depender de una persona.

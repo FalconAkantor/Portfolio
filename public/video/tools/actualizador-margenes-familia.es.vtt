@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.370 --> 00:00:18.118
+Cambiar el margen de cientos de artículos en seis tarifas a mano en el ERP era lento y daba errores.
+
+00:00:19.260 --> 00:00:26.352
+Una operación masiva validada, con foto completa, informe por correo y vuelta atrás.
+
+00:00:29.747 --> 00:00:36.941
+Familia y subfamilia; se cargan todos los artículos con su coste, precios y márgenes actuales de cada tarifa.
+
+00:00:40.859 --> 00:00:47.696
+Para cada tarifa (A-F) que se quiera cambiar, el margen nuevo (0-500 %).
+
+00:00:50.832 --> 00:00:57.655
+Foto completa, recálculo y actualización; los artículos sin coste se saltan y se informa de ellos.
+
+00:01:01.156 --> 00:01:05.570
+Desde el historial, cualquier operación se restaura a su foto.
+
+00:01:06.768 --> 00:01:14.461
+La política de precios se ejecuta en minutos y con red de seguridad, en lugar de horas de edición manual.

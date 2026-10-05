@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.754 --> 00:00:22.381
+Cuando el dólar se mueve, los costes en euros de lo que se compra en dólares quedan desfasados; la herramienta antigua aplicaba el cambio sin posibilidad de volver atrás.
+
+00:00:23.556 --> 00:00:33.672
+La misma fórmula de siempre, migrada a una web moderna con validación, transacción, fotos antes y después, histórico y restauración.
+
+00:00:37.076 --> 00:00:43.556
+Familias (casillas), divisa y tipo de cambio; la selección se recuerda para la próxima vez.
+
+00:00:47.051 --> 00:00:53.020
+Coste en euros = coste en divisa ÷ tipo de cambio, en una sola transacción.
+
+00:00:56.223 --> 00:01:01.785
+Cada operación queda como una «foto» con el antes y el después, descargable en JSON.
+
+00:01:05.296 --> 00:01:10.551
+Un botón devuelve los valores anteriores, guardando antes otra foto de seguridad.
+
+00:01:11.712 --> 00:01:20.029
+Costes alineados con la divisa real en segundos, con la tranquilidad de poder volver atrás si se teclea mal el cambio.

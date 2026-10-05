@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:11.658 --> 00:00:22.336
+Actualizar costes a ciegas metía en el ERP subidas del 40 % por un error de la tarifa, y nadie lo veía hasta que salía un presupuesto con margen negativo.
+
+00:00:23.532 --> 00:00:35.880
+Un paso de revisión obligatorio entre la tarifa y el ERP: semáforo de variaciones, lista negra, IA que señala lo crítico, selección manual de qué importar y registro de cada actualización.
+
+00:00:39.778 --> 00:00:49.383
+El Excel normalizado (part number, nombre, precio, moneda, EAN, EOL) y el tipo de cambio EUR/USD del día.
+
+00:00:53.036 --> 00:00:58.954
+Cada part number se busca en cascada en el código principal, el secundario y el del proveedor.
+
+00:01:02.151 --> 00:01:14.881
+Rojo si sube más de un 20 %, ámbar entre 10 y 20 %, verde entre -10 y +10 %, azul si baja entre 10 y 20 % y morado si baja más de un 20 %.
+
+00:01:18.783 --> 00:01:24.599
+La IA escribe en directo un resumen con alertas críticas, impacto y recomendaciones.
+
+00:01:28.194 --> 00:01:33.794
+Se desmarcan los que no se quieren y se aplican el resto; queda un registro con el detalle.
+
+00:01:34.976 --> 00:01:44.212
+Ningún error de tarifa llega al ERP sin que alguien lo haya visto en rojo; se protege el margen de todo lo que se fabrica y se vende después.

@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:09.906 --> 00:00:24.040
+En una empresa que fabrica equipos con números de serie, el coste de cada equipo depende de lo que se pagó por cada pieza concreta; si las órdenes o las ventas guardan costes desactualizados, el margen que ve dirección es ficción.
+
+00:00:25.212 --> 00:00:39.307
+Un núcleo común que reconstruye la cadena compra → fabricación → venta por número de serie, y herramientas que lo usan para simular, aplicar, deshacer, analizar y vigilar con exactamente las mismas reglas.
+
+00:00:43.250 --> 00:00:49.297
+Un módulo compartido define qué es el coste de una pieza, de una orden y de una línea de venta.
+
+00:00:52.685 --> 00:00:59.777
+El corrector simula los costes correctos, los aplica en una sola transacción y permite restaurarlos fila a fila.
+
+00:01:02.990 --> 00:01:09.316
+El analizador calcula márgenes reales, el nivel de confianza de cada coste y la calidad del dato.
+
+00:01:12.921 --> 00:01:18.483
+Un vigilante encuentra precios disparados en órdenes de fabricación y líneas duplicadas.
+
+00:01:21.893 --> 00:01:26.842
+Un asistente IA común lee el expediente de cada línea y da un veredicto.
+
+00:01:28.016 --> 00:01:41.359
+Margen real en lugar de margen aparente: decisiones de precio, de producto y de cliente tomadas sobre costes verificables, y la confianza de poder corregir el ERP sin miedo porque todo se puede deshacer.

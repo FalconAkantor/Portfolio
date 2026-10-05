@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:10.746 --> 00:00:16.792
+Los proveedores envían ofertas, listas y promociones por correo a diario.
+
+00:00:16.742 --> 00:00:24.957
+Encontrar «aquella oferta de GPU de hace dos semanas» o comparar tres ofertas era buscar a mano entre cientos de mensajes.
+
+00:00:26.148 --> 00:00:37.616
+Cargar un subconjunto controlado de correos (carpetas y fechas), limpiarlos, construir con ellos el contexto del modelo y mantener conversaciones guardadas sobre ellos.
+
+00:00:41.711 --> 00:00:49.402
+Se autoriza la cuenta con el código de dispositivo de Microsoft; el token se guarda cifrado con una clave propia del usuario.
+
+00:00:53.876 --> 00:01:01.912
+Se seleccionan las carpetas de proveedores y un rango de fechas; la carga se hace en segundo plano con progreso y botón de parar.
+
+00:01:05.470 --> 00:01:11.949
+Se chatea con la IA; cada respuesta indica remitente, fecha y asunto de los correos usados.
+
+00:01:13.120 --> 00:01:22.050
+Ninguna oferta interesante se pierde en la bandeja, y comparar propuestas de varios proveedores pasa de una tarde a una pregunta.

@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:11.658 --> 00:00:21.085
+Un precio mal tecleado o arrastrado de otra línea en una orden de fabricación infla el coste del equipo y nadie lo ve entre miles de líneas.
+
+00:00:22.260 --> 00:00:33.332
+Comparación sistemática con la referencia, umbrales doble (porcentaje y euros), explicación automática y vigilancia incremental por identificador de fila.
+
+00:00:36.931 --> 00:00:45.121
+Para cada línea con cantidad real, precio aplicado frente a precio de referencia del artículo (por defecto, el de última compra).
+
+00:00:48.557 --> 00:00:55.100
+Es incidencia si supera la referencia en más de un 15 % y en más de 5 € (configurable).
+
+00:00:59.038 --> 00:01:12.686
+MEDIO, ALTO (≥ 50 % o ≥ 100 €), CRÍTICO (≥ 100 % o ≥ 500 €) o SIN VERIFICAR, con un diagnóstico en lenguaje claro.
+
+00:01:16.281 --> 00:01:21.677
+Cada hora repite el análisis y solo avisa de las filas que no estaban en el estado guardado.
+
+00:01:25.212 --> 00:01:30.927
+Desde el panel se cambian precios o cantidades en lote, con foto previa y restauración.
+
+00:01:32.120 --> 00:01:42.147
+Detecta en horas lo que antes se descubría al cerrar el año: costes de fabricación inflados por un error humano, con la explicación lista para corregirlo.

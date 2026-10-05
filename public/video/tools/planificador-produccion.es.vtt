@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:12.762 --> 00:00:26.258
+El ERP muestra stock y órdenes por separado; saber qué se puede montar exige restar lo comprometido por otras órdenes y por pedidos de clientes, tener en cuenta números de serie y almacenes y respetar la prioridad.
+
+00:00:26.258 --> 00:00:29.358
+Hacerlo a mano cada día era imposible.
+
+00:00:30.564 --> 00:00:45.476
+Un núcleo de stock que calcula el disponible real con una única definición, un reparto por prioridad de stock y compras pendientes, un calculador de traslados globales, un modo crisis de reasignación y un monitor que avisa solo de lo que cambia.
+
+00:00:49.405 --> 00:00:58.487
+Por artículo y almacén: físico − comprometido por órdenes − pedidos de clientes, con tratamiento especial de artículos con número de serie.
+
+00:01:01.865 --> 00:01:08.382
+Las órdenes se recorren por fecha y número; cada una consume lo que necesita y la siguiente ve lo que queda.
+
+00:01:11.966 --> 00:01:21.328
+Las compras pendientes con fecha se reparten primero a la deuda ya existente y luego a cada orden en su turno; la orden es montable cuando llega su última pieza.
+
+00:01:22.278 --> 00:01:25.110
+Para las no montables, busca stock en otros almacenes con una bolsa global que se va descontando y propone movimientos completos o parciales.
+
+00:01:36.917 --> 00:01:44.187
+Ignora la prioridad y busca montar el mayor número de equipos posible, diciendo qué componentes quitar a qué órdenes.
+
+00:01:45.344 --> 00:01:56.901
+Montar más equipos y antes con el mismo stock: se ve al instante qué está bloqueado, por qué y cómo desbloquearlo, y producción deja de depender de que alguien cruce datos a mano.

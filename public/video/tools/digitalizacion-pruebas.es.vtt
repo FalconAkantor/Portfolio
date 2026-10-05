@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:12.810 --> 00:00:23.781
+Las pruebas en papel se perdían, no se podían buscar ni comparar, nadie validaba el trabajo del compañero y no había forma de demostrar a un cliente cómo salió su equipo.
+
+00:00:24.972 --> 00:00:39.246
+Plantillas dinámicas, conexión con la orden de fabricación, comparación automática con el histórico por una IA, doble firma obligatoria con validación de identidad, PDF profesional y corrección posterior trazada.
+
+00:00:42.872 --> 00:00:55.526
+Un responsable diseña plantillas con secciones y campos (texto, número, casilla, títulos), marcando cuáles son comparables y obligatorios; hay plantillas de ejemplo para Windows y Linux.
+
+00:00:58.951 --> 00:01:11.795
+El técnico introduce el número de orden; la herramienta trae del ERP la cabecera, las líneas y las observaciones del pedido, y el técnico marca los componentes importantes y rellena la prueba con notas por campo.
+
+00:01:15.271 --> 00:01:24.441
+La IA compara con hasta 15 pruebas firmadas de la misma plantilla y modelo y devuelve OK, REVISAR o DEFICIENTE con discrepancias y recomendación.
+
+00:01:28.322 --> 00:01:37.020
+Un segundo técnico distinto valida su contraseña, rellena la plantilla de control si existe y firma; la orden debe estar finalizada en el ERP.
+
+00:01:41.149 --> 00:01:49.122
+Se genera un informe PDF corporativo con portada, resumen y tablas, y se envía a los destinatarios configurados.
+
+00:01:50.312 --> 00:02:01.282
+Calidad demostrable de cada equipo entregado, detección temprana de unidades que rinden por debajo de su modelo, control de cuatro ojos y fin del papel en el taller.

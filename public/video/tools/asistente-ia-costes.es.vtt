@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:10.914 --> 00:00:21.005
+Revisar a mano por qué una línea tiene un coste raro exige mirar compras, órdenes, ventas e historial; con cientos de líneas, es inviable.
+
+00:00:22.212 --> 00:00:33.233
+Automatizar la preparación del expediente desde el ERP y dejar que un modelo local lo lea línea a línea, con un planificador que comparte la única GPU de forma justa.
+
+00:00:36.632 --> 00:00:44.794
+En la tabla de cualquiera de las dos aplicaciones se marcan líneas (Mayús + clic marca un tramo) o se pulsa «preguntar por todas».
+
+00:00:48.224 --> 00:00:58.761
+Para cada línea se lee del ERP: cada serie con su compra (fecha, proveedor, precio, divisa), la orden, la ficha del artículo y el historial de cambios.
+
+00:01:01.725 --> 00:01:06.496
+Hasta 5 líneas o un texto normal: respuesta única en directo.
+
+00:01:06.496 --> 00:01:11.292
+6 líneas o más, o un texto enorme: lote en segundo plano.
+
+00:01:14.876 --> 00:01:23.180
+Cada línea recibe VEREDICTO (OK, REVISAR o ERROR), acción y resumen; al final, un resumen global y un Excel.
+
+00:01:24.384 --> 00:01:34.831
+Una revisión que llevaría días a una persona se convierte en un trabajo nocturno de la IA con un veredicto por línea, sin que ningún dato salga de la empresa.

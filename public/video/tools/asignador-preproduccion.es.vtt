@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.154 --> 00:00:19.383
+La preparación de material se pedía de palabra o por chat: se olvidaba, no se sabía quién la tenía ni en qué punto estaba.
+
+00:00:20.580 --> 00:00:34.242
+Órdenes de preparación con responsable, correo, validación de series contra el ERP, bolsa de disponibles para autoasignarse, delegación con motivo, comentarios, historial y avisos de estancamiento.
+
+00:00:37.663 --> 00:00:47.625
+Se escanean números de serie; cada uno se valida en el ERP (artículo, almacén) y, si hay orden indicada, se comprueba que esa orden lo pide.
+
+00:00:50.903 --> 00:00:57.906
+A una persona concreta (recibe correo con piezas, ubicación y nota) o a la bolsa de disponibles.
+
+00:01:00.927 --> 00:01:08.911
+Al vincular la orden de fabricación, cada línea se colorea: rojo sin series, naranja parcial, verde completo.
+
+00:01:12.846 --> 00:01:18.356
+Se cambia el estado, se comenta o se delega a otra persona explicando el motivo.
+
+00:01:19.512 --> 00:01:28.225
+Nada se queda sin preparar por olvido, se sabe siempre quién tiene cada preparación y el montaje empieza con el material correcto.

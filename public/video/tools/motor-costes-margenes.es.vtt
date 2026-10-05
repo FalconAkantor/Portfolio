@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:10.434 --> 00:00:23.318
+Los costes guardados en órdenes y ventas se quedaban desfasados respecto a lo que realmente costaron las piezas; además, muchas salidas de material no eran ventas, y todo ello falseaba el margen.
+
+00:00:24.468 --> 00:00:37.709
+Reconstruir el coste desde el número de serie, simular antes de tocar, aplicar con garantías transaccionales, guardar copia por fila, separar lo que no es venta y medir la confianza de cada coste.
+
+00:00:41.283 --> 00:00:47.138
+Se elige ejercicio y proceso: órdenes, ventas o el flujo completo encadenado.
+
+00:00:47.138 --> 00:00:54.192
+Se calcula, sin escribir nada, el precio propuesto para cada línea, la diferencia y si hay que revisarlo.
+
+00:00:57.707 --> 00:01:07.644
+Se ve la tabla con antes, después, fuente del coste y motivo; se puede abrir la cadena compra → orden → venta de cualquier línea y preguntar a la IA.
+
+00:01:10.824 --> 00:01:22.469
+Modo masivo (todo menos lo marcado para revisar y lo que no es venta) o manual (solo lo elegido); una sola transacción verificada y una copia JSON con el valor anterior de cada fila.
+
+00:01:26.290 --> 00:01:34.759
+Devuelve cada fila a su valor anterior solo si sigue con el que puso la aplicación; si alguien la tocó después, se lista como conflicto.
+
+00:01:38.740 --> 00:01:49.123
+Ventas facturadas reales, coste verificado, margen por familia, cliente y comercial, devoluciones y garantías aparte, y KPIs de calidad del dato.
+
+00:01:50.312 --> 00:02:02.826
+El margen que se presenta a dirección deja de ser una estimación: cada euro de coste se puede rastrear hasta la factura de compra de la pieza, y cualquier corrección se puede deshacer sin riesgo para el ERP.

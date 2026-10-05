@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:10.506 --> 00:00:21.426
+Entre miles de compras es imposible ver a ojo que un componente se pagó un 35 % más caro que la media; ese sobrecoste pasa directo al margen.
+
+00:00:22.620 --> 00:00:36.627
+Estadística sencilla (media y umbral por artículo) para detectar, una IA para explicar y priorizar, y un panel de revisión para que una persona deje constancia de qué era correcto, anómalo o justificado.
+
+00:00:40.115 --> 00:00:48.444
+Por fecha de alta del artículo, por años de albarán y por el porcentaje a partir del cual una compra es anómala (10 % por defecto).
+
+00:00:51.858 --> 00:00:59.460
+Precio unitario real de cada línea, (subtotal + portes) / cantidad, y su desviación sobre la media del artículo.
+
+00:01:02.998 --> 00:01:07.105
+Por familia y artículo, los casos más críticos primero.
+
+00:01:11.200 --> 00:01:16.760
+Solo se reanalizan los artículos cuyos datos han cambiado (huella MD5).
+
+00:01:20.307 --> 00:01:27.577
+Cada línea se marca como correcta, anomalía o justificada, con nota; todo se exporta a CSV.
+
+00:01:28.736 --> 00:01:38.916
+Hace visibles los sobrecostes de compra, ayuda a renegociar con proveedores y deja trazabilidad de cada caso revisado, útil para auditoría interna.

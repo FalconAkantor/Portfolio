@@ -16,10 +16,10 @@ export function CatalogTeaser({ variant = 'tech' }: { variant?: 'tech' | 'lite' 
       <span className="cteaser__copy">
         <span className="cteaser__kicker mono">{t.catalog.teaserKicker}</span>
         <span className="cteaser__title">{t.catalog.title}</span>
-        <span className="cteaser__text">{t.catalog.teaserText(summary.projects, summary.suites)}</span>
+        <span className="cteaser__text">{t.catalog.teaserText(summary.tools, summary.suites)}</span>
       </span>
       <span className={variant === 'lite' ? 'btn lbtn btn--primary cteaser__btn' : 'btn btn--primary cteaser__btn'}>
-        {t.catalog.seeAll(summary.projects)} <span aria-hidden="true">›</span>
+        {t.catalog.seeAll} <span aria-hidden="true">›</span>
       </span>
     </a>
   );

@@ -167,18 +167,22 @@ scripts/
 ## Todos mis proyectos (catálogo)
 
 `content/catalogo.md` es el catálogo documentado de todo el software: fichas en ES/EN, documentación,
-diagramas Mermaid, código real limpio y un *storyboard* de animación por proyecto. De ahí salen las
-páginas `/[es/]projects/` y `/[es/]projects/<slug>/`, prerenderizadas una a una.
+diagramas Mermaid, código real limpio y un *storyboard* por proyecto (el guion para futuros vídeos, que
+no se publica). De ahí salen las páginas `/[es/]projects/` y `/[es/]projects/<slug>/`, prerenderizadas
+una a una. Los nombres en inglés viven en `content/catalog-names.en.json`, y los términos que las fichas
+solo traen en español (disparadores, integraciones, modelos) en `content/catalog-terms.en.json`.
 
 ```bash
 node scripts/build-catalog.mjs                                   # md → src/data/catalog/*.json
-npx -y -p playwright@1 -p mermaid@11 node scripts/render-diagrams.mjs   # diagramas → SVG con la paleta de la web
+npx -y -p playwright@1 -p mermaid@11 node scripts/render-diagrams.mjs   # diagramas → SVG (tras cada build-catalog)
 npm run build
 ```
 
-Cada página anima su *storyboard* con `src/catalog/StoryPlayer.tsx`: coloca los elementos por posición,
-los dibuja según su tipo y enciende en cada paso lo que menciona su texto. El catálogo carga su propio
-código solo en sus páginas, así que la portada no pesa más.
+El índice se lee por áreas de la empresa (`src/catalog/areas.ts`: orden, color e icono de cada una): un
+mapa del ecosistema, los ocho destacados y un explorador con buscador y filtro de IA. Cada ficha cuenta
+el problema y la solución, el «cómo funciona» como una tubería animada, qué hace y qué hace solo, sus
+cifras, la arquitectura, la documentación completa plegada por apartados y el código. El catálogo carga
+su propio código solo en sus páginas, así que la portada no pesa más.
 
 ## Vídeo promocional (HyperFrames)
 

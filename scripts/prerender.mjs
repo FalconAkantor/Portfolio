@@ -149,7 +149,7 @@ for (const lang of seo.langs) {
       page(lang, 'tech', {
         page: { kind: 'project', slug: card.slug },
         data: { kind: 'project', page: composeProjectPage(index, project) },
-        meta: { title: `${card.name} · ${seo.site.brand.name}`, description: card.summary[lang] },
+        meta: { title: `${card.name[lang]} · ${seo.site.brand.name}`, description: project.ficha.summary[lang] },
         url: (l) => catalogUrl(l, card.slug),
       }),
     );

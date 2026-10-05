@@ -1,66 +1,67 @@
-import { useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
+import { site } from '../config/site';
+import { useInView } from '../hooks/useInView';
 import { useI18n } from '../i18n/context';
 import { catalogPath } from '../i18n/routing';
-import { tech } from '../data/stack';
-import { TechLogo } from '../components/ui/TechLogo';
-import { CATEGORY, CategoryGlyph, KIND, label } from './labels';
-import { StoryPlayer } from './StoryPlayer';
+import { whatsappHref } from '../lib/contact';
+import { AreaExplorer, useAreaSelection } from './AreaExplorer';
+import { areaOf } from './areas';
+import { EcosystemMap } from './EcosystemMap';
+import { Glyph, ICON, type IconName } from './icons';
 import type { CatalogCard, CatalogIndex } from './types';
+import { useReveal } from './useReveal';
 
-const norm = (s: string) =>
-  s
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '');
+const PRINCIPLE_ICONS: IconName[] = ['lock', 'bell', 'undo', 'user', 'eye', 'ai'];
 
 export function CatalogIndexPage({ index }: { index: CatalogIndex }) {
-  const { t, lang } = useI18n();
-  const [query, setQuery] = useState('');
-  const [category, setCategory] = useState<string | null>(null);
-  const [aiOnly, setAiOnly] = useState(false);
-
-  const bySlug = useMemo(() => new Map(index.projects.map((p) => [p.slug, p])), [index]);
+  const { t } = useI18n();
+  const [active, pick] = useAreaSelection();
   const tools = index.projects.filter((p) => p.kind !== 'suite');
-  const categories = useMemo(() => {
-    const count = new Map<string, number>();
-    for (const p of tools) count.set(p.category, (count.get(p.category) ?? 0) + 1);
-    return [...count.entries()].sort((a, b) => b[1] - a[1]).map(([c]) => c);
-  }, [tools]);
-
-  const filtering = Boolean(query.trim() || category || aiOnly);
-  const results = useMemo(() => {
-    const q = norm(query.trim());
-    return tools.filter((p) => {
-      if (category && p.category !== category) return false;
-      if (aiOnly && !p.ai) return false;
-      if (!q) return true;
-      const hay = norm([p.name, p.tagline[lang], p.summary[lang], ...p.stack.map((id) => tech[id]?.label ?? id)].join(' '));
-      return q.split(/\s+/).every((w) => hay.includes(w));
-    });
-  }, [tools, query, category, aiOnly, lang]);
-
-  const aiCount = tools.filter((p) => p.ai).length;
+  const featured = index.featured.map((slug) => index.projects.find((p) => p.slug === slug)).filter((p): p is CatalogCard => Boolean(p));
+  const principles = useReveal<HTMLUListElement>();
+  const wa = whatsappHref(site.contact.whatsapp, t.contact.whatsappGreeting);
 
   return (
     <>
       <section className="cat-hero" aria-labelledby="cat-title">
-        <p className="cat-kicker mono">{t.catalog.kicker}</p>
-        <h1 id="cat-title" className="cat-hero__title">
-          {t.catalog.title}
-        </h1>
-        <p className="cat-hero__lead">{t.catalog.lead}</p>
+        <div className="cat-hero__copy">
+          <p className="cat-kicker mono">{t.catalog.kicker}</p>
+          <h1 id="cat-title" className="cat-hero__title">
+            {t.catalog.title}
+          </h1>
+          <p className="cat-hero__lead">{t.catalog.lead}</p>
+          <ol className="cat-howto">
+            {t.catalog.howTo.map((step, i) => (
+              <li key={step}>
+                <span className="cat-howto__n mono" aria-hidden="true">
+                  {i + 1}
+                </span>
+                {step}
+              </li>
+            ))}
+          </ol>
+          <p className="cat-hero__actions">
+            <a className="btn btn--primary" href="#explorar">
+              {t.catalog.exploreCta} <span aria-hidden="true">↓</span>
+            </a>
+            <a className="btn" href="#destacados">
+              {t.catalog.startCta}
+            </a>
+          </p>
+        </div>
+        <EcosystemMap index={index} onPick={pick} />
         <dl className="cat-stats">
           <div>
-            <dt>{t.catalog.stats.projects}</dt>
-            <dd>{index.projects.length}</dd>
+            <dt>{t.catalog.stats.tools}</dt>
+            <dd>{tools.length}</dd>
           </div>
           <div>
-            <dt>{t.catalog.stats.suites}</dt>
+            <dt>{t.catalog.stats.areas}</dt>
             <dd>{index.suites.length}</dd>
           </div>
           <div>
             <dt>{t.catalog.stats.ai}</dt>
-            <dd>{aiCount}</dd>
+            <dd>{tools.filter((p) => p.ai).length}</dd>
           </div>
           <div>
             <dt>{t.catalog.stats.processes}</dt>
@@ -69,138 +70,98 @@ export function CatalogIndexPage({ index }: { index: CatalogIndex }) {
         </dl>
       </section>
 
-      <section className="cat-sec" aria-labelledby="cat-featured">
+      <section className="cat-sec" aria-labelledby="cat-start">
+        <span id="destacados" className="cx__anchor" aria-hidden="true" />
         <div className="cat-sec__head">
-          <h2 id="cat-featured" className="cat-sec__title">
-            {t.catalog.featured}
+          <h2 id="cat-start" className="cat-sec__title">
+            {t.catalog.start}
           </h2>
-          <p className="cat-sec__lead">{t.catalog.featuredLead}</p>
+          <p className="cat-sec__lead">{t.catalog.startLead}</p>
         </div>
-        <ul className="cat-featured">
-          {index.featured.map((slug) => {
-            const p = bySlug.get(slug);
-            const story = index.stories[slug];
-            if (!p || !story) return null;
-            return (
-              <li key={slug} className="cat-feat">
-                <StoryPlayer story={story} compact />
-                <a className="cat-feat__body" href={catalogPath(lang, slug)}>
-                  <span className="cat-card__meta mono">
-                    <CategoryGlyph category={p.category} /> {label(CATEGORY, p.category, lang)} · {label(KIND, p.kind, lang)}
-                  </span>
-                  <span className="cat-feat__name">{p.name}</span>
-                  <span className="cat-feat__tagline">{p.tagline[lang]}</span>
-                </a>
-              </li>
-            );
-          })}
+        <FeaturedGrid items={featured} index={index} />
+      </section>
+
+      <AreaExplorer index={index} active={active} onPick={pick} />
+
+      <section className="cat-sec" aria-labelledby="cat-principles">
+        <div className="cat-sec__head">
+          <h2 id="cat-principles" className="cat-sec__title">
+            {t.catalog.principles}
+          </h2>
+          <p className="cat-sec__lead">{t.catalog.principlesLead}</p>
+        </div>
+        <ul ref={principles} className="cprinciples">
+          {t.catalog.principleList.map((p, i) => (
+            <li key={p.title} className="cprinciple rv" style={{ '--i': i } as CSSProperties}>
+              <span className="cprinciple__icon">
+                <Glyph d={ICON[PRINCIPLE_ICONS[i] ?? 'check']} />
+              </span>
+              <h3 className="cprinciple__title">{p.title}</h3>
+              <p className="cprinciple__text">{p.text}</p>
+            </li>
+          ))}
         </ul>
       </section>
 
-      <section className="cat-sec" aria-labelledby="cat-all">
-        <div className="cat-sec__head">
-          <h2 id="cat-all" className="cat-sec__title">
-            {filtering ? t.catalog.results(results.length) : t.catalog.suites}
-          </h2>
-        </div>
-        <div className="cat-tools" role="search">
-          <label className="cat-search">
-            <span className="sr-only">{t.catalog.searchLabel}</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 4a6 6 0 104.5 10L20 20 M10 4a6 6 0 010 12" />
-            </svg>
-            <input type="search" value={query} placeholder={t.catalog.search} onChange={(e) => setQuery(e.target.value)} />
-          </label>
-          <div className="cat-chips">
-            <button type="button" className={`cat-chip${!category ? ' is-on' : ''}`} aria-pressed={!category} onClick={() => setCategory(null)}>
-              {t.catalog.all}
-            </button>
-            {categories.map((c) => (
-              <button key={c} type="button" className={`cat-chip${category === c ? ' is-on' : ''}`} aria-pressed={category === c} onClick={() => setCategory(category === c ? null : c)}>
-                <CategoryGlyph category={c} />
-                {label(CATEGORY, c, lang)}
-              </button>
-            ))}
-            <button type="button" className={`cat-chip cat-chip--ai${aiOnly ? ' is-on' : ''}`} aria-pressed={aiOnly} onClick={() => setAiOnly((v) => !v)}>
-              ✦ {t.catalog.aiOnly}
-            </button>
-          </div>
-        </div>
-
-        {filtering ? (
-          results.length ? (
-            <ul className="cat-grid">
-              {results.map((p) => (
-                <li key={p.slug}>
-                  <Card p={p} />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="cat-empty">{t.catalog.noResults}</p>
-          )
-        ) : (
-          index.suites.map((s) => {
-            const suite = bySlug.get(s.slug);
-            const items = s.tools.map((slug) => bySlug.get(slug)).filter((p): p is CatalogCard => Boolean(p));
-            if (!suite) return null;
-            return (
-              <section key={s.slug} className="cat-suite" aria-labelledby={`suite-${s.slug}`}>
-                <a className="cat-suite__head" href={catalogPath(lang, s.slug)}>
-                  <span className="cat-suite__glyph">
-                    <CategoryGlyph category={suite.category} />
-                  </span>
-                  <span className="cat-suite__text">
-                    <span id={`suite-${s.slug}`} className="cat-suite__name">
-                      {suite.name}
-                    </span>
-                    <span className="cat-suite__tagline">{suite.tagline[lang]}</span>
-                  </span>
-                  <span className="cat-suite__count mono">{t.catalog.tools(items.length)} ›</span>
-                </a>
-                <ul className="cat-grid">
-                  {items.map((p) => (
-                    <li key={p.slug}>
-                      <Card p={p} />
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            );
-          })
-        )}
-      </section>
-
       <details className="cat-overview">
-        <summary>{t.catalog.overview}</summary>
+        <summary>
+          <span>{t.catalog.overview}</span>
+          <Glyph d={ICON.arrow} className="cat-overview__chev" />
+        </summary>
+        {t.catalog.spanishNote ? <p className="pj-note mono">{t.catalog.spanishNote}</p> : null}
         <div className="cat-prose" lang="es" dangerouslySetInnerHTML={{ __html: index.overviewHtml }} />
       </details>
+
+      <section className="pj-cta" aria-labelledby="cat-cta">
+        <h2 id="cat-cta" className="pj-cta__title">
+          {t.catalog.ctaTitle}
+        </h2>
+        <p className="pj-cta__text">{t.catalog.ctaText}</p>
+        <a className="btn btn--wa" href={wa} target="_blank" rel="noopener noreferrer">
+          {t.catalog.ctaButton}
+          <span className="sr-only"> ({t.a11y.externalLink})</span>
+        </a>
+      </section>
     </>
   );
 }
 
-export function Card({ p }: { p: CatalogCard }) {
-  const { lang } = useI18n();
+function FeaturedGrid({ items, index }: { items: CatalogCard[]; index: CatalogIndex }) {
+  const { t, lang } = useI18n();
+  const [ref, inView] = useInView<HTMLUListElement>({ threshold: 0.1 });
   return (
-    <a className={`cat-card${p.featured ? ' is-featured' : ''}`} href={catalogPath(lang, p.slug)}>
-      <span className="cat-card__meta mono">
-        <CategoryGlyph category={p.category} />
-        {label(CATEGORY, p.category, lang)}
-        <span className="cat-card__kind">{label(KIND, p.kind, lang)}</span>
-      </span>
-      <span className="cat-card__name">
-        {p.name}
-        {p.featured ? <span className="cat-card__star" aria-hidden="true"> ★</span> : null}
-      </span>
-      <span className="cat-card__tagline">{p.tagline[lang]}</span>
-      <span className="cat-card__foot">
-        <span className="cat-card__logos" aria-hidden="true">
-          {p.stack.slice(0, 4).map((id) => (
-            <TechLogo key={id} id={id} />
-          ))}
-        </span>
-        {p.ai ? <span className="cat-card__ai mono">✦ {lang === 'es' ? 'IA' : 'AI'}</span> : null}
-      </span>
-    </a>
+    <ul ref={ref} className={`cfeats${inView ? ' is-live' : ''}`}>
+      {items.map((p, i) => {
+        const area = areaOf(p, index);
+        const ai = p.ai ? (p.aiLocal ? t.catalog.aiLocal : lang === 'es' ? 'IA' : 'AI') : null;
+        return (
+          <li key={p.slug} style={{ '--c': area?.color, '--i': i } as CSSProperties}>
+            <a className="cfeat" href={catalogPath(lang, p.slug)}>
+              <span className="cfeat__area mono">
+                {area ? <Glyph d={area.icon} /> : null}
+                {area?.name[lang]}
+              </span>
+              <span className="cfeat__name">{p.name[lang]}</span>
+              <span className="cfeat__tagline">{p.tagline[lang]}</span>
+              {p.steps?.length ? (
+                <span className="cfeat__flow" aria-hidden="true" style={{ '--n': p.steps.length } as CSSProperties}>
+                  {p.steps.map((s, k) => (
+                    <span key={k} className="cfeat__step" style={{ '--k': k } as CSSProperties}>
+                      <b>{k + 1}</b>
+                      {s[lang]}
+                    </span>
+                  ))}
+                </span>
+              ) : null}
+              <span className="cfeat__foot mono">
+                {ai ? <span className="ctag ctag--ai">✦ {ai}</span> : null}
+                <span>{t.catalog.read(p.minutes)}</span>
+                <Glyph d={ICON.arrow} className="cfeat__go" />
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

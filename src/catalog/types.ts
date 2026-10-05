@@ -7,7 +7,7 @@ export type CatalogKind = 'suite' | 'sistema' | 'herramienta';
 
 export interface CatalogCard {
   slug: string;
-  name: string;
+  name: Localized;
   kind: CatalogKind;
   parent: string | null;
   tools: string[];
@@ -16,42 +16,35 @@ export interface CatalogCard {
   status: string;
   lifecycle: string;
   tagline: Localized;
-  summary: Localized;
+  /** Only on suites (the introduction of their area). */
+  summary?: Localized;
   stack: TechId[];
+  integrations: string[];
   featured: boolean;
-  impressiveness: number;
   ai: boolean;
+  aiLocal: boolean;
   minutes: number;
+  /** Only on featured projects: the titles of their «how it works» steps. */
+  steps?: Localized[];
 }
 
 export interface CatalogIndex {
   generated: string;
-  totals: { suites: number; sistemas: number; herramientas: number; procesosEnProduccion: number };
-  suites: { slug: string; name: string; tools: string[] }[];
+  totals: {
+    suites: number;
+    sistemas: number;
+    herramientas: number;
+    procesosEnProduccion: number;
+  };
+  suites: { slug: string; name: Localized; tools: string[] }[];
   featured: string[];
   overviewHtml: string;
-  stories: Record<string, Story>;
   projects: CatalogCard[];
-}
-
-export interface StoryElement {
-  id: string;
-  type: string;
-  label: string;
-  position: string;
-}
-
-export interface Story {
-  duration: number;
-  aspect: string;
-  concept: Localized;
-  elements: StoryElement[];
-  beats: { t: number; action: string }[];
 }
 
 export interface Ficha {
   slug: string;
-  name: string;
+  name: Localized;
   kind: CatalogKind;
   parent: string | null;
   tools?: string[];
@@ -66,12 +59,17 @@ export interface Ficha {
   solution?: Localized;
   howItWorks?: { title: Localized; text: Localized }[];
   features?: Localized[];
-  automations?: { trigger: string; action: Localized }[];
-  integrations?: string[];
-  ai?: { used: boolean; where?: Localized; local?: boolean; models?: string[] };
+  automations?: { trigger: Localized; action: Localized }[];
+  integrations?: Localized[];
+  ai?: {
+    used: boolean;
+    where?: Localized;
+    local?: boolean;
+    models?: Localized[];
+  };
   users?: Localized;
   stack: TechId[];
-  stackOther: string[];
+  stackOther: Localized[];
   metrics?: { label: Localized; value: string; real?: boolean }[];
   businessValue?: Localized;
   complexity?: number;
@@ -84,7 +82,6 @@ export interface ProjectData {
   ficha: Ficha;
   sections: { title: string; html: string }[];
   code: { lang: string; title: string; code: string }[];
-  anim: Story;
   diagramSvg?: string;
   minutes: number;
 }

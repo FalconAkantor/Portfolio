@@ -57,7 +57,7 @@ await page.setContent('<!doctype html><html><body></body></html>');
 await page.addScriptTag({ path: mermaidJs });
 await page.evaluate((c) => window.mermaid.initialize(c), config);
 
-const files = (await readdir(srcDir)).filter((f) => f.endsWith('.mmd')).sort();
+const files = (await readdir(srcDir)).filter((f) => f.endsWith('.mmd') && !f.startsWith('_')).sort();
 let ok = 0;
 const failed = [];
 for (const file of files) {
@@ -89,13 +89,10 @@ for (const file of files) {
   const sized = svg
     .replace(/(<svg[^>]*?)\swidth="100%"/, `$1 width="${Math.ceil(vw * k)}" height="${Math.ceil(vh * k)}"`)
     .replace(/(<svg[^>]*?)\sstyle="max-width:[^"]*"/, '$1');
-  const target = slug === '_ecosystem' ? path.join(dataDir, 'ecosystem.json') : path.join(dataDir, 'projects', `${slug}.json`);
-  if (slug === '_ecosystem') await writeFile(target, JSON.stringify({ svg: sized }));
-  else {
-    const data = JSON.parse(await readFile(target, 'utf8'));
-    data.diagramSvg = sized;
-    await writeFile(target, JSON.stringify(data));
-  }
+  const target = path.join(dataDir, 'projects', `${slug}.json`);
+  const data = JSON.parse(await readFile(target, 'utf8'));
+  data.diagramSvg = sized;
+  await writeFile(target, JSON.stringify(data));
   ok++;
 }
 await browser.close();

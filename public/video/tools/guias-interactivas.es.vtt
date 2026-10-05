@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:13.650 --> 00:00:23.103
+Con decenas de herramientas, formar a cada persona en cada una no escala; y modificar el código de todas para añadir ayudas era arriesgado.
+
+00:00:24.300 --> 00:00:32.643
+Una capa aditiva, aislada entre marcadores, con control criptográfico de que se puede quitar sin dejar rastro.
+
+00:00:36.095 --> 00:00:40.457
+Un JSON por guía con sus pasos y el elemento que señala cada uno.
+
+00:00:43.702 --> 00:00:48.970
+Vista previa aislada con datos simulados y autotest del motor en el navegador.
+
+00:00:52.152 --> 00:00:55.978
+Inyección entre marcadores con registro de hashes.
+
+00:01:00.101 --> 00:01:03.558
+Comprobación de integridad y retirada exacta.
+
+00:01:04.752 --> 00:01:13.643
+Formación incorporada en cada herramienta, disponible en el momento en que se necesita, sin riesgo para el código existente.

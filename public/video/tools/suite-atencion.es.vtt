@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:13.626 --> 00:00:24.087
+Las consultas llegaban por canales dispersos, sin saber a qué departamento iban, y soporte perdía tiempo con equipos que no eran de la empresa o sin identificar.
+
+00:00:25.284 --> 00:00:35.974
+El cliente usa la app que prefiere; el equipo trabaja en un único espacio con un canal por cliente y departamento; el número de serie se valida automáticamente.
+
+00:00:39.467 --> 00:00:44.364
+Telegram (bot con menús) o Discord (botones y formulario).
+
+00:00:47.818 --> 00:00:52.805
+Canal privado por cliente y departamento, visible solo para ese equipo.
+
+00:00:56.250 --> 00:01:00.382
+Soporte no empieza sin un número de serie que exista en el ERP.
+
+00:01:03.980 --> 00:01:08.597
+Lo que el equipo escribe vuelve al cliente por su app, con archivos.
+
+00:01:09.768 --> 00:01:18.622
+Atención ordenada por departamento, sin perder consultas, y soporte que solo dedica tiempo a equipos identificados.

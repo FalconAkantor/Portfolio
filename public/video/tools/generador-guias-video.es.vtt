@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:14.130 --> 00:00:25.292
+Explicar una herramienta grabando la pantalla es rápido, pero un vídeo no se puede buscar ni ojear; y escribir manuales de decenas de herramientas a mano no se hacía nunca.
+
+00:00:26.460 --> 00:00:34.446
+Convertir automáticamente vídeos y código en documentación escrita, en dos fases que se reparten la GPU.
+
+00:00:38.021 --> 00:00:42.868
+Audio → Whisper en GPU exclusiva → transcripciones en bruto.
+
+00:00:46.213 --> 00:00:49.976
+Whisper sale de la GPU y se vacía la caché CUDA.
+
+00:00:53.263 --> 00:00:58.404
+Modelo de lenguaje precargado → resúmenes por bloques → guía final.
+
+00:01:01.963 --> 00:01:05.878
+Cada herramienta del supervisor → manual de usuario.
+
+00:01:07.032 --> 00:01:12.746
+Documentación escrita de cada herramienta sin dedicar horas a redactarla.

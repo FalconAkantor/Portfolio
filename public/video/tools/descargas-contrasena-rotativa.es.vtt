@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:13.842 --> 00:00:22.836
+Repartir imágenes de software, controladores o guías solo a clientes, sin enlaces públicos que circulen ni cuentas que gestionar.
+
+00:00:24.012 --> 00:00:32.865
+Un secreto compartido que caduca solo y que se obtiene en la comunidad, y un bot que entrega los archivos sin exponer el grupo de origen.
+
+00:00:36.437 --> 00:00:41.399
+El equipo sube archivos al grupo privado; el bot guarda su referencia.
+
+00:00:44.701 --> 00:00:49.293
+Cada 48 h, contraseña nueva en el canal de la comunidad.
+
+00:00:52.287 --> 00:00:56.852
+El cliente escribe /getfiles con la contraseña al bot.
+
+00:01:00.326 --> 00:01:03.336
+El bot le envía todos los archivos.
+
+00:01:04.488 --> 00:01:10.891
+Distribución controlada de archivos a clientes y un incentivo para unirse a la comunidad.

@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.306 --> 00:00:24.807
+Decenas de herramientas en direcciones y puertos distintos, cada una con su login: nadie recordaba dónde estaba cada una, se repetían contraseñas a diario y las nuevas pasaban desapercibidas.
+
+00:00:25.980 --> 00:00:36.963
+Un catálogo vivo con permisos y un escritorio web que encapsula cada herramienta tras un proxy con inicio de sesión automático, sin modificar las herramientas.
+
+00:00:40.490 --> 00:00:44.968
+Login común (o solicitud de registro que aprueba un administrador).
+
+00:00:48.402 --> 00:00:54.307
+Tarjetas por categoría, filtradas por permisos, con LED de estado y «tus herramientas».
+
+00:00:57.596 --> 00:01:03.680
+Ventanas arrastrables, varios escritorios, distribuciones guardadas y notas adhesivas.
+
+00:01:07.715 --> 00:01:12.103
+El proxy detecta la pantalla de login de la herramienta y entra por ti.
+
+00:01:13.296 --> 00:01:25.466
+Cada persona encuentra y abre cualquier herramienta en segundos sin teclear contraseñas, y las herramientas nuevas se descubren solas; la empresa tiene un único lugar donde controlar quién accede a qué.

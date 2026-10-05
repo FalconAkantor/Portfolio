@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.018 --> 00:00:20.960
+Decenas de herramientas usan el mismo modelo de IA escrito en su código; probar un modelo nuevo significaba editar archivo por archivo.
+
+00:00:22.116 --> 00:00:29.706
+Un buscar-y-reemplazar consciente del ecosistema, con selección por archivo e historial reversible.
+
+00:00:33.129 --> 00:00:38.958
+Recorre .py y .html (sin entornos virtuales ni dependencias).
+
+00:00:42.467 --> 00:00:45.758
+Cada archivo con sus líneas coincidentes.
+
+00:00:49.141 --> 00:00:51.833
+Solo en los archivos marcados.
+
+00:00:55.336 --> 00:00:58.779
+Desde el historial, en los mismos archivos.
+
+00:00:59.952 --> 00:01:07.019
+Actualizar la IA de todo el ecosistema en minutos y volver atrás si el modelo nuevo no convence.

@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.610 --> 00:00:18.065
+Comunicar una oferta o un aviso a todos los clientes del bot exigía hacerlo chat a chat.
+
+00:00:19.212 --> 00:00:26.726
+Publicar una vez y que el bot lo reparta, usando los canales existentes como lista de destinatarios.
+
+00:00:30.317 --> 00:00:34.131
+Mensaje con o sin adjuntos en el canal de anuncios.
+
+00:00:37.849 --> 00:00:42.019
+Cada canal de cliente con nombre «…-idchat» es un destinatario.
+
+00:00:45.193 --> 00:00:49.989
+Envío uno a uno con pausa de 0,1 s y hasta 3 reintentos.
+
+00:00:53.499 --> 00:00:56.445
+Respuesta con enviados y fallidos.
+
+00:00:57.600 --> 00:01:04.335
+Un canal directo y gratuito con todos los clientes que ya hablan con la empresa por Telegram.

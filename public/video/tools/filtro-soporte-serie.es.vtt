@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:12.714 --> 00:00:20.406
+Soporte empezaba conversaciones sin saber de qué equipo se trataba, o con equipos que no eran de la empresa.
+
+00:00:21.588 --> 00:00:29.829
+Un portero que exige la serie, la valida contra el ERP y deja una ventana de 12 horas para conversar sin repetir.
+
+00:00:33.312 --> 00:00:38.453
+Solo canales «ticket-…» o de clientes de Telegram donde soporte tiene acceso.
+
+00:00:41.746 --> 00:00:46.491
+Si hay una serie validada hace menos de 12 h, deja pasar.
+
+00:00:49.593 --> 00:00:53.675
+Busca series por patrón y comprueba su existencia en el ERP.
+
+00:00:56.954 --> 00:01:00.934
+Sin serie, la pide al cliente por el canal que use.
+
+00:01:02.112 --> 00:01:08.375
+Soporte centrado en clientes reales con el equipo identificado desde el primer minuto.

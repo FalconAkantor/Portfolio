@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:10.266 --> 00:00:21.351
+Gestionar casi cien scripts a mano es imposible: no se sabe cuáles están vivos, cuáles fallan en silencio, cuánto consume cada uno ni qué han escrito antes de morir.
+
+00:00:22.524 --> 00:00:36.684
+Un servidor web en Python que lanza cada script como proceso hijo, captura su salida, mide sus recursos, aplica horarios y reglas de recuperación y lo enseña todo en tiempo real en un panel con asistente de IA.
+
+00:00:40.851 --> 00:00:47.867
+Se le da nombre, ruta, descripción, etiquetas de departamento y, si hace falta, un horario.
+
+00:00:48.806 --> 00:00:51.829
+Al iniciar, el supervisor lanza todos los programas habilitados con 1,5 s de separación para no saturar la máquina.
+
+00:01:02.479 --> 00:01:10.400
+Cada 30 s detecta procesos muertos, los marca como caídos, guarda el código de salida y les pone una pausa de 24 h.
+
+00:01:14.013 --> 00:01:20.721
+Si un programa tiene horario (oficina, nocturno, fin de semana…), lo enciende y apaga solo.
+
+00:01:24.394 --> 00:01:32.418
+Cada 2 s se empuja al navegador el estado del sistema, de la GPU y de cada proceso, sin que la página tenga que preguntar.
+
+00:01:33.608 --> 00:01:46.977
+Una sola persona puede operar un parque de casi cien automatizaciones como si fuera un servicio gestionado: ve los fallos al momento, sabe qué ha impreso el programa antes de caer y no tiene que reiniciar nada a mano.

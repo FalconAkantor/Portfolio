@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:10.602 --> 00:00:22.721
+Con decenas de bots, webs internas y procesos programados repartidos en varias máquinas, un fallo silencioso podía pasar días sin detectarse: un bot caído no avisa de que está caído.
+
+00:00:23.916 --> 00:00:41.379
+Una capa de fiabilidad en tres niveles: un supervisor por máquina que gestiona procesos, un vigilante externo que comprueba a los supervisores y una red de avisos (correo, Discord, notificaciones push) para todo lo físico: temperatura, cámaras y equipos.
+
+00:00:45.620 --> 00:00:54.919
+Al encender el servidor, Windows lanza un vigilante diario que abre el supervisor; el supervisor arranca todos los procesos habilitados, uno a uno.
+
+00:00:55.862 --> 00:00:58.949
+Cada 30 segundos el supervisor comprueba si cada proceso sigue vivo y si debe estar encendido según su horario.
+
+00:01:09.019 --> 00:01:16.838
+Un detector independiente entra en los paneles de las tres máquinas cada 20 segundos y solo avisa tras tres fallos seguidos.
+
+00:01:17.742 --> 00:01:20.880
+Cada madrugada se comprime y cifra el trabajo de cada máquina y se sube troceado a un canal privado de mensajería.
+
+00:01:28.152 --> 00:01:39.582
+Convierte un ecosistema artesanal de scripts en algo que se comporta como un servicio profesional: se arranca solo, se recupera solo y avisa antes de que alguien note el fallo.

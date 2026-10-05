@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:11.130 --> 00:00:20.850
+Este mayorista publica su tarifa en dos ficheros con formatos distintos según el almacén; consultarlos suponía abrir dos CSV enormes.
+
+00:00:22.020 --> 00:00:33.323
+Descargar ambos CSV, buscar primero coincidencias exactas por SKU, EAN o código de fabricante y, si no hay, buscar de forma flexible en nombre y marca.
+
+00:00:36.777 --> 00:00:39.597
+Se escribe un código o un texto.
+
+00:00:43.485 --> 00:00:48.740
+Se descargan los dos CSV y se leen con su separador y sus columnas.
+
+00:00:52.971 --> 00:00:57.309
+Se muestran por separado, indicando en qué campo coincidió.
+
+00:00:58.504 --> 00:01:05.354
+Respuesta en segundos sobre un proveedor especializado que no está en el buscador multimayorista.

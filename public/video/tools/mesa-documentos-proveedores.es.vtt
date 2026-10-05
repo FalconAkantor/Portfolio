@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:11.514 --> 00:00:22.536
+Hay unos 30 scripts distintos, uno por fabricante o tarifa, y elegir el correcto, pasarle el archivo y saber si había salido bien requería conocimientos técnicos.
+
+00:00:23.724 --> 00:00:36.110
+Una mesa de trabajo que valida cada documento, reconoce el script por la estructura del fichero y por lo aprendido, ejecuta en lote, traduce los errores a lenguaje humano y une los resultados.
+
+00:00:39.664 --> 00:00:43.797
+Se sueltan todos los documentos del día en la zona de subida.
+
+00:00:47.750 --> 00:00:54.982
+Cada documento muestra el script propuesto, el nivel de confianza y el porqué, o el problema que tiene el archivo.
+
+00:00:58.204 --> 00:01:02.336
+Un botón ejecuta todo el lote en paralelo con logs en vivo.
+
+00:01:06.755 --> 00:01:13.834
+Cada tarjeta dice «Listo · N filas» con su descarga, o explica el fallo y permite reintentar con otro script.
+
+00:01:17.021 --> 00:01:21.524
+Opcionalmente, todos los Excel del lote se unen en uno solo.
+
+00:01:22.712 --> 00:01:32.854
+Personas sin perfil técnico procesan en minutos lotes de tarifas que antes exigían a un programador, y saben exactamente qué documento falla y por qué.

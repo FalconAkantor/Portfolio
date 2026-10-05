@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:08.274 --> 00:00:16.323
+Un supervisor puede detectar que un programa ha muerto, pero no puede avisar si el que muere es él mismo o toda la máquina.
+
+00:00:16.323 --> 00:00:20.686
+Y avisar de cada parpadeo genera ruido que acaba ignorándose.
+
+00:00:21.876 --> 00:00:33.204
+Un proceso independiente que hace login en cada supervisor, lee su API, mantiene un estado propio con contadores de fallos y agrupa los cambios en un único aviso por ciclo.
+
+00:00:37.105 --> 00:00:42.654
+Abre una sesión HTTP con cada supervisor y pide la lista de programas con su estado.
+
+00:00:46.379 --> 00:00:52.858
+Cada programa se clasifica como «arriba», «caído» o «ignorar» (parado a propósito o en mantenimiento).
+
+00:00:56.398 --> 00:01:02.636
+Un programa (o un panel entero) solo pasa a caído tras tres lecturas malas consecutivas.
+
+00:01:06.555 --> 00:01:15.242
+Todas las caídas o recuperaciones del ciclo se envían en un solo correo HTML y un solo mensaje de Discord, agrupadas por máquina.
+
+00:01:16.440 --> 00:01:25.829
+Ninguna caída pasa desapercibida, ni siquiera la del propio sistema de vigilancia, y los avisos son tan fiables que nadie los ignora.

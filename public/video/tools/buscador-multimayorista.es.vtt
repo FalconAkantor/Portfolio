@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:11.010 --> 00:00:20.986
+Para saber dónde comprar un componente había que entrar en siete portales, cada uno con su buscador, su formato y su moneda, y anotar en un Excel.
+
+00:00:20.986 --> 00:00:25.437
+Con cien referencias en un presupuesto, era una mañana entera.
+
+00:00:26.604 --> 00:00:47.511
+Descargar automáticamente los catálogos de todos los mayoristas (SFTP, HTTP, Excel, scraping con sesión), normalizarlos a un único modelo, indexarlos en memoria por part number, SKU y EAN, y ofrecer búsqueda, lotes, alertas, listas programadas, histórico e IA en una sola web.
+
+00:00:52.493 --> 00:01:01.549
+Un hilo por mayorista descarga su catálogo cuando la caché caduca (1 h), lo convierte y lo deja en memoria con diccionarios de acceso directo.
+
+00:01:05.013 --> 00:01:13.801
+Se escribe un part number, un EAN o palabras sueltas en cualquier orden; los siete índices se consultan en paralelo y se ordenan por relevancia.
+
+00:01:17.581 --> 00:01:25.630
+Lo que viene en dólares u otra moneda se pasa a euros con el tipo oficial del Banco Central Europeo del día, guardando el original.
+
+00:01:29.152 --> 00:01:37.060
+Se pega una lista de hasta 500 códigos y se obtiene, para cada uno, la mejor oferta con stock y un Excel comparativo.
+
+00:01:40.724 --> 00:01:48.875
+Alertas que avisan por correo cuando un producto agotado vuelve a tener stock, y listas que se envían solas el día y la hora elegidos.
+
+00:01:50.072 --> 00:02:05.252
+Convierte una mañana de consultas en segundos, asegura que se compara siempre con todos los proveedores y en la misma moneda, y avisa sola cuando un producto agotado vuelve, lo que se traduce en compras más baratas y presupuestos más rápidos.

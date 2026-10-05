@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.946 --> 00:00:20.851
+Las máquinas de render y algunos equipos auxiliares fallan de vez en cuando; enterarse tarde significaba horas de trabajo perdidas.
+
+00:00:22.044 --> 00:00:31.829
+Un tablero visible en el chat (nombre del canal = estado + duración) y una escalada automática al móvil solo cuando la caída es prolongada.
+
+00:00:35.162 --> 00:00:39.204
+Cada 10 minutos se hace un ping a cada equipo de la lista.
+
+00:00:42.722 --> 00:00:54.073
+El canal pasa a llamarse «Equipo 🟢 10h25m UPTIME» o «Equipo 🔴 0h03m DOWNTIME»; el contador se reinicia en cada cambio.
+
+00:00:57.241 --> 00:01:05.468
+Cada 5 minutos otro bot lee los canales de las máquinas de render; si ve «DOWNTIME» de 1 h o más, manda un push una sola vez.
+
+00:01:08.979 --> 00:01:13.992
+Cuando la máquina vuelve a verde, el aviso se rearma para la siguiente caída.
+
+00:01:15.144 --> 00:01:23.665
+Las máquinas que producen dinero (render, cálculo) no se quedan paradas una noche entera sin que nadie lo sepa.

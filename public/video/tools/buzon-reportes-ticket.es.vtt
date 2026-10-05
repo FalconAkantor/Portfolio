@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:09.666 --> 00:00:16.695
+Los fallos llegaban por pasillo, chat o llamada, sin capturas ni orden, y se perdían.
+
+00:00:17.820 --> 00:00:26.074
+Un canal único, con campos obligatorios, numeración correlativa y correo con respuesta directa al usuario.
+
+00:00:29.594 --> 00:00:35.691
+Correo de contacto, nombre opcional, asunto y explicación de qué pasaba y qué se esperaba.
+
+00:00:39.063 --> 00:00:44.330
+Capturas, logs o documentos (hasta 64 MB en total).
+
+00:00:47.752 --> 00:00:53.236
+Se asigna el número de ticket y sale el correo «[Ticket #N] asunto».
+
+00:00:54.400 --> 00:01:02.118
+Cada incidencia queda registrada, numerada y con la información necesaria para resolverla a la primera.

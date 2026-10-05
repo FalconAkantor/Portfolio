@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:11.370 --> 00:00:21.129
+El código y los datos de más de cien automatizaciones vivían en el disco de un servidor; un fallo de disco o un ransomware significaba perderlo todo.
+
+00:00:22.308 --> 00:00:38.036
+Copia diaria automática, cifrada con AES-256, troceada en partes de 45 MB y almacenada fuera de la empresa en un canal privado con temas por máquina, con panel web para lanzarla a mano y ver su estado.
+
+00:00:41.597 --> 00:00:47.605
+Recorre la carpeta de trabajo, comprueba qué ficheros se pueden leer y apunta los bloqueados.
+
+00:00:51.515 --> 00:00:56.069
+Crea un archivo 7z cifrado con nombre de máquina y fecha.
+
+00:00:59.246 --> 00:01:06.656
+Si pasa de 45 MB, lo divide en partes numeradas .part001, .part002…
+
+00:01:10.883 --> 00:01:20.170
+Sube cada parte, guarda el identificador del mensaje confirmado y, si algo falla, reintenta con espera creciente sin repetir lo ya subido.
+
+00:01:21.360 --> 00:01:30.481
+Una copia externa, cifrada y diaria por coste prácticamente cero, que se completa sola aunque la conexión sea inestable.

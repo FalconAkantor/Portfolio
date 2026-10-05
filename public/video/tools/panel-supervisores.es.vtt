@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00:08.226 --> 00:00:16.735
+Cada máquina tiene su propio supervisor; comprobar las tres obligaba a recordar tres direcciones y abrir tres pestañas.
+
+00:00:17.892 --> 00:00:25.584
+Una mini-aplicación web que incrusta los tres supervisores en marcos, con nombre y descripción de cada nodo.
+
+00:00:29.433 --> 00:00:34.560
+La configuración define nombre, descripción y dirección de cada supervisor.
+
+00:00:37.964 --> 00:00:42.007
+La página recorre esa lista y pinta un marco por nodo.
+
+00:00:45.244 --> 00:00:51.290
+Desde cada marco se puede iniciar sesión y operar el supervisor como si estuviera abierto aparte.
+
+00:00:53.156 --> 00:00:52.716
+Reduce a un vistazo la comprobación diaria de toda la infraestructura.

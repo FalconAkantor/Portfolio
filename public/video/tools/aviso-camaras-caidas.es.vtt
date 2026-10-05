@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00:10.938 --> 00:00:21.271
+El estado de cada cámara ya se mostraba en el nombre de un canal de chat, pero nadie mira canales todo el día: una cámara podía estar caída días sin que se supiera.
+
+00:00:22.428 --> 00:00:31.065
+Interpretar esos nombres, guardar el último estado conocido y convertir solo los cambios reales en correos a los responsables.
+
+00:00:35.516 --> 00:00:41.944
+Cuando se renombra, crea o borra un canal de la categoría de cámaras, el bot lo procesa al instante.
+
+00:00:45.930 --> 00:00:51.389
+Además, cada 2 minutos repasa toda la categoría por si se perdió algún evento.
+
+00:00:54.922 --> 00:01:00.751
+«Entrada 3d 21h20m» significa activa; «Entrada DOWN», caída.
+
+00:01:04.174 --> 00:01:09.864
+Solo si el estado cambia respecto al guardado se envía correo de caída o de recuperación.
+
+00:01:11.040 --> 00:01:19.944
+La seguridad física deja de depender de que alguien mire una pantalla: cualquier cámara apagada genera un aviso con hora exacta.

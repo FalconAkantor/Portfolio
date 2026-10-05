@@ -13,6 +13,7 @@ Sources (all free):
     python3 scripts/voice.py --edge                # Microsoft's neural voice «Álvaro» (pip install edge-tts)
     python3 scripts/voice.py --gemini              # Gemini TTS, key in $GEMINI_API_KEY
     python3 scripts/voice.py --recording mi-voz.m4a   # your own reading, 1 s pause between lines
+    python3 scripts/voice.py --clips carpeta/        # one ready-made file per line, in order (e.g. alvaro-01.mp3…)
 
 Run scripts/music.py first (it writes assets/audio/music.wav).
 """
@@ -187,6 +188,7 @@ def main():
     src.add_argument('--edge', action='store_true', help='generate with the free Microsoft voice «Álvaro» (edge-tts)')
     src.add_argument('--gemini', action='store_true', help='generate with Gemini TTS (free tier)')
     src.add_argument('--recording', type=Path, help='a single reading of all lines, 1 s pause between them')
+    src.add_argument('--clips', type=Path, help='a folder with one audio file per line, sorted by name')
     ap.add_argument('--force', action='store_true', help='regenerate cached clips')
     ap.add_argument('--rate', default='-4%', help='speaking rate for --edge, e.g. -4%% (calmer) or +5%%')
     ap.add_argument('--duck', type=float, default=0.55, help='music reduction under the voice (0-1)')
@@ -197,6 +199,15 @@ def main():
 
     if args.recording:
         sources = split_recording(args.recording, len(lines))
+    elif args.clips:
+        files = sorted(f for f in args.clips.iterdir() if f.suffix.lower() in ('.mp3', '.wav', '.m4a', '.ogg', '.opus'))
+        if len(files) != len(lines):
+            sys.exit(f'{args.clips}: found {len(files)} audio files, expected {len(lines)} (one per line of SCRIPT.md)')
+        sources = []
+        for ln, f in zip(lines, files):
+            dst = VO_DIR / f'{ln["n"]:02d}.clip.wav'
+            ffmpeg('-i', str(f), '-ac', '1', '-ar', str(SR), str(dst))
+            sources.append(dst)
     else:
         sources = []
         tag = 'edge' if args.edge else 'gemini'

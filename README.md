@@ -197,6 +197,7 @@ python3 scripts/music.py                    # banda sonora → assets/audio/musi
 python3 scripts/voice.py --edge             # voz en off con «Álvaro», la voz gratuita de Microsoft (pip install edge-tts)
 #   o: python3 scripts/voice.py --gemini     (GEMINI_API_KEY, nivel gratuito)
 #   o: python3 scripts/voice.py --recording mi-voz.m4a   (tu propia grabación, guion en SCRIPT.md)
+#   o: python3 scripts/voice.py --clips carpeta/          (un audio por línea, en orden: alvaro-01.mp3…)
 npx hyperframes preview                     # editar en el navegador (Studio)
 npx hyperframes check                       # lint + layout + contraste
 npx hyperframes render --quality high -o renders/automariza-promo-16x9.mp4
